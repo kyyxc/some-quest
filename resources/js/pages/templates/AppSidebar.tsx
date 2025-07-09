@@ -14,8 +14,8 @@ const Sidebar = () => {
 
     return (
         <div
-            className={`fixed h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${
-                collapsed ? 'w-16 px-2' : 'w-64 px-4'
+            className={`sticky top-0 h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${
+                collapsed ? 'w-16 min-w-[4rem] px-2' : 'w-64 min-w-[16rem] px-4'
             }`}
         >
             {' '}
