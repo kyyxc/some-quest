@@ -11,25 +11,19 @@ import {
     CheckSquare,
     Clock,
     FileText,
+    Globe,
     Plus,
     SquareCheck,
     Target,
+    Timer,
     TrendingUp,
     Trophy,
     Users,
     Zap,
 } from 'lucide-react'
 
-const colorMap: Record<string, string> = {
-    blue: 'bg-blue-500',
-    indigo: 'bg-indigo-500',
-    green: 'bg-green-500',
-    red: 'bg-red-500',
-    purple: 'bg-purple-500',
-    orange: 'bg-orange-500',
-}
-
 function Dashboard() {
+
     return (
         <div>
             <Head title="Dashboard" />
@@ -38,7 +32,7 @@ function Dashboard() {
                 <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-muted-foreground">
                             Welcome back, John Manager. Here's what's happening with your team today.
                         </p>
                     </div>
@@ -60,34 +54,73 @@ function Dashboard() {
 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <StatCard
-                        icon={<Users className="text-blue-500 w-5 h-5" />}
-                        title="Team Members"
-                        value="3"
-                        sub="All active"
-                        borderColor="blue"
-                    />
-                    <StatCard
-                        icon={<CheckSquare className="text-green-500 w-5 h-5" />}
-                        title="Active Tasks"
-                        value="2"
-                        sub="+0% this week"
-                        borderColor="green"
-                    />
-                    <StatCard
-                        icon={<Target className="text-purple-500 w-5 h-5" />}
-                        title="Active Quests"
-                        value="2"
-                        sub="0 this week"
-                        borderColor="purple"
-                    />
-                    <StatCard
-                        icon={<Clock className="text-orange-500 w-5 h-5" />}
-                        title="Monthly Hours"
-                        value="0h"
-                        sub="0.0h avg/day"
-                        borderColor="orange"
-                    />
+                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <p className="text-sm">Team Members</p>
+                                <h3 className="text-xl font-bold">3</h3>
+                                <p className="text-xs mt-1 text-green-600 flex items-center gap-1">
+                                    <TrendingUp className="w-4 h-4" />
+                                    All active
+                                </p>
+                            </div>
+                            <div className="p-4 rounded-xl bg-blue-100 flex items-center justify-center">
+                                <Users className="text-blue-600 w-6 h-6" />
+                            </div>
+                        </div>
+                        <div className="mt-6 h-1 rounded-full bg-blue-600 w-full" />
+                    </div>
+
+                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <p className="text-sm">Active Tasks</p>
+                                <h3 className="text-xl font-bold">2</h3>
+                                <p className="text-xs mt-1 text-green-600 flex items-center gap-1">
+                                    <TrendingUp className="w-4 h-4" />
+                                    +0% this week
+                                </p>
+                            </div>
+                            <div className="p-4 rounded-xl bg-green-100 flex items-center justify-center">
+                                <CheckSquare className="text-green-600 w-6 h-6" />
+                            </div>
+                        </div>
+                        <div className="mt-6 h-1 rounded-full bg-green-500" />
+                    </div>
+
+                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <p className="text-sm">Active Quests</p>
+                                <h3 className="text-xl font-bold">2</h3>
+                                <p className="text-xs mt-1 text-muted-foreground flex items-center gap-1">
+                                    <Globe className="w-4 h-4" />
+                                    +0% this week
+                                </p>
+                            </div>
+                            <div className="p-4 rounded-xl bg-purple-100 flex items-center justify-center">
+                                <Target className="text-purple-600 w-6 h-6" />
+                            </div>
+                        </div>
+                        <div className="mt-6 h-1 rounded-full bg-purple-500" />
+                    </div>
+
+                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <p className="text-sm">Monthly Hours</p>
+                                <h3 className="text-xl font-bold">0h</h3>
+                                <p className="text-xs mt-1 text-muted-foreground flex items-center gap-1">
+                                    <Timer className="w-4 h-4" />
+                                    0.0h avg/day
+                                </p>
+                            </div>
+                            <div className="p-4 rounded-xl bg-orange-100 flex items-center justify-center">
+                                <Clock className="text-orange-600 w-6 h-6" />
+                            </div>
+                        </div>
+                        <div className="mt-6 h-1 rounded-full bg-orange-500" />
+                    </div>
                 </div>
 
                 {/* Main Content */}
@@ -169,7 +202,6 @@ function Dashboard() {
                                 </div>
                             </CardContent>
                         </Card>
-
                     </div>
 
                     {/* Upcoming */}
@@ -183,7 +215,6 @@ function Dashboard() {
                                 <Button className="bg-white text-neutral-800 border border-gray-200 shadow-sm hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200 transition-colors">
                                     View All <ArrowRight className="ml-1 h-4 w-4" />
                                 </Button>
-
                             </div>
                             <div className="text-center py-8">
                                 <div className="flex justify-center mb-2">
@@ -244,31 +275,3 @@ function Dashboard() {
 
 Dashboard.layout = (page: React.ReactNode) => <HomeLayout>{page}</HomeLayout>
 export default Dashboard
-
-const StatCard = ({
-    icon,
-    title,
-    value,
-    sub,
-    borderColor,
-}: {
-    icon: React.ReactNode
-    title: string
-    value: string
-    sub?: string
-    borderColor?: keyof typeof colorMap
-}) => (
-    <Card className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800">
-        <CardContent className="p-4">
-            <div className="flex justify-between items-start">
-                <div>
-                    <p className="text-sm">{title}</p>
-                    <h3 className="text-xl font-bold">{value}</h3>
-                    {sub && <p className="text-xs text-muted-foreground mt-1">{sub}</p>}
-                </div>
-                {icon}
-            </div>
-            {borderColor && <div className={`mt-2 h-1 rounded-full ${colorMap[borderColor]}`} />}
-        </CardContent>
-    </Card>
-)
