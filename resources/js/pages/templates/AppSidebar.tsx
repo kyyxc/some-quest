@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { NavigationMenuItem } from '@/components/ui/navigation-menu';
-import { Calendar, ClipboardList, LayoutDashboard, LogOut, Menu, Target, Users } from 'lucide-react';
+import { Calendar, ChartColumn, ClipboardList, LogOut, Menu, Target, Users, X } from 'lucide-react';
 import { useState } from 'react';
 
 const Sidebar = () => {
@@ -14,7 +14,7 @@ const Sidebar = () => {
 
     return (
         <div
-            className={`h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${
+            className={`fixed h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${
                 collapsed ? 'w-16 px-2' : 'w-64 px-4'
             }`}
         >
@@ -29,13 +29,19 @@ const Sidebar = () => {
                         <h1 className="text-lg font-bold">Some Quest</h1>
                     </div>
                 )}
-                <Button variant="ghost" className="hover:bg-blue-100" size="icon" onClick={toggleCollapse}>
-                    <Menu className="h-5 w-5 hover:bg-black" />
+                <Button
+                    variant="ghost"
+                    className="flex justify-center rounded-xs hover:bg-blue-100 hover:text-black"
+                    size="icon"
+                    onClick={toggleCollapse}
+                >
+                    {!collapsed ? <X /> : <Menu className="h-5 w-5" />}
                 </Button>
             </div>
+            <div className="mb-4 border-t border-gray-300"></div>
             {/* Navigation */}
             <nav className="flex flex-col gap-1">
-                <NavItem icon={LayoutDashboard} label="Dashboard" desc="Overview & Analytics" active collapsed={collapsed} />
+                <NavItem icon={ChartColumn} label="Dashboard" desc="Overview & Analytics" active collapsed={collapsed} />
                 <NavItem icon={Users} label="Employees" desc="Manage team members" badge="3" collapsed={collapsed} />
                 <NavItem icon={ClipboardList} label="Meeting Minutes" desc="Meeting records" collapsed={collapsed} />
                 <NavItem icon={Target} label="Quests & Tasks" desc="Quests with associated tasks" badge="2" collapsed={collapsed} />
@@ -56,7 +62,7 @@ const Sidebar = () => {
                         </>
                     )}
                 </div>
-                <Button variant="ghost" className="mt-3 w-full justify-start px-0 text-red-500">
+                <Button variant="ghost" className="mt-3 w-full justify-start px-0 text-black hover:bg-blue-100 hover:text-black">
                     <LogOut className="mr-2 h-4 w-4" />
                     {!collapsed && <p>Logout</p>}
                 </Button>
@@ -85,7 +91,7 @@ const NavItem = ({
             className={`flex cursor-pointer items-center justify-between rounded-xs p-3 transition-colors hover:bg-blue-100 ${active ? 'bg-gray-100' : ''}`}
         >
             <div className="flex items-center gap-3">
-                <Icon className="h-5 w-5 text-muted-foreground" />
+                <Icon className="text-black-foreground h-5 w-5" />
                 {!collapsed && (
                     <div>
                         <p className="text-sm font-medium">{label}</p>
