@@ -44,22 +44,22 @@ const Sidebar = () => {
             {/* Footer */}
             <div className="mt-auto border-t border-gray-300 pt-4">
                 <div className="flex items-center gap-3">
-                    <Avatar className="h-8 w-8">
-                        <AvatarFallback>JM</AvatarFallback>
-                    </Avatar>
                     {!collapsed && (
-                        <div className="text-sm">
-                            <p className="font-medium">John Manager</p>
-                            <p className="text-xs text-muted-foreground">john@company.com</p>
-                        </div>
+                        <>
+                            <Avatar className="h-8 w-8">
+                                <AvatarFallback>JM</AvatarFallback>
+                            </Avatar>
+                            <div className="text-sm">
+                                <p className="font-medium">John Manager</p>
+                                <p className="text-xs text-muted-foreground">john@company.com</p>
+                            </div>
+                        </>
                     )}
                 </div>
-                {!collapsed && (
-                    <Button variant="ghost" className="mt-3 w-full justify-start px-0 text-red-500">
-                        <LogOut className="mr-2 h-4 w-4" />
-                        Logout
-                    </Button>
-                )}
+                <Button variant="ghost" className="mt-3 w-full justify-start px-0 text-red-500">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    {!collapsed && <p>Logout</p>}
+                </Button>
             </div>
         </div>
     );
