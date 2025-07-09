@@ -4,8 +4,9 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { NavigationMenuItem } from '@/components/ui/navigation-menu';
-import { Calendar, ChartColumn, ClipboardList, LogOut, Menu, Target, Users, X } from 'lucide-react';
+import { Calendar, ChartColumn, ClipboardList, LayoutDashboard, LogOut, Menu, Target, Users, X } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from '@inertiajs/react';
 
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -41,11 +42,11 @@ const Sidebar = () => {
             <div className="mb-4 border-t border-gray-300"></div>
             {/* Navigation */}
             <nav className="flex flex-col gap-1">
-                <NavItem icon={ChartColumn} label="Dashboard" desc="Overview & Analytics" active collapsed={collapsed} />
-                <NavItem icon={Users} label="Employees" desc="Manage team members" badge="3" collapsed={collapsed} />
-                <NavItem icon={ClipboardList} label="Meeting Minutes" desc="Meeting records" collapsed={collapsed} />
-                <NavItem icon={Target} label="Quests & Tasks" desc="Quests with associated tasks" badge="2" collapsed={collapsed} />
-                <NavItem icon={Calendar} label="Attendance" desc="Time tracking" collapsed={collapsed} />
+                <NavItem to="/dashboard" icon={LayoutDashboard} label="Dashboard" desc="Overview & Analytics" active collapsed={collapsed} />
+                <NavItem to='/dashboard/employees' icon={Users} label="Employees" desc="Manage team members" badge="3" collapsed={collapsed} />
+                <NavItem to='/dashboard/meeting' icon={ClipboardList} label="Meeting Minutes" desc="Meeting records" collapsed={collapsed} />
+                <NavItem to='/dashboard/quest' icon={Target} label="Quests & Tasks" desc="Quests with associated tasks" badge="2" collapsed={collapsed} />
+                <NavItem to='/dashboard/attendance' icon={Calendar} label="Attendance" desc="Time tracking" collapsed={collapsed} />
             </nav>
             {/* Footer */}
             <div className="mt-auto border-t border-gray-300 pt-4">
@@ -67,7 +68,7 @@ const Sidebar = () => {
                     {!collapsed && <p>Logout</p>}
                 </Button>
             </div>
-        </div>
+        </div >
     );
 };
 
@@ -78,6 +79,7 @@ const NavItem = ({
     badge,
     collapsed,
     active,
+    to = '#',
 }: {
     icon: any;
     label: string;
@@ -85,9 +87,11 @@ const NavItem = ({
     badge?: string;
     collapsed?: boolean;
     active?: boolean;
+    to?: string;
 }) => {
     return (
-        <NavigationMenuItem
+        <Link
+            href={to}
             className={`flex cursor-pointer items-center justify-between rounded-xs p-3 transition-colors hover:bg-blue-100 ${active ? 'bg-gray-100' : ''}`}
         >
             <div className="flex items-center gap-3">
@@ -100,7 +104,7 @@ const NavItem = ({
                 )}
             </div>
             {!collapsed && badge && <Badge className="rounded-xs bg-gray-100 px-2 text-xs">{badge}</Badge>}
-        </NavigationMenuItem>
+        </Link>
     );
 };
 
