@@ -15,7 +15,7 @@ const Sidebar = () => {
 
     return (
         <div
-            className={`fixed h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${
+            className={`h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${
                 collapsed ? 'w-16 px-2' : 'w-64 px-4'
             }`}
         >
