@@ -9,7 +9,6 @@ function Home() {
                 <SidebarProvider>
                     <AppSidebar />
                     <div className="p-6 flex-1">
-                        <SidebarTrigger />
                         <p className="text-gray-600">This is the main content area.</p>
                     </div>
                 </SidebarProvider>
