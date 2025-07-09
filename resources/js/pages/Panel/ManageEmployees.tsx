@@ -73,7 +73,7 @@ function ManageEmployees() {
 
                     <Button className="rounded-sm bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-700">
                         <Plus className="mr-1 h-4 w-4" />
-                        Add Meeting Minutes
+                        Add Employee
                     </Button>
                 </div>
             </div>

@@ -54,7 +54,7 @@ function Dashboard() {
 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                    <div className="bg-white rounded-xl border-b-4 border-b-blue-600 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-sm">Team Members</p>
@@ -68,10 +68,9 @@ function Dashboard() {
                                 <Users className="text-blue-600 w-6 h-6" />
                             </div>
                         </div>
-                        <div className="mt-6 h-1 rounded-full bg-blue-600 w-full" />
                     </div>
 
-                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                    <div className="bg-white rounded-xl  border-b-4 border-b-green-600  border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-sm">Active Tasks</p>
@@ -85,10 +84,9 @@ function Dashboard() {
                                 <CheckSquare className="text-green-600 w-6 h-6" />
                             </div>
                         </div>
-                        <div className="mt-6 h-1 rounded-full bg-green-500" />
                     </div>
 
-                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                    <div className="bg-white rounded-xl border-b-4 border-b-blue-600  border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-sm">Active Quests</p>
@@ -102,10 +100,9 @@ function Dashboard() {
                                 <Target className="text-purple-600 w-6 h-6" />
                             </div>
                         </div>
-                        <div className="mt-6 h-1 rounded-full bg-purple-500" />
                     </div>
 
-                    <div className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                    <div className="bg-white rounded-xl  border-b-4 border-b-orange-600  border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-sm">Monthly Hours</p>
@@ -119,7 +116,6 @@ function Dashboard() {
                                 <Clock className="text-orange-600 w-6 h-6" />
                             </div>
                         </div>
-                        <div className="mt-6 h-1 rounded-full bg-orange-500" />
                     </div>
                 </div>
 
