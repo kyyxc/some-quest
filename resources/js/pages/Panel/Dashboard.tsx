@@ -27,7 +27,7 @@ function Dashboard() {
     return (
         <div>
             <Head title="Dashboard" />
-            <div className="px-4 space-y-6 text-neutral-800">
+            <div className="px-4 space-y-6 text-gray-800">
                 {/* Header */}
                 <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
@@ -41,11 +41,11 @@ function Dashboard() {
                             <Plus className="mr-1 h-4 w-4" />
                             New Task
                         </Button>
-                        <Button className="bg-white text-neutral-800 border border-gray-200 shadow-sm hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200 transition-colors">
+                        <Button className="bg-white text-gray-800 border border-gray-200 shadow-sm hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200 transition-colors">
                             <Calendar className="mr-1 h-4 w-4" />
                             Schedule Meeting
                         </Button>
-                        <Button className="bg-white text-neutral-800 border border-gray-200 shadow-sm hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200 transition-colors">
+                        <Button className="bg-white text-gray-800 border border-gray-200 shadow-sm hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200 transition-colors">
                             <Target className="mr-1 h-4 w-4" />
                             Create Quest
                         </Button>
@@ -54,7 +54,7 @@ function Dashboard() {
 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="bg-white rounded-xl border-b-4 border-b-blue-600 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                    <div className="bg-white rounded-xl border-b-4 border-b-blue-600 border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-gray-800 p-4 py-10">
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-sm">Team Members</p>
@@ -70,7 +70,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-xl  border-b-4 border-b-green-600  border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                    <div className="bg-white rounded-xl  border-b-4 border-b-green-600  border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-gray-800 p-4 py-10">
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-sm">Active Tasks</p>
@@ -86,7 +86,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-xl border-b-4 border-b-blue-600  border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                    <div className="bg-white rounded-xl border-b-4 border-b-blue-600  border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-gray-800 p-4 py-10">
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-sm">Active Quests</p>
@@ -102,7 +102,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-xl  border-b-4 border-b-orange-600  border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-neutral-800 p-4 py-10">
+                    <div className="bg-white rounded-xl  border-b-4 border-b-orange-600  border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-gray-800 p-4 py-10">
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-sm">Monthly Hours</p>
@@ -122,7 +122,7 @@ function Dashboard() {
                 {/* Main Content */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {/* Team Progress */}
-                    <Card className="bg-white text-neutral-800 shadow-sm hover:shadow-md transition-shadow lg:col-span-2 border-0">
+                    <Card className="bg-white text-gray-800 shadow-sm hover:shadow-md transition-shadow lg:col-span-2 border-0">
                         <CardContent className="px-4 space-y-4">
                             <h2 className="text-lg font-semibold flex items-center gap-2">
                                 <ChartColumn className="w-5 h-5" />
@@ -154,7 +154,7 @@ function Dashboard() {
 
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                                 <div className="p-3 rounded-md bg-gray-100">
-                                    <p className="text-2xl font-bold text-neutral-800">1</p>
+                                    <p className="text-2xl font-bold text-gray-800">1</p>
                                     <p className="text-sm text-muted-foreground">To Do</p>
                                 </div>
                                 <div className="p-3 rounded-md bg-blue-100">
@@ -175,7 +175,7 @@ function Dashboard() {
 
                     {/* Sidebar Cards */}
                     <div className="space-y-4">
-                        <Card className="bg-white text-neutral-800 shadow-sm hover:shadow-md transition-shadow border-0">
+                        <Card className="bg-white text-gray-800 shadow-sm hover:shadow-md transition-shadow border-0">
                             <CardContent className="px-4">
                                 <h2 className="text-lg font-semibold text-yellow-600 flex items-center gap-2">
                                     <Trophy className="w-5 h-5 text-yellow-600" />
@@ -187,7 +187,7 @@ function Dashboard() {
                             </CardContent>
                         </Card>
 
-                        <Card className="bg-white text-neutral-800 shadow-sm hover:shadow-md transition-shadow border-0">
+                        <Card className="bg-white text-gray-800 shadow-sm hover:shadow-md transition-shadow border-0">
                             <CardContent className="px-4">
                                 <h2 className="text-lg font-semibold flex items-center gap-2">
                                     <Activity className="w-5 h-5" />
@@ -201,14 +201,14 @@ function Dashboard() {
                     </div>
 
                     {/* Upcoming */}
-                    <Card className="bg-white text-neutral-800 shadow-sm hover:shadow-md transition-shadow lg:col-span-2 border-0">
+                    <Card className="bg-white text-gray-800 shadow-sm hover:shadow-md transition-shadow lg:col-span-2 border-0">
                         <CardContent className="px-4 space-y-4">
                             <div className="flex justify-between items-center">
                                 <h2 className="text-lg font-semibold flex items-center gap-2">
                                     <Calendar className="w-5 h-5" />
                                     Upcoming This Week
                                 </h2>
-                                <Button className="bg-white text-neutral-800 border border-gray-200 shadow-sm hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200 transition-colors">
+                                <Button className="bg-white text-gray-800 border border-gray-200 shadow-sm hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200 transition-colors">
                                     View All <ArrowRight className="ml-1 h-4 w-4" />
                                 </Button>
                             </div>
@@ -225,7 +225,7 @@ function Dashboard() {
                     </Card>
 
                     {/* Quick Stats */}
-                    <Card className="bg-white text-neutral-800 shadow-sm hover:shadow-md transition-shadow border-0">
+                    <Card className="bg-white text-gray-800 shadow-sm hover:shadow-md transition-shadow border-0">
                         <CardContent className="p-4 space-y-2">
                             <h2 className="text-lg font-semibold flex items-center gap-2">
                                 <Zap className="w-5 h-5" />
@@ -235,28 +235,28 @@ function Dashboard() {
                                 <div className="flex justify-between items-center">
                                     <span>Meeting Minutes</span>
                                     <span className="inline-flex items-center gap-1">
-                                        <span className="text-neutral-800 font-medium">2</span>
+                                        <span className="text-gray-800 font-medium">2</span>
                                         <FileText className="w-4 h-4 text-blue-600" />
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span>This Week Tasks</span>
                                     <span className="inline-flex items-center gap-1">
-                                        <span className="text-neutral-800 font-medium">0</span>
+                                        <span className="text-gray-800 font-medium">0</span>
                                         <SquareCheck className="w-4 h-4 text-green-600" />
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span>Avg Daily Hours</span>
                                     <span className="inline-flex items-center gap-1">
-                                        <span className="text-neutral-800 font-medium">0.0h</span>
+                                        <span className="text-gray-800 font-medium">0.0h</span>
                                         <Clock className="w-4 h-4 text-orange-600" />
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span>Team Efficiency</span>
                                     <span className="inline-flex items-center gap-1">
-                                        <span className="text-neutral-800 font-medium">100%</span>
+                                        <span className="text-gray-800 font-medium">100%</span>
                                         <TrendingUp className="w-4 h-4 text-purple-600" />
                                     </span>
                                 </div>
