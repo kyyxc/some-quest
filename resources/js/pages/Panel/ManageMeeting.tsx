@@ -19,9 +19,7 @@ function ManageMeeting() {
                     <div className="flex items-center gap-2 text-sm font-medium">
                         <span>View:</span>
 
-                        {/* 👇 Tambahkan border outline di sini */}
                         <div className="flex rounded-sm p-1 bg-gray-100 ring-1 ring-gray-300">
-                            {/* Active - Cards */}
                             <button
                                 className="flex items-center gap-1 bg-blue-500 text-white text-xs px-3 h-7 rounded-sm"
                             >

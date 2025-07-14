@@ -39,31 +39,33 @@ function ManageEmployees() {
     const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
 
     return (
-        <div className="px-6">
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <div className="px-4 space-y-6 text-neutral-800">
+            <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold">Dashboard Page</h1>
-                    <p>Selamat datang di dashboard!</p>
+                    <h1 className="text-3xl font-bold">Employee Management</h1>
+                    <p className="text-muted-foreground">
+                        Manage your team members
+                    </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap gap-2">
                     <div className="flex items-center gap-2 text-sm font-medium">
                         <span>View:</span>
-                        <div className="flex rounded-sm bg-gray-100 p-1 ring-1 ring-gray-300">
+
+                        <div className="flex rounded-sm p-1 bg-gray-100 ring-1 ring-gray-300">
                             <button
                                 onClick={() => setViewMode('card')}
-                                className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${
-                                    viewMode === 'card' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
-                                }`}
+                                className={`flex items-center gap-1 text-xs px-3 h-7 rounded-sm ${viewMode === 'card' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
+                                    }`}
                             >
                                 <LayoutGrid className="h-4 w-4" />
                                 Cards
                             </button>
+
                             <button
                                 onClick={() => setViewMode('table')}
-                                className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${
-                                    viewMode === 'table' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
-                                }`}
+                                className={`flex items-center gap-1 text-xs px-3 h-7 rounded-sm ${viewMode === 'table' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
+                                    }`}
                             >
                                 <List className="h-4 w-4" />
                                 Table
@@ -71,13 +73,13 @@ function ManageEmployees() {
                         </div>
                     </div>
 
-                    <Button className="rounded-sm bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-700">
-                        <Plus className="mr-1 h-4 w-4" />
+                    <Button className="bg-blue-500 text-white hover:bg-blue-700 text-sm rounded-md px-4 py-2">
+                        <Plus className="w-4 h-4 mr-1" />
                         Add Employee
                     </Button>
                 </div>
             </div>
-            <h1 className="text-xl font-semibold mb-4">All Employees (3)</h1>
+            <h2 className="text-xl font-bold">All Employees (3)</h2>
             {viewMode === 'card' ? <TeamPage users={users} /> : <UserTable users={users} />}
         </div>
     );
