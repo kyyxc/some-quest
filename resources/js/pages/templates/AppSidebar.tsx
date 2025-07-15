@@ -16,6 +16,8 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useLoginStore } from '@/stores/loginStore';
+import { router } from '@inertiajs/react';
 
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -58,6 +60,16 @@ const Sidebar = () => {
         },
     ];
 
+    const { logout, user } = useLoginStore();
+
+
+    const handleLogout = () => {
+        router.post('/logout', {}, {
+            onSuccess: () => {
+                logout();
+            },
+        });
+    };
     return (
         <div
             className={`sticky top-0 h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${collapsed ? 'w-16 min-w-[4rem] px-2' : 'w-64 min-w-[16rem] px-4'
@@ -125,11 +137,18 @@ const Sidebar = () => {
                     {!collapsed && (
                         <>
                             <Avatar className="h-8 w-8">
-                                <AvatarFallback>JM</AvatarFallback>
+                                <AvatarFallback>
+                                    {user?.name ? user.name
+                                        .split(' ')
+                                        .map(n => n[0])
+                                        .slice(0, 2)
+                                        .join('')
+                                        .toUpperCase() : '??'}
+                                </AvatarFallback>
                             </Avatar>
                             <div className="text-sm">
-                                <p className="font-medium">John Manager</p>
-                                <p className="text-xs text-muted-foreground">john@company.com</p>
+                                <p className="font-medium">{user?.name || 'No Name'}</p>
+                                <p className="text-xs text-muted-foreground">{user?.email || 'No Email'}</p>
                             </div>
                         </>
                     )}
@@ -137,6 +156,7 @@ const Sidebar = () => {
                 <Button
                     variant="ghost"
                     className="mt-3 w-full justify-start px-0 text-black hover:bg-blue-100 hover:text-black"
+                    onClick={handleLogout}
                 >
                     <LogOut className="mr-2 h-4 w-4" />
                     {!collapsed && <p>Logout</p>}
