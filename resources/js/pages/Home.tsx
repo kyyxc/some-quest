@@ -1,20 +1,20 @@
-import { SidebarProvider } from '@/components/ui/sidebar'
-import React from 'react'
-import AppSidebar from './templates/AppSidebar'
+import { SidebarProvider } from '@/components/ui/sidebar';
+import React from 'react';
+import AppSidebar from './templates/AppSidebar';
+import { Toaster } from '@/components/ui/sonner';
 
 function HomeLayout({ children }: { children: React.ReactNode }) {
     return (
         <div>
-            <div className="flex bg-gray-100  text-black min-h-screen">
+            <div className="flex min-h-screen bg-gray-100 text-black">
                 <SidebarProvider>
                     <AppSidebar />
-                    <div className="p-6 flex-1">
-                        {children}
-                    </div>
+                    <div className="flex-1 p-6">{children}</div>
                 </SidebarProvider>
             </div>
+            <Toaster />
         </div>
-    )
+    );
 }
 
-export default HomeLayout
+export default HomeLayout;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
@@ -16,9 +17,10 @@ Route::get('dashboard', function () {
     return Inertia::render('Panel/Dashboard');
 })->name('dashboard');
 
-Route::get('dashboard/employees', function () {
-    return Inertia::render('Panel/ManageEmployees');
-})->name('employees');
+Route::get('/dashboard/employees', [EmployeeController::class, 'index'])->name('employees');
+Route::post('/employees', [EmployeeController::class, 'store'])->name('storeEmployees');
+Route::put('/employees/{employee:id}', [EmployeeController::class, 'update'])->name('updateEmployees');
+Route::delete('/employees/{employee:id}', [EmployeeController::class, 'destroy'])->name('updateEmployees');
 
 Route::get('dashboard/meeting', function () {
     return Inertia::render('Panel/ManageMeeting');
