@@ -11,6 +11,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
+    Route::get('/', fn() => redirect()->route('dashboard'));
     Route::get('/dashboard', fn() => Inertia::render('Panel/Dashboard'))->name('dashboard');
     Route::get('/dashboard/employees', fn() => Inertia::render('Panel/ManageEmployees'))->name('employees');
     Route::get('/dashboard/meeting', fn() => Inertia::render('Panel/ManageMeeting'))->name('meeting');
