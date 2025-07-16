@@ -1,8 +1,8 @@
 import { Employee } from '@/types/Employee';
-import { AlertTriangle, Edit, Eye, Shield, Star } from 'lucide-react';
+import { AlertTriangle, Shield, Star } from 'lucide-react';
 import { Badge } from '../ui/badge';
-import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
+import { EmployeeDetailModal } from './detail-employee';
 import { EditEmployeeDialog } from './edit-employee-dialog';
 
 export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => {
@@ -64,12 +64,9 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
                 </div>
 
                 <div className="mt-4 flex justify-between space-x-2">
-                    <Button className="flex-1 border border-gray-200 bg-white text-neutral-800 transition-colors hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200">
-                        <Eye className="mr-1 h-4 w-4" />
-                        View
-                    </Button>
+                    <EmployeeDetailModal employee={employee}></EmployeeDetailModal>
 
-                    <EditEmployeeDialog employee={employee} view='card' />
+                    <EditEmployeeDialog employee={employee} view="card" />
                 </div>
             </CardContent>
         </Card>

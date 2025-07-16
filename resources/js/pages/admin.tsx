@@ -3,7 +3,7 @@ import React from 'react';
 import AppSidebar from './templates/AppSidebar';
 import { Toaster } from '@/components/ui/sonner';
 
-function HomeLayout({ children }: { children: React.ReactNode }) {
+function AdminLayout({ children }: { children: React.ReactNode }) {
     return (
         <div>
             <div className="flex min-h-screen bg-gray-100 text-black">
@@ -17,4 +17,4 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
     );
 }
 
-export default HomeLayout;
+export default AdminLayout;

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Calendar, CheckSquare, CircleDot, Edit, Eye, LayoutGrid, List, Pencil, Plus, TargetIcon, Trash2, User } from 'lucide-react';
 import React, { useState } from 'react';
-import HomeLayout from '../Home';
+import AdminLayout from '../admin';
 
 interface Quest {
     title: string;
@@ -83,7 +83,7 @@ function ManageQuest() {
     );
 }
 
-ManageQuest.layout = (page: React.ReactNode) => <HomeLayout>{page}</HomeLayout>;
+ManageQuest.layout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
 
 export default ManageQuest;
 

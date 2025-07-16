@@ -1,27 +1,20 @@
 'use client';
 
-import { useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
-import {
-    Target,
-    Menu,
-    X,
-    LogOut,
-    Calendar,
-    ChartColumn,
-    ClipboardList,
-    Users,
-} from 'lucide-react';
+import { Calendar, ChartColumn, ClipboardList, LogOut, Menu, Target, Users, X } from 'lucide-react';
+import { useState } from 'react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import useEmployeeStore from '@/store/store';
 
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { url } = usePage();
 
     const toggleCollapse = () => setCollapsed(!collapsed);
+    const totalEmployees = useEmployeeStore((state) => state.totalEmployees);
 
     const navItems = [
         {
@@ -35,7 +28,7 @@ const Sidebar = () => {
             icon: Users,
             label: 'Employees',
             desc: 'Manage team members',
-            badge: '3',
+            badge: totalEmployees,
         },
         {
             to: '/dashboard/meeting',
@@ -60,8 +53,9 @@ const Sidebar = () => {
 
     return (
         <div
-            className={`sticky top-0 h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${collapsed ? 'w-16 min-w-[4rem] px-2' : 'w-64 min-w-[16rem] px-4'
-                }`}
+            className={`sticky top-0 h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${
+                collapsed ? 'w-16 min-w-[4rem] px-2' : 'w-64 min-w-[16rem] px-4'
+            }`}
         >
             {/* Header */}
             <div className="mb-6 flex items-center justify-between">
@@ -88,19 +82,15 @@ const Sidebar = () => {
             {/* Navigation */}
             <nav className="flex flex-col gap-1">
                 {navItems.map((item) => {
-                    const isActive =
-                        item.to === '/dashboard'
-                            ? url === '/dashboard'
-                            : url.startsWith(item.to);
+                    const isActive = item.to === '/dashboard' ? url === '/dashboard' : url.startsWith(item.to);
 
                     return (
                         <Link
                             key={item.to}
                             href={item.to}
-                            className={`flex cursor-pointer items-center justify-between rounded-xs p-3 transition-colors ${isActive
-                                ? 'bg-gray-100 text-gray-600 font-semibold'
-                                : 'hover:bg-gray-100 text-gray-800'
-                                }`}
+                            className={`flex cursor-pointer items-center justify-between rounded-xs p-3 transition-colors ${
+                                isActive ? 'bg-gray-100 font-semibold text-gray-600' : 'text-gray-800 hover:bg-gray-100'
+                            }`}
                         >
                             <div className="flex items-center gap-3">
                                 <item.icon className="h-5 w-5" />
@@ -111,9 +101,7 @@ const Sidebar = () => {
                                     </div>
                                 )}
                             </div>
-                            {!collapsed && item.badge && (
-                                <Badge className="rounded-xs bg-gray-100 px-2 text-xs">{item.badge}</Badge>
-                            )}
+                            {!collapsed && item.badge && <Badge className="rounded-xs bg-gray-100 px-2 text-xs">{item.badge}</Badge>}
                         </Link>
                     );
                 })}
@@ -134,10 +122,7 @@ const Sidebar = () => {
                         </>
                     )}
                 </div>
-                <Button
-                    variant="ghost"
-                    className="mt-3 w-full justify-start px-0 text-black hover:bg-blue-100 hover:text-black"
-                >
+                <Button variant="ghost" className="mt-3 w-full justify-start px-0 text-black hover:bg-blue-100 hover:text-black">
                     <LogOut className="mr-2 h-4 w-4" />
                     {!collapsed && <p>Logout</p>}
                 </Button>

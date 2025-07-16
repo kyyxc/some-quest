@@ -1,17 +1,30 @@
 'use client';
 
+import { AddEmployeeDialog } from '@/components/employee/add-employee-dialog';
 import { EmployeeCard } from '@/components/employee/employee-card';
+import EmployeeTable from '@/components/employee/employee-table';
+import useEmployeeStore from '@/store/store';
 import { Employee } from '@/types/Employee';
 import { usePage } from '@inertiajs/react';
 import { LayoutGrid, List } from 'lucide-react';
-import React, { useState } from 'react';
-import HomeLayout from '../Home';
-import EmployeeTable from '@/components/employee/employee-table';
-import { AddEmployeeDialog } from '@/components/employee/add-employee-dialog';
-import useEmployeeStore from '@/store/store';
+import React, { useEffect, useState } from 'react';
+import AdminLayout from '../admin';
+
+interface PaginatedEmployees {
+    data: Employee[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    links: {
+        url: string | null;
+        label: string;
+        active: boolean;
+    }[];
+}
 
 interface PageProps {
-    employees: Employee[];
+    employees: PaginatedEmployees;
     archetypes: Archetype[];
     abilities: SpecialAbility[];
     personalities: Personality[];
@@ -20,12 +33,17 @@ interface PageProps {
 
 function ManageEmployees() {
     const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
-    const { employees, archetypes, abilities, personalities, weakness } = usePage().props as unknown as  PageProps;
+    const { employees, archetypes, abilities, personalities, weakness } = usePage().props as unknown as PageProps;
     const { initializeData } = useEmployeeStore();
+
+    useEffect(() => {
+        console.log(employees);
+    }, [employees]);
 
     React.useEffect(() => {
         initializeData({
-            employees,
+            employees: employees.data,
+            totalEmployees: employees.total,
             archetypes: archetypes.map((a) => ({ label: a.name, value: a.id })),
             abilities: abilities.map((a) => ({ label: a.name, value: a.id })),
             personalities: personalities.map((p) => ({ label: p.name, value: p.id })),
@@ -70,13 +88,16 @@ function ManageEmployees() {
                     <AddEmployeeDialog />
                 </div>
             </div>
-            <h2 className="text-xl font-bold">All Employees (3)</h2>
-            {viewMode === 'card' ? <EmployeePage employees={employees} /> : <EmployeeTable employees={employees} />}
+            <h2 className="text-xl font-bold">
+                All Employees ({employees.total})
+            </h2>
+            {viewMode === 'card' ? <EmployeePage employees={employees.data} /> : <EmployeeTable employees={employees.data} />}
+            <Pagination links={employees.links} />
         </div>
     );
 }
 
-ManageEmployees.layout = (page: React.ReactNode) => <HomeLayout>{page}</HomeLayout>;
+ManageEmployees.layout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
 export default ManageEmployees;
 
 const EmployeePage: React.FC<{ employees: Employee[] }> = ({ employees }) => {
@@ -88,3 +109,27 @@ const EmployeePage: React.FC<{ employees: Employee[] }> = ({ employees }) => {
         </div>
     );
 };
+
+import { Link } from '@inertiajs/react';
+
+function Pagination({ links }: { links: PaginatedEmployees['links'] }) {
+    return (
+        <div className="mt-6 flex items-center justify-between">
+            <div className="flex gap-1">
+                {links.map(
+                    (link, index) =>
+                        link.url && (
+                            <Link
+                                key={index}
+                                href={link.url}
+                                className={`rounded-md px-3 py-1 ${
+                                    link.active ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+                                }`}
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                            />
+                        ),
+                )}
+            </div>
+        </div>
+    );
+}

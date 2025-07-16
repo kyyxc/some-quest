@@ -17,9 +17,10 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::with(['archetypes', 'special_abilities', 'personalities', 'weakness'])->latest()
-            ->get();
-
+        $employees = Employee::with(['archetypes', 'special_abilities', 'personalities', 'weakness'])
+            ->latest()
+            ->paginate(10);
+        // dd($employees);
         return Inertia::render('Panel/ManageEmployees', [
             'employees' => $employees,
             'archetypes' => Archetype::select('id', 'name')->get(),

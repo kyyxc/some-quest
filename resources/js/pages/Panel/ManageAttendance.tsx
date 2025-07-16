@@ -1,5 +1,5 @@
 import React from 'react'
-import HomeLayout from '../Home'
+import AdminLayout from '../admin';
 import { Calendar, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -76,6 +76,6 @@ function ManageAttendance() {
     )
 }
 
-ManageAttendance.layout = (page: React.ReactNode) => <HomeLayout>{page}</HomeLayout>
+ManageAttendance.layout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>
 
 export default ManageAttendance

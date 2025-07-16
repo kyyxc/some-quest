@@ -1,5 +1,5 @@
 import React from 'react'
-import HomeLayout from '../Home'
+import AdminLayout from '../admin';
 import { Head } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -269,5 +269,5 @@ function Dashboard() {
     )
 }
 
-Dashboard.layout = (page: React.ReactNode) => <HomeLayout>{page}</HomeLayout>
+Dashboard.layout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>
 export default Dashboard

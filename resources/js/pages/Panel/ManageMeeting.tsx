@@ -1,5 +1,5 @@
 import React from 'react'
-import HomeLayout from '../Home'
+import AdminLayout from '../admin';
 import { Button } from '@/components/ui/button'
 import { UsersRound, FileText, Eye, Edit, LayoutGrid, List, Plus, Calendar } from 'lucide-react'
 
@@ -115,5 +115,5 @@ function ManageMeeting() {
     )
 }
 
-ManageMeeting.layout = (page: React.ReactNode) => <HomeLayout>{page}</HomeLayout>
+ManageMeeting.layout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>
 export default ManageMeeting
