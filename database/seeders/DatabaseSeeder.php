@@ -81,10 +81,6 @@ class DatabaseSeeder extends Seeder
         $employee->personalities()->attach([1, 2, 3]);
         $employee->weakness()->attach([1, 2, 3]);
 
-
-        Meeting::factory()->create(['name' => 'Q1 Planning Meeting']);
-        Meeting::factory()->create(['name' => 'Database Review Session']);
-
         Quest::factory()->create([
             'title' => 'Q1 Development Sprint',
             'description' => 'oversee',
@@ -100,5 +96,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'new',
             'meeting_id' => 1,
         ]);
+
+        $this->call([UserSeeder::class, RoleSeeder::class, MeetingSeeder::class]);
     }
 }

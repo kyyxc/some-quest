@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import useEmployeeStore from '@/store/store';
+import { useLoginStore } from '@/stores/loginStore';
 
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -51,6 +52,16 @@ const Sidebar = () => {
         },
     ];
 
+    const { logout, user } = useLoginStore();
+
+
+    const handleLogout = () => {
+        router.post('/logout', {}, {
+            onSuccess: () => {
+                logout();
+            },
+        });
+    };
     return (
         <div
             className={`sticky top-0 h-screen flex-col border-r border-gray-300 bg-white py-4 shadow-sm transition-all duration-300 md:flex ${
@@ -113,11 +124,18 @@ const Sidebar = () => {
                     {!collapsed && (
                         <>
                             <Avatar className="h-8 w-8">
-                                <AvatarFallback>JM</AvatarFallback>
+                                <AvatarFallback>
+                                    {user?.name ? user.name
+                                        .split(' ')
+                                        .map(n => n[0])
+                                        .slice(0, 2)
+                                        .join('')
+                                        .toUpperCase() : '??'}
+                                </AvatarFallback>
                             </Avatar>
                             <div className="text-sm">
-                                <p className="font-medium">John Manager</p>
-                                <p className="text-xs text-muted-foreground">john@company.com</p>
+                                <p className="font-medium">{user?.name || 'No Name'}</p>
+                                <p className="text-xs text-muted-foreground">{user?.email || 'No Email'}</p>
                             </div>
                         </>
                     )}

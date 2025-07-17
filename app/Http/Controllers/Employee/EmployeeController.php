@@ -21,7 +21,7 @@ class EmployeeController extends Controller
     {
         $employees = Employee::with(['archetypes', 'special_abilities', 'personalities', 'weakness'])
             ->latest()
-            ->paginate(10);
+            ->paginate(1);
         // dd($employees);
         return Inertia::render('Panel/ManageEmployees', [
             'employees' => $employees,

@@ -4,16 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Meeting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'title',
+        'date',
+        'location',
+        'duration',
+        'attendees',
+        'notes',
+        'followup',
+    ];
 
-    public function quests(): HasMany
-    {
-        return $this->hasMany(Quest::class, 'meeting_id');
-    }
+    protected $casts = [
+        'attendees' => 'array',
+    ];
 }

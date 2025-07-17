@@ -33,7 +33,7 @@ class QuestController extends Controller
     {
         return Inertia::render('Panel/quest/CreateQuest', [
             'pics' => Employee::get(),
-            'moms' => Meeting::select('id', 'name')->get(),
+            'moms' => Meeting::select('id', 'title')->get(),
         ]);
     }
 
@@ -73,7 +73,7 @@ class QuestController extends Controller
         return inertia('Panel/quest/EditQuest', [
             'quest' => $quest->load('pic'),
             'pics' => Employee::select('id', 'full_name', 'nickname')->get(),
-            'moms' => Meeting::select('id', 'name')->get(),
+            'moms' => Meeting::select('id', 'title')->get(),
         ]);
     }
 

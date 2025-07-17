@@ -1,56 +1,72 @@
-import { router } from '@inertiajs/react'
+import { useForm } from '@inertiajs/react'
 import React from 'react'
-
+import { useLoginStore } from '@/stores/loginStore'
 
 function Login() {
+    const { setUser } = useLoginStore()
+    const { data, setData, post, processing, errors } = useForm({
+        email: '',
+        password: '',
+    })
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        post('/login', {
+            onSuccess: (page) => {
+                const user = page.props.auth.user
+                setUser(user)
+        
+            },
+        })
+    }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-7 rounded-lg shadow-lg w-full max-w-md">
-                <h2 className="text-2xl font-extrabold text-center text-gray-800 mb-2">
-                    Some Quest
-                </h2>
-                <div className="mb-4 text-center text-sm text-gray-600">
-                    <p>Task Management System</p>
-                </div>
-                <form className="space-y-4">
-                    <div className="mb-4">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4">
+            <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-1">Some Quest</h2>
+                <p className="text-center text-sm text-gray-500 mb-6">Task Management System</p>
+
+                <form className="space-y-5" onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                             Email
                         </label>
                         <input
                             type="email"
                             id="email"
-                            className="mt-1 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 shadow-sm text-black"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 transition text-gray-800"
                             placeholder="Enter your email"
                             required
                         />
+                        {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
                     </div>
-                    <div className="mb-6">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+
+                    <div>
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                             Password
                         </label>
                         <input
                             type="password"
                             id="password"
-                            className="mt-1 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 shadow-sm text-black"
+                            value={data.password}
+                            onChange={(e) => setData('password', e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 transition text-gray-800"
                             placeholder="Enter your password"
                             required
                         />
+                        {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
                     </div>
+
                     <button
-                        onClick={() => router.get('/')}
                         type="submit"
-                        className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-200"
+                        disabled={processing}
+                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-md shadow-md transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-lg"
                     >
-                        Sign In
+                        {processing ? 'Signing In...' : 'Sign In'}
                     </button>
                 </form>
-                <div className="mt-6 text-center text-sm text-gray-500">
-                    <p className="font-semibold">Demo Credentials</p>
-                    <p>Email: <code className="bg-gray-100 px-1 rounded">john@company.com</code></p>
-                    <p>Password: <code className="bg-gray-100 px-1 rounded">password</code></p>
-                </div>
             </div>
         </div>
     )
