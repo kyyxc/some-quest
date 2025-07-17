@@ -37,7 +37,7 @@ const Sidebar = () => {
             desc: 'Meeting records',
         },
         {
-            to: '/dashboard/quest',
+            to: '/dashboard/quests',
             icon: Target,
             label: 'Quests & Tasks',
             desc: 'Quests with associated tasks',

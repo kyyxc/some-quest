@@ -1,7 +1,8 @@
 import { Employee } from '@/types/Employee';
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import { Eye, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConfirmDialog } from '../confirm-dialog';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
@@ -61,9 +62,24 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                                     <Eye className="h-4 w-4 text-black" />
                                 </Button>
                                 <EditEmployeeDialog employee={e} view="table" />
-                                <Button onClick={() => handleDelete(e)} variant="default" size="icon" className="bg-white hover:bg-blue-100">
-                                    <Trash2 className="h-4 w-4 text-red-600" />
-                                </Button>
+                                <ConfirmDialog
+                                    title="Delete Employee"
+                                    description={`Are you sure you want to delete ${e.full_name}? This action cannot be undone.`}
+                                    onConfirm={() => {
+                                        router.delete(`/employees/${e.id}`, {
+                                            onSuccess: () => {
+                                                toast.success('Employee deleted successfully');
+                                            },
+                                            onError: () => {
+                                                toast.error('Failed to delete employee');
+                                            },
+                                        });
+                                    }}
+                                >
+                                    <Button variant="default" size="icon" className="bg-white hover:bg-blue-100">
+                                        <Trash2 className="h-4 w-4 text-red-600" />
+                                    </Button>
+                                </ConfirmDialog>
                             </TableCell>
                         </TableRow>
                     ))}

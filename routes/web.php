@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\Employee\EmployeeController;
+use App\Http\Controllers\QuestController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Redirect;
 
 Route::get('login', function () {
     return Inertia::render('login');
@@ -22,13 +22,18 @@ Route::post('/employees', [EmployeeController::class, 'store'])->name('storeEmpl
 Route::put('/employees/{employee:id}', [EmployeeController::class, 'update'])->name('updateEmployees');
 Route::delete('/employees/{employee:id}', [EmployeeController::class, 'destroy'])->name('updateEmployees');
 
+
+Route::get('/dashboard/quests', [QuestController::class, 'index'])->name('quests');
+Route::get('/quests/create', [QuestController::class, 'create'])->name('quests.create');
+Route::post('/quests', [QuestController::class, 'store'])->name('quests.store');
+Route::get('//quests/{quest}/edit', [QuestController::class, 'edit']);
+Route::put('/quests/{quest}', [QuestController::class, 'update']);
+Route::put('/quests/{quest:id}/status', [QuestController::class, 'update_status'])->name('updateQuestsStatus');
+Route::delete('/quests/{quest:id}', [QuestController::class, 'destroy'])->name('updatequests');
+
 Route::get('dashboard/meeting', function () {
     return Inertia::render('Panel/ManageMeeting');
 })->name('meeting');
-
-Route::get('dashboard/quest', function () {
-    return Inertia::render('Panel/ManageQuest');
-})->name('quest');
 
 Route::get('dashboard/attendance', function () {
     return Inertia::render('Panel/ManageAttendance');

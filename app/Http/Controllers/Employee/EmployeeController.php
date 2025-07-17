@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers\Employee;
+
+use App\Http\Controllers\Controller;
 use App\Models\Archetype;
 use App\Models\Employee;
 use App\Models\Personality;
