@@ -6,7 +6,6 @@ use App\Models\Archetype;
 use App\Models\Employee;
 use App\Models\Meeting;
 use App\Models\Personality;
-use App\Models\PersonInCharge;
 use App\Models\Quest;
 use App\Models\SpecialAbility;
 use App\Models\Weakness;
@@ -82,15 +81,6 @@ class DatabaseSeeder extends Seeder
         $employee->personalities()->attach([1, 2, 3]);
         $employee->weakness()->attach([1, 2, 3]);
 
-        PersonInCharge::factory()->create([
-            'name' => 'Sarah Smith',
-            'email' => 'sarah@company.com'
-        ]);
-
-        PersonInCharge::factory()->create([
-            'name' => 'Mike Johnson',
-            'email' => 'mike@company.com'
-        ]);
 
         Meeting::factory()->create(['name' => 'Q1 Planning Meeting']);
         Meeting::factory()->create(['name' => 'Database Review Session']);

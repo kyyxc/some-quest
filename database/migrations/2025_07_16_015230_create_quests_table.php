@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employee;
 use App\Models\Meeting;
 use App\Models\PersonInCharge;
 use Illuminate\Database\Migrations\Migration;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->foreignIdFor(PersonInCharge::class, 'pic_id');
+            $table->foreignIdFor(Employee::class, 'pic_id');
             $table->enum('status', ['new', 'ready', 'on_progress', 'done'])->default('new');
             $table->foreignIdFor(Meeting::class, 'meeting_id')->nullable();
             $table->timestamps();

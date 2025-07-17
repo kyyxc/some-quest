@@ -45,12 +45,12 @@ class QuestController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'pic_id' => 'required|exists:person_in_charges,id',
+            'pic_id' => 'required|exists:employees,id',
             'status' => 'required|string',
             'meeting_id' => 'nullable|exists:meetings,id'
         ]);
 
-        $quest = Quest::create($validated);
+        Quest::create($validated);
 
         return redirect('/dashboard/quests');
     }
@@ -58,9 +58,11 @@ class QuestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Quest $quest)
     {
-        //
+        return Inertia::render('Panel/quest/ViewQuest', [
+            'quest' => $quest->load('pic'),
+        ]);
     }
 
     /**
@@ -84,7 +86,7 @@ class QuestController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'status' => 'required|string',
-            'pic_id' => 'required|exists:person_in_charges,id',
+            'pic_id' => 'required|exists:employees,id',
             'meeting_id' => 'nullable|exists:meetings,id'
         ]);
 
@@ -120,6 +122,6 @@ class QuestController extends Controller
     public function destroy(Quest $quest)
     {
         $quest->delete();
-        return redirect()->back()->with('success', 'Employee deleted successfully');
+        return redirect()->route('quests')->with('success', 'Employee deleted successfully');
     }
 }

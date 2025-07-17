@@ -1,6 +1,6 @@
 import AdminLayout from '@/pages/admin';
 import { router, usePage } from '@inertiajs/react';
-import QuestsForm from './QuestForm';
+import QuestsForm from '../../../components/quest/QuestForm';
 
 export default function CreateQuest() {
     const { pics, moms } = usePage().props;

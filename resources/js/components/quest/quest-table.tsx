@@ -1,10 +1,12 @@
 import { Quest } from '@/pages/Panel/quest/ManageQuest';
+import { limitChars } from '@/utils/limit-words';
 import { Link, router, useForm } from '@inertiajs/react';
-import { Calendar, CircleDot, Eye, Pencil, Trash2, User } from 'lucide-react';
+import dayjs from 'dayjs';
+import { Calendar, CircleDot, Dot, Eye, Pencil, Trash2, User } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConfirmDialog } from '../confirm-dialog';
 import { Button } from '../ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
-import { ConfirmDialog } from '../confirm-dialog';
 
 const QuestTable: React.FC<{ quests: Quest[] }> = ({ quests }) => {
     const { delete: destroy } = useForm();
@@ -44,9 +46,8 @@ const QuestTable: React.FC<{ quests: Quest[] }> = ({ quests }) => {
                                 <div className="flex flex-col">
                                     <div className="flex items-center gap-2 font-medium">
                                         <CircleDot className="h-4 w-4 text-purple-600" />
-                                        {item.title}
+                                        {limitChars(item.title, 30)}
                                     </div>
-                                    <p className="max-w-[280px] truncate text-sm text-muted-foreground">{item.description}</p>
                                 </div>
                             </TableCell>
                             <TableCell>
@@ -56,19 +57,48 @@ const QuestTable: React.FC<{ quests: Quest[] }> = ({ quests }) => {
                                 </div>
                             </TableCell>
                             <TableCell>
-                                <div className="flex items-center gap-2 font-medium text-green-600">{item.status}</div>
+                                <div className="flex items-center font-medium">
+                                    {item.status === 'new' && (
+                                        <span>
+                                            <Dot size={48} className="text-gray-500"></Dot>
+                                        </span>
+                                    )}
+                                    {item.status === 'ready' && (
+                                        <span>
+                                            <Dot size={48} className="text-yellow-500"></Dot>
+                                        </span>
+                                    )}
+                                    {item.status === 'on_progress' && (
+                                        <span>
+                                            <Dot size={48} className="text-blue-500"></Dot>
+                                        </span>
+                                    )}
+                                    {item.status === 'done' && (
+                                        <span>
+                                            <Dot size={48} className="text-green-500"></Dot>
+                                        </span>
+                                    )}
+                                    <div className="flex items-center rounded-[4px] border border-gray-300 px-2 font-medium text-gray-800">
+                                        {item.status === 'new' && 'New'}
+                                        {item.status === 'ready' && 'Ready'}
+                                        {item.status === 'on_progress' && 'On Progress'}
+                                        {item.status === 'done' && 'Done'}
+                                    </div>
+                                </div>
                             </TableCell>
                             <TableCell>
                                 <div className="flex items-center gap-2 text-sm text-gray-700">
                                     <Calendar className="h-4 w-4 text-gray-600" />
-                                    {item.created_at}
+                                    {dayjs(item.created_at).format('MMM DD, YYYY')}
                                 </div>
                             </TableCell>
                             <TableCell>
                                 <div className="flex items-center justify-center gap-2">
-                                    <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
-                                        <Eye className="h-4 w-4 text-black" />
-                                    </Button>
+                                    <Link href={`/quests/${item.id}`}>
+                                        <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
+                                            <Eye className="h-4 w-4 text-black" />
+                                        </Button>
+                                    </Link>
                                     <Link href={`/quests/${item.id}/edit`}>
                                         <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
                                             <Pencil className="h-4 w-4 text-black" />
@@ -80,7 +110,7 @@ const QuestTable: React.FC<{ quests: Quest[] }> = ({ quests }) => {
                                         onConfirm={() => {
                                             router.delete(`/employees/${item.id}`, {
                                                 onSuccess: () => {
-                                                    toast.success('Employee deleted successfully');
+                                                    toast.success('Quest deleted successfully');
                                                 },
                                                 onError: () => {
                                                     toast.error('Failed to delete employee');

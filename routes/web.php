@@ -26,10 +26,11 @@ Route::delete('/employees/{employee:id}', [EmployeeController::class, 'destroy']
 Route::get('/dashboard/quests', [QuestController::class, 'index'])->name('quests');
 Route::get('/quests/create', [QuestController::class, 'create'])->name('quests.create');
 Route::post('/quests', [QuestController::class, 'store'])->name('quests.store');
-Route::get('//quests/{quest}/edit', [QuestController::class, 'edit']);
+Route::get('/quests/{quest}', [QuestController::class, 'show']);
+Route::get('/quests/{quest}/edit', [QuestController::class, 'edit']);
 Route::put('/quests/{quest}', [QuestController::class, 'update']);
 Route::put('/quests/{quest:id}/status', [QuestController::class, 'update_status'])->name('updateQuestsStatus');
-Route::delete('/quests/{quest:id}', [QuestController::class, 'destroy'])->name('updatequests');
+Route::delete('/quests/{quest:id}', [QuestController::class, 'destroy'])->name('quests.delete');
 
 Route::get('dashboard/meeting', function () {
     return Inertia::render('Panel/ManageMeeting');

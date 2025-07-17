@@ -1,7 +1,8 @@
 import { Quest } from '@/pages/Panel/quest/ManageQuest';
 import { useDraggable } from '@dnd-kit/core';
 import { Link, useForm } from '@inertiajs/react';
-import { Edit, Eye } from 'lucide-react';
+import dayjs from 'dayjs';
+import { Calendar, Edit, Eye, User } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface Props {
@@ -38,24 +39,35 @@ const QuestCard: React.FC<Props> = ({ quest, columnId }) => {
     };
 
     return (
-        <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="space-y-2 rounded-md border bg-white p-3 shadow-sm">
-            <div className="text-sm font-semibold">{quest.title}</div>
-            <p className="text-xs text-gray-500">{quest.description}</p>
+        <div
+            ref={setNodeRef}
+            style={style}
+            {...listeners}
+            {...attributes}
+            className="flex min-h-[200px] flex-col justify-center space-y-2 rounded-md border border-gray-200 bg-white p-3 shadow-sm"
+        >
+            <div className="text-[13px] font-semibold">{quest.title}</div>
             <div className="text-xs">
-                <div>
-                    <span className="font-semibold">PIC:</span>{' '}
-                    <span className="inline-block rounded bg-gray-200 px-2 py-0.5">{quest.pic.full_name}</span>
+                <div className="flex items-center gap-2">
+                    <User size={14} className="text-blue-500"></User>
+                    <span className="text-gray-900">PIC:</span>
+                    <span className="inline-block rounded border border-gray-200 bg-white px-2 py-0.5">{quest.pic.full_name}</span>
                 </div>
-                <div className="mt-1">
-                    <span className="font-semibold">📅</span> {new Date(quest.created_at).toLocaleDateString()}
+                <div className="mt-1 mb-4 flex items-center text-gray-500">
+                    <span className="mr-2 font-semibold">
+                        <Calendar size={14}></Calendar>
+                    </span>{' '}
+                    {dayjs(quest.created_at).format('MMM DD')}
                 </div>
             </div>
-            <div className="mt-2 flex justify-between text-sm text-gray-500">
-                <button className="flex items-center gap-1 hover:text-blue-600">
-                    <Eye className="h-4 w-4" /> View
-                </button>
+            <div className="mt-2 flex justify-between px-1.5 text-sm text-gray-800">
+                <Link href={`/quests/${quest.id}`}>
+                    <button className="flex items-center gap-1 rounded-[4px] px-2.5 hover:bg-blue-100">
+                        <Eye className="h-4 w-4" /> View
+                    </button>
+                </Link>
                 <Link href={`/quests/${quest.id}/edit`}>
-                    <button className="flex items-center gap-1 hover:text-yellow-600">
+                    <button className="flex items-center gap-1 rounded-[4px] px-2.5 hover:bg-blue-100">
                         <Edit className="h-4 w-4" /> Edit
                     </button>
                 </Link>

@@ -1,11 +1,13 @@
 import AdminLayout from '@/pages/admin';
 import { router, usePage } from '@inertiajs/react';
-import QuestsForm from './QuestForm';
+import QuestsForm from '../../../components/quest/QuestForm';
 
 export default function EditQuest() {
     const { quest, pics, moms } = usePage().props;
 
     const handleUpdate = (form) => {
+        console.log(form);
+        
         form.put(`/quests/${quest.id}`, {
             onSuccess: () => {
                 form.reset();

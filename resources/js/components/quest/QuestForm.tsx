@@ -60,19 +60,17 @@ export default function QuestsForm({ initialData, pics, moms, onSubmit }: QuestP
 
     return (
         <div className="">
-            <div className="mb-6 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <button
-                        onClick={() => history.back()}
-                        type="button"
-                        className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:underline"
-                    >
-                        <ArrowLeft className="h-4 w-4" />
-                        Back to Quests
-                    </button>
+            <div className="mb">
+                <button
+                    onClick={() => history.back()}
+                    type="button"
+                    className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-600 hover:underline"
+                >
+                    <ArrowLeft className="h-4 w-4" />
+                    Back to Quests
+                </button>
 
-                    <h1 className="text-2xl font-bold">Create New Quest</h1>
-                </div>
+                <h1 className="text-2xl font-bold mb-4">Create New Quest</h1>
             </div>
 
             <form onSubmit={handleSubmit} className="w-full space-y-6 rounded-xl bg-white p-6 text-gray-800 shadow">
