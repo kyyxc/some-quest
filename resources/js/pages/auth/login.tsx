@@ -15,6 +15,7 @@ function Login() {
             onSuccess: (page) => {
                 const user = page.props.auth.user
                 setUser(user)
+        
             },
         })
     }
