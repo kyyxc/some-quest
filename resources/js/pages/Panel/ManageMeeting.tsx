@@ -27,8 +27,8 @@ function ManageMeeting() {
     const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
 
     return (
-        <div className="px-4 space-y-6 text-neutral-800 max-w-7xl mx-auto pt-6">
-            {/* Header */}
+        <div className="px-4 space-y-6 text-neutral-800 max-w-7xl mx-auto ">
+
             <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold">Meeting Minutes</h1>
@@ -195,7 +195,8 @@ const MeetingCardList: React.FC<{ data: any[] }> = ({ data }) => {
                     </div>
 
                     <div className="flex justify-between space-x-2 mt-4">
-                        <Button className="flex-1 bg-white text-neutral-800 border border-gray-200 hover:bg-blue-100 hover:text-blue-700">
+                        <Button className="flex-1 bg-white text-neutral-800 border border-gray-200 hover:bg-blue-100 hover:text-blue-700"
+                            onClick={() => router.visit(`/dashboard/meeting/view/${item.id}`)}>
                             <Eye className="mr-1 h-4 w-4" />
                             View
                         </Button>
@@ -228,7 +229,7 @@ const MeetingTable: React.FC<{ data: any[] }> = ({ data }) => {
                     {data.map((meeting, idx) => (
                         <tr key={idx} className="hover:bg-white">
                             <td className="px-4 py-2 font-medium">{meeting.title}</td>
-                            <td className="px-4 py-2">a
+                            <td className="px-4 py-2">
                                 {new Date(meeting.date).toLocaleDateString('en-EN', {
                                     day: 'numeric',
                                     month: 'long',
@@ -260,6 +261,7 @@ const MeetingTable: React.FC<{ data: any[] }> = ({ data }) => {
                                     variant="outline"
                                     size="icon"
                                     className="border-none bg-white shadow-sm hover:bg-blue-100"
+                                    onClick={() => router.visit(`/dashboard/meeting/view/${meeting.id}`)}
                                 >
                                     <Eye className="h-4 w-4 text-black" />
                                 </Button>

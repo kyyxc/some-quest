@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
     // Meeting 
     Route::get('/dashboard/meeting/create', fn() => Inertia::render('MoM/AddMeeting'))->name('meeting.create');
     Route::post('/dashboard/meeting', [MeetingController::class, 'store'])->name('meeting.store');
+    Route::get('/dashboard/meeting/view/{id}', [MeetingController::class, 'show'])->name('meeting.view');
+    Route::get('/dashboard/meeting/edit/{id}', [MeetingController::class, 'edit'])->name('meeting.edit');
+    Route::put('/dashboard/meeting/{id}', [MeetingController::class, 'update'])->name('meeting.update');
+    Route::delete('/dashboard/meeting/{id}', [MeetingController::class, 'destroy'])->name('meeting.destroy');
 });
 
 require __DIR__ . '/settings.php';

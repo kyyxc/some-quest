@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import HomeLayout from '../Home';
 import {
     ArrowLeft,
@@ -31,7 +31,24 @@ function AddMeeting() {
         resetForm,
     } = useMeetingStore();
 
-    const { errors } = usePage().props;
+    const { errors, meeting } = usePage().props;
+
+    useEffect(() => {
+        if (meeting) {
+            setField('title', meeting.title);
+            setField('date', meeting.date);
+            setField('location', meeting.location || '');
+            setField('duration', meeting.duration || '');
+            setField(
+                'attendees',
+                Array.isArray(meeting.attendees)
+                    ? meeting.attendees
+                    : meeting.attendees?.split(',') || []
+            );
+            setField('notes', meeting.notes || '');
+            setField('followup', meeting.followup || '');
+        }
+    }, [meeting]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -46,15 +63,26 @@ function AddMeeting() {
             followup,
         };
 
-        router.post('/dashboard/meeting', data, {
-            onSuccess: () => {
-                router.visit('/dashboard/meeting');
-                resetForm();
-            },
-            onError: (error) => {
-                console.error('Error saving meeting:', error);
-            },
-        });
+        if (meeting) {
+            router.put(`/dashboard/meeting/${meeting.id}`, data, {
+                onSuccess: () => {
+                    router.visit('/dashboard/meeting');
+                },
+                onError: (error) => {
+                    console.error('Error updating meeting:', error);
+                },
+            });
+        } else {
+            router.post('/dashboard/meeting', data, {
+                onSuccess: () => {
+                    router.visit('/dashboard/meeting');
+                    resetForm();
+                },
+                onError: (error) => {
+                    console.error('Error saving meeting:', error);
+                },
+            });
+        }
     };
 
     const attendeeOptions = [
@@ -78,7 +106,7 @@ function AddMeeting() {
                         </Button>
                         <span className="flex items-center text-sm text-gray-500 font-medium">
                             <FileText className="mr-2 h-4 w-4 text-gray-500" />
-                            New Meeting Minutes
+                            {meeting ? 'Edit Meeting Minutes' : 'New Meeting Minutes'}
                         </span>
                     </div>
                     <Button
@@ -87,7 +115,7 @@ function AddMeeting() {
                         onClick={handleSubmit}
                     >
                         <Save size={18} />
-                        <span className="ml-1.5">Save</span>
+                        <span className="ml-1.5">{meeting ? 'Update' : 'Save'}</span>
                     </Button>
                 </div>
             </nav>
@@ -147,7 +175,6 @@ function AddMeeting() {
                                                 setField('hours', Math.min(24, Math.max(0, val)));
                                             }}
                                         />
-
                                         <input
                                             type="number"
                                             min={0}
@@ -160,7 +187,6 @@ function AddMeeting() {
                                                 setField('minutes', Math.min(60, Math.max(0, val)));
                                             }}
                                         />
-
                                     </div>
                                     {errors.duration && <p className="text-red-500 text-sm mt-1">{errors.duration}</p>}
                                 </div>
@@ -215,7 +241,9 @@ function AddMeeting() {
                                 </div>
                                 <hr className="my-6" />
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-500">Creating meeting minutes</span>
+                                    <span className="text-gray-500">
+                                        {meeting ? 'Editing meeting minutes' : 'Creating meeting minutes'}
+                                    </span>
                                     <Button
                                         className="bg-white text-neutral-800 border border-gray-200 hover:bg-blue-100 hover:text-blue-700 px-4 py-2"
                                         onClick={() => router.visit('/dashboard/meeting')}
