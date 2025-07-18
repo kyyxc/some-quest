@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, Edit, FileText, SquareCheckBig, Trash } from 'lucide-react';
 import { router, usePage } from '@inertiajs/react';
 import parse from 'html-react-parser';
-import AdminLayout from '../admin';
+import AdminLayout from '../../admin';
 
 function ViewMeeting() {
     const { props } = usePage();

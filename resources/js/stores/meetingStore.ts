@@ -1,17 +1,22 @@
+import { MeetingStore } from '@/types/meeting';
 import { create } from 'zustand';
 
-const useMeetingStore = create((set, get) => ({
+const initialState: Omit<MeetingStore, 'setField' | 'resetForm'> = {
     title: '',
     date: '',
     location: '',
     duration: '',
-    attendees: [] as string[],
+    attendees: [],
     notes: '',
     followup: '',
     hours: '',
     minutes: '',
+};
 
-    setField: (field: string, value: any) => {
+const useMeetingStore = create<MeetingStore>((set, get) => ({
+    ...initialState,
+
+    setField: (field, value) => {
         const update: any = { [field]: value };
 
         if (field === 'hours' || field === 'minutes') {
@@ -23,18 +28,7 @@ const useMeetingStore = create((set, get) => ({
         set(update);
     },
 
-    resetForm: () =>
-        set({
-            title: '',
-            date: '',
-            location: '',
-            duration: '',
-            attendees: [],
-            notes: '',
-            followup: '',
-            hours: '',
-            minutes: '',
-        }),
+    resetForm: () => set(initialState),
 }));
 
 export default useMeetingStore;

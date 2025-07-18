@@ -1,5 +1,5 @@
 import React from 'react'
-import AdminLayout from '../admin';
+import AdminLayout from '../../admin';
 import { Head } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'

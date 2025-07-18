@@ -42,7 +42,7 @@ export function EditEmployeeDialog({ employee, view }: { employee: Employee; vie
                         <Pencil className="h-4 w-4 text-black" />
                     </Button>
                 ) : (
-                    <Button className="flex-1 border border-gray-200 bg-white text-neutral-800 transition-colors hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200">
+                    <Button className="flex-1 border border-gray-200 bg-white text-neutral-800 transition-colors hover:bg-blue-100 hover:text-blue-900 hover:ring-1 hover:ring-blue-200">
                         <Edit className="mr-1 h-4 w-4" />
                         Edit
                     </Button>

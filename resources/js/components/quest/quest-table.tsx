@@ -1,11 +1,11 @@
 import { Quest } from '@/pages/Panel/quest/ManageQuest';
-import { limitChars } from '@/utils/limit-words';
 import { Link, router, useForm } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import { CircleDot, Dot, Eye, Pencil, Trash2, User } from 'lucide-react';
 import { toast } from 'sonner';
 import { ConfirmDialog } from '../confirm-dialog';
 import { Button } from '../ui/button';
+import { limitChars } from '@/utils/limit-words';
 
 const QuestTable: React.FC<{ quests: Quest[] }> = ({ quests }) => {
     const { delete: destroy } = useForm();

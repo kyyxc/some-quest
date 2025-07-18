@@ -1,37 +1,26 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import {
-    ArrowLeft,
-    FileText,
-    Save,
-    Calendar,
-    Users,
-    SquareCheckBig,
-} from 'lucide-react';
-import { Button } from '@headlessui/react';
-import { router, usePage } from '@inertiajs/react';
 import TipTapEditor from '@/components/TipTapEditor';
 import useMeetingStore from '@/stores/meetingStore';
+import { Meeting, MeetingPageProps } from '@/types/meeting';
+import { Button } from '@headlessui/react';
+import { router, usePage } from '@inertiajs/react';
+import { ArrowLeft, Calendar, FileText, Save, SquareCheckBig, Users } from 'lucide-react';
+import React, { useEffect } from 'react';
 import ReactSelect from 'react-select';
-import AdminLayout from '../admin';
+import AdminLayout from '../../admin';
 
-function AddMeeting() {
-    const {
-        title,
-        date,
-        location,
-        duration,
-        hours,
-        minutes,
-        attendees,
-        notes,
-        followup,
-        setField,
-        resetForm,
-    } = useMeetingStore();
+interface FormMeetingPageProps extends MeetingPageProps {
+    meeting?: Meeting;
+    errors: Record<string, string>;
 
-    const { errors, meeting } = usePage().props;
+    [key: string]: any;
+}
+
+function FormMeeting() {
+    const { title, date, location, duration, hours, minutes, attendees, notes, followup, setField, resetForm } = useMeetingStore();
+
+    const { errors, meeting } = usePage<FormMeetingPageProps>().props;
 
     useEffect(() => {
         if (meeting) {
@@ -39,12 +28,7 @@ function AddMeeting() {
             setField('date', meeting.date);
             setField('location', meeting.location || '');
             setField('duration', meeting.duration || '');
-            setField(
-                'attendees',
-                Array.isArray(meeting.attendees)
-                    ? meeting.attendees
-                    : meeting.attendees?.split(',') || []
-            );
+            setField('attendees', Array.isArray(meeting.attendees) ? meeting.attendees : meeting.attendees?.split(',') || []);
             setField('notes', meeting.notes || '');
             setField('followup', meeting.followup || '');
         }
@@ -93,24 +77,24 @@ function AddMeeting() {
     ];
 
     return (
-        <div className="flex flex-col bg-gray-50 min-h-screen">
-            <nav className="sticky top-0 z-10 bg-white shadow-sm py-4">
-                <div className="container mx-auto px-4 flex justify-between items-center">
+        <div className="flex min-h-screen flex-col bg-gray-50">
+            <nav className="sticky top-0 z-10 bg-white py-4 shadow-sm">
+                <div className="container mx-auto flex items-center justify-between px-4">
                     <div className="flex items-center space-x-6">
                         <Button
-                            className="flex items-center text-sm text-gray-800 rounded-md hover:bg-gray-100 hover:text-blue-700 px-3 py-1.5 transition duration-300"
+                            className="flex items-center rounded-md px-3 py-1.5 text-sm text-gray-800 transition duration-300 hover:bg-gray-100 hover:text-blue-700"
                             onClick={() => router.visit('/dashboard/meeting')}
                         >
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Meeting Minutes
                         </Button>
-                        <span className="flex items-center text-sm text-gray-500 font-medium">
+                        <span className="flex items-center text-sm font-medium text-gray-500">
                             <FileText className="mr-2 h-4 w-4 text-gray-500" />
                             {meeting ? 'Edit Meeting Minutes' : 'New Meeting Minutes'}
                         </span>
                     </div>
                     <Button
-                        className="flex items-center bg-blue-500 text-white px-3 py-1.5 rounded-sm hover:bg-blue-600 transition duration-300"
+                        className="flex items-center rounded-sm bg-blue-500 px-3 py-1.5 text-white transition duration-300 hover:bg-blue-600"
                         type="submit"
                         onClick={handleSubmit}
                     >
@@ -124,51 +108,51 @@ function AddMeeting() {
                 <form onSubmit={handleSubmit} className="space-y-8">
                     <div className="container mx-auto max-w-4xl">
                         <input
-                            className="w-full text-4xl font-bold text-gray-800 mb-6"
+                            className="mb-6 w-full text-4xl font-bold text-gray-800"
                             placeholder="Meeting title..."
                             value={title}
                             onChange={(e) => setField('title', e.target.value)}
                         />
-                        {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
+                        {errors.title && <p className="mt-1 text-sm text-red-500">{errors.title}</p>}
 
                         <div className="space-y-6">
-                            <div className="grid md:grid-cols-2 gap-6">
+                            <div className="grid gap-6 md:grid-cols-2">
                                 <div>
-                                    <label className="flex items-center text-gray-700 font-medium mb-1">
+                                    <label className="mb-1 flex items-center font-medium text-gray-700">
                                         <Calendar className="mr-2 h-4 w-4 text-gray-400" />
                                         Date
                                     </label>
                                     <input
                                         type="date"
-                                        className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
                                         value={date}
                                         onChange={(e) => setField('date', e.target.value)}
                                     />
-                                    {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date}</p>}
+                                    {errors.date && <p className="mt-1 text-sm text-red-500">{errors.date}</p>}
                                 </div>
                                 <div>
-                                    <label className="block text-gray-700 font-medium mb-1">Location (Optional)</label>
+                                    <label className="mb-1 block font-medium text-gray-700">Location (Optional)</label>
                                     <input
                                         type="text"
                                         placeholder="e.g. Conference Room A"
-                                        className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
                                         value={location}
                                         onChange={(e) => setField('location', e.target.value)}
                                     />
-                                    {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
+                                    {errors.location && <p className="mt-1 text-sm text-red-500">{errors.location}</p>}
                                 </div>
                             </div>
 
-                            <div className="grid md:grid-cols-2 gap-6">
+                            <div className="grid gap-6 md:grid-cols-2">
                                 <div>
-                                    <label className="block text-gray-700 font-medium mb-1">Duration (Optional)</label>
+                                    <label className="mb-1 block font-medium text-gray-700">Duration (Optional)</label>
                                     <div className="flex gap-2">
                                         <input
                                             type="number"
                                             min={0}
                                             max={24}
                                             placeholder="Hours"
-                                            className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
+                                            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
                                             value={hours}
                                             onChange={(e) => {
                                                 const val = parseInt(e.target.value, 10) || 0;
@@ -180,7 +164,7 @@ function AddMeeting() {
                                             min={0}
                                             max={60}
                                             placeholder="Minutes"
-                                            className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
+                                            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
                                             value={minutes}
                                             onChange={(e) => {
                                                 const val = parseInt(e.target.value, 10) || 0;
@@ -188,11 +172,11 @@ function AddMeeting() {
                                             }}
                                         />
                                     </div>
-                                    {errors.duration && <p className="text-red-500 text-sm mt-1">{errors.duration}</p>}
+                                    {errors.duration && <p className="mt-1 text-sm text-red-500">{errors.duration}</p>}
                                 </div>
 
                                 <div>
-                                    <label className="flex items-center text-gray-700 font-medium mb-1">
+                                    <label className="mb-1 flex items-center font-medium text-gray-700">
                                         <Users className="mr-2 h-4 w-4 text-gray-400" />
                                         Attendees
                                     </label>
@@ -200,52 +184,43 @@ function AddMeeting() {
                                         isMulti
                                         options={attendeeOptions}
                                         placeholder="Select attendees"
-                                        value={attendeeOptions.filter((opt) =>
-                                            attendees.includes(opt.value)
-                                        )}
+                                        value={attendeeOptions.filter((opt) => attendees.includes(opt.value))}
                                         onChange={(selected) =>
                                             setField(
                                                 'attendees',
-                                                selected.map((item) => item.value)
+                                                selected.map((item) => item.value),
                                             )
-                                        } 
+                                        }
                                         classNamePrefix="react-select"
                                     />
-                                    {errors.attendees && <p className="text-red-500 text-sm mt-1">{errors.attendees}</p>}
+                                    {errors.attendees && <p className="mt-1 text-sm text-red-500">{errors.attendees}</p>}
                                 </div>
                             </div>
 
                             <div className="mt-8">
-                                <label className="block text-xl font-bold text-gray-800 mb-2">Meeting Notes</label>
-                                <TipTapEditor
-                                    value={notes}
-                                    onContentChange={(newContent) => setField('notes', newContent)}
-                                />
-                                {errors.notes && <p className="text-red-500 text-sm mt-1">{errors.notes}</p>}
+                                <label className="mb-2 block text-xl font-bold text-gray-800">Meeting Notes</label>
+                                <TipTapEditor value={notes} onContentChange={(newContent) => setField('notes', newContent)} />
+                                {errors.notes && <p className="mt-1 text-sm text-red-500">{errors.notes}</p>}
                             </div>
 
                             <div className="mt-8">
-                                <label className="flex items-center text-xl font-bold text-gray-800 mb-2">
+                                <label className="mb-2 flex items-center text-xl font-bold text-gray-800">
                                     <SquareCheckBig className="mr-2 h-5 w-5 text-orange-400" />
                                     To Follow Up (Optional)
                                 </label>
                                 <textarea
-                                    className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-800 outline-none focus:ring-2 focus:ring-blue-500 resize-none min-h-[120px] placeholder-gray-500"
+                                    className="min-h-[120px] w-full resize-none rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-800 placeholder-gray-500 outline-none focus:ring-2 focus:ring-blue-500"
                                     placeholder="Follow-up actions..."
                                     value={followup}
                                     onChange={(e) => setField('followup', e.target.value)}
                                 ></textarea>
-                                {errors.followup && <p className="text-red-500 text-sm mt-1">{errors.followup}</p>}
-                                <div className="text-gray-500 text-sm mt-1">
-                                    Use line breaks to separate items.
-                                </div>
+                                {errors.followup && <p className="mt-1 text-sm text-red-500">{errors.followup}</p>}
+                                <div className="mt-1 text-sm text-gray-500">Use line breaks to separate items.</div>
                                 <hr className="my-6" />
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-500">
-                                        {meeting ? 'Editing meeting minutes' : 'Creating meeting minutes'}
-                                    </span>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-gray-500">{meeting ? 'Editing meeting minutes' : 'Creating meeting minutes'}</span>
                                     <Button
-                                        className="bg-white text-neutral-800 border border-gray-200 hover:bg-blue-100 hover:text-blue-700 px-4 py-2"
+                                        className="border border-gray-200 bg-white px-4 py-2 text-neutral-800 hover:bg-blue-100 hover:text-blue-700"
                                         onClick={() => router.visit('/dashboard/meeting')}
                                     >
                                         Cancel
@@ -260,5 +235,5 @@ function AddMeeting() {
     );
 }
 
-AddMeeting.layout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
-export default AddMeeting;
+FormMeeting.layout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
+export default FormMeeting;

@@ -2,7 +2,7 @@ import { Employee } from '@/types/Employee';
 import { AlertTriangle, Shield, Star } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { Card, CardContent } from '../ui/card';
-import { EmployeeDetailModal } from './detail-employee';
+import { EmployeeDetailModal } from './employee-detail';
 import { EditEmployeeDialog } from './edit-employee-dialog';
 
 export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => {
@@ -50,13 +50,13 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
                 <div className="flex justify-between text-sm">
                     <span className="flex flex-col items-center gap-1">
                         <p className="text-muted-foreground">Personalities:</p>
-                        <Badge variant="outline" className="rounded-sm border border-gray-200 text-gray-800">
+                        <Badge variant="outline" className="rounded-sm border border-gray-200 bg-white text-gray-800">
                             {employee.personalities.length} traits
                         </Badge>
                     </span>
                     <span className="flex flex-col items-center gap-1">
                         <p className="text-muted-foreground">Weakness:</p>
-                        <Badge variant="outline" className="flex items-center gap-1 rounded-sm border border-gray-200 text-gray-800">
+                        <Badge variant="outline" className="flex items-center gap-1 rounded-sm border border-gray-200 bg-white text-gray-800">
                             {employee.weakness.length > 0 && <AlertTriangle size={16} className="text-red-500" />}
                             {employee.weakness.length}
                         </Badge>
@@ -64,7 +64,7 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
                 </div>
 
                 <div className="mt-4 flex justify-between space-x-2">
-                    <EmployeeDetailModal employee={employee}></EmployeeDetailModal>
+                    <EmployeeDetailModal employee={employee} view='card'></EmployeeDetailModal>
 
                     <EditEmployeeDialog employee={employee} view="card" />
                 </div>

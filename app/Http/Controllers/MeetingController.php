@@ -15,11 +15,16 @@ class MeetingController extends Controller
 
         $meetings = Meeting::latest()->paginate(6, ['*'], 'page', $page);
 
-        return Inertia::render('Panel/ManageMeeting', [
+        return Inertia::render('Panel/meeting-minutes/ManageMeeting', [
             'meetings' => $meetings,
             'view' => $view,
             'page' => $page,
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Panel/meeting-minutes/FormMeeting');
     }
 
     public function store(Request $request)
@@ -44,7 +49,7 @@ class MeetingController extends Controller
     {
         $meeting = Meeting::findOrFail($id);
 
-        return Inertia::render('MoM/ViewMeeting', [
+        return Inertia::render('Panel/meeting-minutes/ViewMeeting', [
             'meeting' => $meeting,
         ]);
     }
@@ -53,7 +58,7 @@ class MeetingController extends Controller
     {
         $meeting = Meeting::findOrFail($id);
 
-        return Inertia::render('MoM/AddMeeting', [
+        return Inertia::render('Panel/meeting-minutes/FormMeeting', [
             'meeting' => $meeting,
         ]);
     }

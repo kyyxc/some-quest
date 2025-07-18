@@ -1,11 +1,12 @@
 import { Employee } from '@/types/Employee';
 import { router, useForm } from '@inertiajs/react';
-import { Eye, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { ConfirmDialog } from '../confirm-dialog';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { EditEmployeeDialog } from './edit-employee-dialog';
+import { EmployeeDetailModal } from './employee-detail';
 
 const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
     const { delete: destroy } = useForm();
@@ -57,9 +58,7 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                                 ))}
                             </td>
                             <td className="flex justify-center gap-2 px-4 py-2">
-                                <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
-                                    <Eye className="h-4 w-4 text-black" />
-                                </Button>
+                                <EmployeeDetailModal employee={employee} view="table"></EmployeeDetailModal>
                                 <EditEmployeeDialog employee={employee} view="table" />
                                 <ConfirmDialog
                                     title="Delete Employee"

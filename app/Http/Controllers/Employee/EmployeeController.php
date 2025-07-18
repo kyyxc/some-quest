@@ -25,7 +25,7 @@ class EmployeeController extends Controller
         $employees = Employee::with(['archetypes', 'special_abilities', 'personalities', 'weakness'])
             ->latest()->paginate(10, ['*'], 'page', $page);
 
-        return Inertia::render('Panel/ManageEmployees', [
+        return Inertia::render('Panel/employee/ManageEmployees', [
             'employees' => $employees,
             'archetypes' => Archetype::all(),
             'abilities' => SpecialAbility::all(),

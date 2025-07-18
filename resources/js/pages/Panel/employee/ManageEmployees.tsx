@@ -1,35 +1,17 @@
 // ManageEmployees.tsx
 import { AddEmployeeDialog } from '@/components/employee/add-employee-dialog';
-import { EmployeeCard } from '@/components/employee/employee-card';
+import { EmployeePage } from '@/components/employee/employee-card-page';
 import EmployeeTable from '@/components/employee/employee-table';
+import Pagination from '@/components/pagination';
 import useEmployeeStore from '@/stores/employeeStore';
-import { Employee } from '@/types/Employee';
-import { Link, router, usePage } from '@inertiajs/react';
+import { EmployeePageProps } from '@/types/Employee';
+import { router, usePage } from '@inertiajs/react';
 import { LayoutGrid, List } from 'lucide-react';
 import React, { useEffect } from 'react';
-import AdminLayout from '../admin';
-
-interface PaginatedEmployees {
-    data: Employee[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-    links: { url: string | null; label: string; active: boolean }[];
-}
-
-interface PageProps {
-    employees: PaginatedEmployees;
-    archetypes: Archetype[];
-    abilities: SpecialAbility[];
-    personalities: Personality[];
-    weakness: Weakness[];
-    view?: string;
-    page?: number;
-}
+import AdminLayout from '../../admin';
 
 function ManageEmployees() {
-    const { employees, archetypes, abilities, personalities, weakness, view, page } = usePage().props as unknown as PageProps;
+    const { employees, archetypes, abilities, personalities, weakness, view, page } = usePage().props as unknown as EmployeePageProps;
     const [viewMode, setViewMode] = React.useState<'card' | 'table'>(view === 'table' ? 'table' : 'card');
     const { initializeData } = useEmployeeStore();
 
@@ -94,45 +76,5 @@ function ManageEmployees() {
 }
 
 ManageEmployees.layout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
-
-const EmployeePage: React.FC<{ employees: Employee[] }> = ({ employees }) => {
-    return (
-        <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-2 lg:grid-cols-3">
-            {employees.map((employee) => (
-                <EmployeeCard key={employee.id} employee={employee} />
-            ))}
-        </div>
-    );
-};
-
-function Pagination({ links, viewMode }: { links: PaginatedEmployees['links']; viewMode: 'card' | 'table' }) {
-    // Hitung jumlah halaman valid
-    const pages = links.filter((link) => link.url !== null);
-
-    // Jika hanya satu halaman, jangan render apa-apa
-    if (pages.length <= 1) return null;
-
-    return (
-        <div className="mt-6 flex justify-end">
-            <div className="flex gap-1">
-                {links.map(
-                    (link, index) =>
-                        link.url && (
-                            <Link
-                                key={`${index}-${link.label}`}
-                                href={`${link.url}${link.url.includes('?') ? '&' : '?'}view=${viewMode}`}
-                                className={`rounded-md px-3 py-1 ${
-                                    link.active ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
-                                }`}
-                                aria-label={`Go to page ${link.label}`}
-                                preserveState
-                                dangerouslySetInnerHTML={{ __html: link.label }}
-                            />
-                        ),
-                )}
-            </div>
-        </div>
-    );
-}
 
 export default ManageEmployees;
