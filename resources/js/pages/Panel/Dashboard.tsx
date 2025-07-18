@@ -122,7 +122,7 @@ function Dashboard() {
                 {/* Main Content */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {/* Team Progress */}
-                    <Card className="bg-white text-gray-800 shadow-sm hover:shadow-md transition-shadow lg:col-span-2 border-0">
+                    <Card className="bg-white Upcoming text-gray-800 shadow-sm hover:shadow-md transition-shadow lg:col-span-2 border-0">
                         <CardContent className="px-4 space-y-4">
                             <h2 className="text-lg font-semibold flex items-center gap-2">
                                 <ChartColumn className="w-5 h-5" />
