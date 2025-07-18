@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import useEmployeeStore from '@/store/store';
 import { useLoginStore } from '@/stores/loginStore';
 
 const Sidebar = () => {
@@ -15,7 +14,9 @@ const Sidebar = () => {
     const { url } = usePage();
 
     const toggleCollapse = () => setCollapsed(!collapsed);
-    const totalEmployees = useEmployeeStore((state) => state.totalEmployees);
+    const { props } = usePage();
+    const totalEmployees = props.totalEmployees;
+    const totalQuests = props.totalQuests;
 
     const navItems = [
         {
@@ -42,7 +43,7 @@ const Sidebar = () => {
             icon: Target,
             label: 'Quests & Tasks',
             desc: 'Quests with associated tasks',
-            badge: '2',
+            badge: totalQuests,
         },
         {
             to: '/dashboard/attendance',
@@ -54,13 +55,16 @@ const Sidebar = () => {
 
     const { logout, user } = useLoginStore();
 
-
     const handleLogout = () => {
-        router.post('/logout', {}, {
-            onSuccess: () => {
-                logout();
+        router.post(
+            '/logout',
+            {},
+            {
+                onSuccess: () => {
+                    logout();
+                },
             },
-        });
+        );
     };
     return (
         <div
@@ -125,12 +129,14 @@ const Sidebar = () => {
                         <>
                             <Avatar className="h-8 w-8">
                                 <AvatarFallback>
-                                    {user?.name ? user.name
-                                        .split(' ')
-                                        .map(n => n[0])
-                                        .slice(0, 2)
-                                        .join('')
-                                        .toUpperCase() : '??'}
+                                    {user?.name
+                                        ? user.name
+                                              .split(' ')
+                                              .map((n) => n[0])
+                                              .slice(0, 2)
+                                              .join('')
+                                              .toUpperCase()
+                                        : '??'}
                                 </AvatarFallback>
                             </Avatar>
                             <div className="text-sm">

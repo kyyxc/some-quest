@@ -1,12 +1,12 @@
-import { useForm } from "@inertiajs/react";
-import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { MultiSelect } from "../ui/multiselect";
-import useEmployeeStore from "@/store/store";
+import useEmployeeStore from '@/stores/employeeStore';
+import { useForm } from '@inertiajs/react';
+import { Plus } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import ReactSelect from 'react-select';
+import { Button } from '../ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 
 export function AddEmployeeDialog() {
     const [open, setOpen] = useState(false);
@@ -33,6 +33,10 @@ export function AddEmployeeDialog() {
         });
     };
 
+    useEffect(() => {
+        console.log(archetypes);
+    }, [archetypes]);
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -52,62 +56,91 @@ export function AddEmployeeDialog() {
                         <div className="grid gap-2">
                             <Label>Full Name</Label>
                             <Input
-                                className="rounded-[4px] border border-gray-200"
+                                className="rounded-[4px] border border-gray-200 placeholder:text-gray-500"
                                 value={data.full_name}
                                 onChange={(e) => setData('full_name', e.target.value)}
-                                placeholder="Enter full name"
+                                placeholder="Enter Full Name"
                             />
                             {errors.full_name && <span className="text-xs text-red-500">{errors.full_name}</span>}
                         </div>
                         <div className="grid gap-2">
                             <Label>Nickname</Label>
                             <Input
-                                className="rounded-[4px] border border-gray-200"
+                                className="rounded-[4px] border border-gray-200 placeholder:text-gray-500"
                                 value={data.nickname}
                                 onChange={(e) => setData('nickname', e.target.value)}
-                                placeholder="Enter nickname"
+                                placeholder="Enter Nickname"
                             />
                             {errors.nickname && <span className="text-xs text-red-500">{errors.nickname}</span>}
                         </div>
                         <div className="grid gap-2">
                             <Label>Archetype</Label>
-                            <MultiSelect
+                            <ReactSelect
+                                isMulti
                                 options={archetypes}
-                                values={data.archetypes}
-                                onChange={(val) => setData('archetypes', val)}
-                                placeholder="Select archetypes"
+                                value={archetypes.filter((opt) => data.archetypes.includes(opt.value))}
+                                placeholder="Select Archtypes"
+                                onChange={(selectedOptions) =>
+                                    setData(
+                                        'archetypes',
+                                        selectedOptions.map((opt) => opt.value),
+                                    )
+                                }
+                                className="border-none"
+                                classNamePrefix="react-select"
                             />
                             {errors.archetypes && <span className="text-xs text-red-500">{errors.archetypes}</span>}
                         </div>
                         <div className="grid gap-2">
                             <Label>Special Abilities</Label>
-                            <MultiSelect
+                            <ReactSelect
+                                isMulti
                                 options={abilities}
-                                values={data.special_abilities}
-                                onChange={(val) => setData('special_abilities', val)}
-                                placeholder="Select special"
+                                value={abilities.filter((opt) => data.special_abilities.includes(opt.value))}
+                                placeholder="Select Special Abilities"
+                                onChange={(selectedOptions) =>
+                                    setData(
+                                        'special_abilities',
+                                        selectedOptions.map((opt) => opt.value),
+                                    )
+                                }
+                                classNamePrefix="react-select"
                             />
-                            {errors.special_abilities && <span className="text-red-500 text-xs">{errors.special_abilities}</span>}
+                            {errors.special_abilities && <span className="text-xs text-red-500">{errors.special_abilities}</span>}
                         </div>
                         <div className="grid gap-2">
                             <Label>Personalities</Label>
-                            <MultiSelect
+                            <ReactSelect
+                                isMulti
                                 options={personalities}
-                                values={data.personalities}
-                                onChange={(val) => setData('personalities', val)}
-                                placeholder="Select personalities"
+                                value={personalities.filter((opt) => data.personalities.includes(opt.value))}
+                                placeholder="Select Personalities"
+                                onChange={(selectedOptions) =>
+                                    setData(
+                                        'personalities',
+                                        selectedOptions.map((opt) => opt.value),
+                                    )
+                                }
+                                classNamePrefix="react-select"
                             />
-                            {errors.personalities && <span className="text-red-500 text-xs">{errors.personalities}</span>}
+                            {errors.personalities && <span className="text-xs text-red-500">{errors.personalities}</span>}
                         </div>
                         <div className="grid gap-2">
-                            <Label>weakness</Label>
-                            <MultiSelect
+                            <Label>Weakness</Label>
+                            <ReactSelect
+                                isMulti
                                 options={weakness}
-                                values={data.weakness}
-                                onChange={(val) => setData('weakness', val)}
-                                placeholder="Select weakness"
+                                value={weakness.filter((opt) => data.weakness.includes(opt.value))}
+                                placeholder="Select Weakness"
+                                onChange={(selectedOptions) =>
+                                    setData(
+                                        'weakness',
+                                        selectedOptions.map((opt) => opt.value),
+                                    )
+                                }
+                                classNamePrefix="react-select"
                             />
-                            {errors.weakness && <span className="text-red-500 text-xs">{errors.weakness}</span>}
+                            {errors.weakness && <span className="text-xs text-red-500">{errors.weakness}</span>}
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ import {
 } from "cmdk";
 import { Check, ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { Option } from "../../store/store";
+import { Option } from "../../stores/employeeStore";
 
 export function MultiSelect({
   options,

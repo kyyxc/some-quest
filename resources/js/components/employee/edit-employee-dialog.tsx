@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { MultiSelect } from '@/components/ui/multiselect';
-import useEmployeeStore from '@/store/store';
+import useEmployeeStore from '@/stores/employeeStore';
 import { Employee } from '@/types/Employee';
 import { useForm } from '@inertiajs/react';
 import { Edit, Pencil } from 'lucide-react';

@@ -65,7 +65,7 @@ const KanbanBoard = ({ quests }: { quests: Quest[] }) => {
 
     return (
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-4 overflow-hidden">
                 <Column title="New" id="new" quests={data.new} />
                 <Column title="Ready" id="ready" quests={data.ready} />
                 <Column title="On Progress" id="on_progress" quests={data.on_progress} />

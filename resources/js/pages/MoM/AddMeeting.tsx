@@ -208,7 +208,7 @@ function AddMeeting() {
                                                 'attendees',
                                                 selected.map((item) => item.value)
                                             )
-                                        }
+                                        } 
                                         classNamePrefix="react-select"
                                     />
                                     {errors.attendees && <p className="text-red-500 text-sm mt-1">{errors.attendees}</p>}

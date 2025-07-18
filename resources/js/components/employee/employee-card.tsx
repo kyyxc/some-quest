@@ -10,7 +10,7 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
         <Card className="rounded-2xl border-none bg-white text-gray-800 shadow-md">
             <CardContent className="flex flex-col gap-4 p-6">
                 <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 text-xl font-semibold text-black">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 text-xl font-semibold text-gray-800">
                         {employee.full_name[0]}
                     </div>
                     <div>
@@ -55,7 +55,7 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
                         </Badge>
                     </span>
                     <span className="flex flex-col items-center gap-1">
-                        <p className="text-muted-foreground">weakness:</p>
+                        <p className="text-muted-foreground">Weakness:</p>
                         <Badge variant="outline" className="flex items-center gap-1 rounded-sm border border-gray-200 text-gray-800">
                             {employee.weakness.length > 0 && <AlertTriangle size={16} className="text-red-500" />}
                             {employee.weakness.length}

@@ -1,6 +1,6 @@
 // store.ts
+import { Employee } from '@/types/Employee';
 import { create } from 'zustand';
-import { Employee } from 'c:/Users/lucky/Documents/pkl/project/some-quest/resources/js/types/Employee'; // Impor tipe yang benar
 
 export interface Option {
     label: string;
@@ -26,7 +26,7 @@ interface EmployeeStore {
     setArchetypes: (archetypes: Option[]) => void;
     setAbilities: (abilities: Option[]) => void;
     setPersonalities: (personalities: Option[]) => void;
-    setweakness: (weakness: Option[]) => void;
+    setWeakness: (weakness: Option[]) => void;
     setTotalEmployees: (total: number) => void;
 }
 
@@ -51,7 +51,7 @@ const useEmployeeStore = create<EmployeeStore>((set) => ({
     setArchetypes: (archetypes) => set(() => ({ archetypes })),
     setAbilities: (abilities) => set(() => ({ abilities })),
     setPersonalities: (personalities) => set(() => ({ personalities })),
-    setweakness: (weakness) => set(() => ({ weakness })),
+    setWeakness: (weakness) => set(() => ({ weakness })),
 }));
 
 export default useEmployeeStore;

@@ -18,7 +18,7 @@ interface PicOption {
 
 interface MoMOption {
     id: number;
-    name: string;
+    title: string;
 }
 
 interface QuestProps {
@@ -159,7 +159,7 @@ export default function QuestsForm({ initialData, pics, moms, onSubmit }: QuestP
                                     key={mom.id}
                                     value={String(mom.id)}
                                 >
-                                    {mom.name}
+                                    {mom.title}
                                 </SelectItem>
                             ))}
                         </SelectContent>

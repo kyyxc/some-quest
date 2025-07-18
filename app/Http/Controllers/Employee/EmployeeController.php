@@ -17,18 +17,22 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $view = $request->query('view', 'card');
+        $page = $request->query('page', 1);
+
         $employees = Employee::with(['archetypes', 'special_abilities', 'personalities', 'weakness'])
-            ->latest()
-            ->paginate(1);
-        // dd($employees);
+            ->latest()->paginate(10, ['*'], 'page', $page);
+
         return Inertia::render('Panel/ManageEmployees', [
             'employees' => $employees,
-            'archetypes' => Archetype::select('id', 'name')->get(),
-            'abilities' => SpecialAbility::select('id', 'name')->get(),
-            'personalities' => Personality::select('id', 'name')->get(),
-            'weakness' => Weakness::select('id', 'name')->get(),
+            'archetypes' => Archetype::all(),
+            'abilities' => SpecialAbility::all(),
+            'personalities' => Personality::all(),
+            'weakness' => Weakness::all(),
+            'view' => $view,
+            'page' => $page,
         ]);
     }
 
@@ -48,10 +52,10 @@ class EmployeeController extends Controller
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
             'nickname' => 'required|string|max:255',
-            'archetypes' => 'array',
-            'special_abilities' => 'array',
-            'personalities' => 'array',
-            'weakness' => 'array',
+            'archetypes' => 'array|required',
+            'special_abilities' => 'array|required',
+            'personalities' => 'array|required',
+            'weakness' => 'array|required',
         ]);
 
         $employee = Employee::create([

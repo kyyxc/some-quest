@@ -32,26 +32,27 @@ function QuestDetail() {
 
                 <div className="flex gap-2">
                     <Link href={`/quests/${quest.id}/edit`}>
-                        <Button variant="default" className="gap-1 rounded-[4px] border border-gray-300 bg-white text-gray-800">
+                        <Button variant="outline" className="gap-1">
                             <Pencil className="h-4 w-4" />
                             Edit Quest
                         </Button>
                     </Link>
                     <ConfirmDialog
-                        title="Delete Quest"
-                        description={`Are you sure you want to delete "${quest.title}"? This action cannot be undone.`}
+                        title="Delete Employee"
+                        description={`Are you sure you want to delete ${quest.title}? This action cannot be undone.`}
                         onConfirm={() => {
                             router.delete(`/quests/${quest.id}`, {
                                 onSuccess: () => {
                                     router.visit('/dashboard/quests');
+                                    toast.success('Employee deleted successfully');
                                 },
                                 onError: () => {
-                                    toast.error('Failed to delete quest');
+                                    toast.error('Failed to delete employee');
                                 },
                             });
                         }}
                     >
-                        <Button variant="default" className="gap-1 rounded-[4px] bg-red-500 text-white hover:bg-red-400">
+                        <Button variant="destructive" className="gap-1">
                             <Trash2 className="h-4 w-4" />
                             Delete Quest
                         </Button>

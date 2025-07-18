@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
             'auth' => [
                 'user' => fn() => Auth::user(),
             ],
+            'totalEmployees' => fn () => \App\Models\Employee::count(),
+            'totalQuests' => fn () => \App\Models\Quest::count(),
         ]);
     }
 }

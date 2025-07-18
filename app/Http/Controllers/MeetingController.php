@@ -8,12 +8,17 @@ use Inertia\Inertia;
 
 class MeetingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $meetings = Meeting::latest()->paginate(6);
+        $view = $request->query('view', 'card');
+        $page = $request->query('page', 1);
+
+        $meetings = Meeting::latest()->paginate(6, ['*'], 'page', $page);
 
         return Inertia::render('Panel/ManageMeeting', [
             'meetings' => $meetings,
+            'view' => $view,
+            'page' => $page,
         ]);
     }
 

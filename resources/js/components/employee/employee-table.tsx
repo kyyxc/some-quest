@@ -5,7 +5,6 @@ import { toast } from 'sonner';
 import { ConfirmDialog } from '../confirm-dialog';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { EditEmployeeDialog } from './edit-employee-dialog';
 
 const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
@@ -28,45 +27,45 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
 
     return (
         <div className="rounded-xl bg-white p-4 shadow-sm">
-            <Table>
-                <TableHeader>
-                    <TableRow className="hover:bg-white">
-                        <TableHead className="text-black">Name</TableHead>
-                        <TableHead className="text-black">Nickname</TableHead>
-                        <TableHead className="text-black">Archetype</TableHead>
-                        <TableHead className="text-black">Special Abilities</TableHead>
-                        <TableHead className="text-center">Actions</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {employees.map((e, idx) => (
-                        <TableRow key={idx} className="hover:bg-white">
-                            <TableCell>{e.full_name}</TableCell>
-                            <TableCell>{e.nickname}</TableCell>
-                            <TableCell className="space-x-1">
-                                {e.archetypes.map((arc, i) => (
+            <table className="w-full text-left text-sm text-gray-700">
+                <thead>
+                    <tr className="bg-gray-100 text-black">
+                        <th className="px-4 py-2">Name</th>
+                        <th className="px-4 py-2">Nickname</th>
+                        <th className="px-4 py-2">Archtype</th>
+                        <th className="px-4 py-2">Special Abilities</th>
+                        <th className="px-4 py-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {employees.map((employee, idx) => (
+                        <tr key={idx} className="hover:bg-white">
+                            <td className="px-4 py-2 font-medium">{employee.full_name}</td>
+                            <td className="px-4 py-2 font-medium">{employee.nickname}</td>
+                            <td className="space-x-1 px-4 py-2">
+                                {employee.archetypes.map((arc, i) => (
                                     <Badge key={i} className="bg-gray-100">
                                         {arc.name}
                                     </Badge>
                                 ))}
-                            </TableCell>
-                            <TableCell className="space-x-1">
-                                {e.special_abilities.map((ability, i) => (
+                            </td>
+                            <td className="px-4 py-2">
+                                {employee.special_abilities.map((ability, i) => (
                                     <Badge key={i} className="bg-gray-100">
                                         {ability.name}
                                     </Badge>
                                 ))}
-                            </TableCell>
-                            <TableCell className="flex items-center justify-center gap-2">
+                            </td>
+                            <td className="flex justify-center gap-2 px-4 py-2">
                                 <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
                                     <Eye className="h-4 w-4 text-black" />
                                 </Button>
-                                <EditEmployeeDialog employee={e} view="table" />
+                                <EditEmployeeDialog employee={employee} view="table" />
                                 <ConfirmDialog
                                     title="Delete Employee"
-                                    description={`Are you sure you want to delete ${e.full_name}? This action cannot be undone.`}
+                                    description={`Are you sure you want to delete ${employee.full_name}? This action cannot be undone.`}
                                     onConfirm={() => {
-                                        router.delete(`/employees/${e.id}`, {
+                                        router.delete(`/employees/${employee.id}`, {
                                             onSuccess: () => {
                                                 toast.success('Employee deleted successfully');
                                             },
@@ -80,11 +79,11 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                                         <Trash2 className="h-4 w-4 text-red-600" />
                                     </Button>
                                 </ConfirmDialog>
-                            </TableCell>
-                        </TableRow>
+                            </td>
+                        </tr>
                     ))}
-                </TableBody>
-            </Table>
+                </tbody>
+            </table>
         </div>
     );
 };
