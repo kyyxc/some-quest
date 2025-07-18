@@ -11,7 +11,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 });
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
     // Dashboard routes
@@ -46,11 +46,8 @@ Route::middleware('guest')->group(function () {
     // Attendance routes
     Route::get('/dashboard/attendance', fn() => Inertia::render('Panel/ManageAttendance'))->name('attendance');
 
-    // Additional verified group if needed
-    Route::middleware(['verified'])->group(function () {
-        // Verified-only routes go here
-    });
-// });
+    Route::middleware(['verified'])->group(function () {});
+});
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
