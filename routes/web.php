@@ -44,7 +44,7 @@ Route::put('/dashboard/meeting/{id}', [MeetingController::class, 'update'])->nam
 Route::delete('/dashboard/meeting/{id}', [MeetingController::class, 'destroy'])->name('meeting.destroy');
 
 // Attendance routes
-Route::get('/dashboard/attendance', fn() => Inertia::render('Panel/ManageAttendance'))->name('attendance');
+Route::get('/dashboard/attendance', fn() => Inertia::render('Panel/attendance/ManageAttendance'))->name('attendance');
 
 // Additional verified group if needed
 Route::middleware(['verified'])->group(function () {

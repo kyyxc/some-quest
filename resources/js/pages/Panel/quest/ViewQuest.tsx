@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { Link, router, usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
-import { CalendarDays, Pencil, Trash2, User2 } from 'lucide-react';
+import { CalendarDays, Edit, Pencil, Target, Trash2, User2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 import AdminLayout from '../../admin';
@@ -23,52 +23,56 @@ function QuestDetail() {
         <div className="p-6">
             <div className="mb-6 flex items-center justify-between">
                 <div>
-                    <Link href="/dashboard/quests" className="rounded-[4px] px-3 py-2 text-sm text-gray-500 hover:bg-blue-100">
+                    <Link href="/dashboard/quests" className="rounded-[4px] px-3 py-2 text-sm text-muted-foreground hover:bg-blue-100">
                         ← Back to Quests
                     </Link>
                     <h1 className="mt-1 text-2xl font-bold">{quest.title}</h1>
-                    <p className="text-gray-600">Quest Details</p>
+                    <p className="text-muted-foreground">Quest Details</p>
                 </div>
-
-                <div className="flex gap-2">
-                    <Link href={`/quests/${quest.id}/edit`}>
-                        <Button variant="outline" className="gap-1">
-                            <Pencil className="h-4 w-4" />
-                            Edit Quest
-                        </Button>
-                    </Link>
+                <div className="flex flex-wrap gap-2">
+                    <Button
+                        className="rounded-md bg-white px-4 py-2 text-sm text-gray-800 hover:bg-blue-100 hover:text-blue-700"
+                        onClick={() => router.visit(`/quests/${quest.id}/edit`)}
+                    >
+                        <Edit className="mr-1 h-4 w-4" />
+                        Edit
+                    </Button>
                     <ConfirmDialog
-                        title="Delete Employee"
+                        title="Delete Meeting"
                         description={`Are you sure you want to delete ${quest.title}? This action cannot be undone.`}
                         onConfirm={() => {
-                            router.delete(`/quests/${quest.id}`, {
+                            router.delete(`/quests/${quest.id}}`, {
                                 onSuccess: () => {
-                                    router.visit('/dashboard/quests');
-                                    toast.success('Employee deleted successfully');
+                                    toast.success('Quest deleted successfully');
                                 },
                                 onError: () => {
-                                    toast.error('Failed to delete employee');
+                                    toast.error('Failed to delete Quest');
                                 },
                             });
                         }}
                     >
-                        <Button variant="destructive" className="gap-1">
-                            <Trash2 className="h-4 w-4" />
-                            Delete Quest
+                        <Button
+                            className="rounded-md bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700"
+                        >
+                            <Trash2 className="mr-1 h-4 w-4" />
+                            Delete
                         </Button>
                     </ConfirmDialog>
                 </div>
+
             </div>
+
 
             <Card className="grid grid-cols-1 gap-6 border border-gray-200 bg-white p-6 text-gray-800 shadow-md md:grid-cols-2">
                 <div className="space-y-4">
                     <h2 className="flex items-center gap-2 text-lg font-semibold">
-                        <span className="text-purple-600">🎯</span> Quest Information
+                        <Target className='h-4' />
+                        Quest Information
                     </h2>
 
                     <div>
                         <p className="text-sm font-semibold">Description</p>
-                        <p className="text-gray-700">{quest.description}</p>
+                        <p className="text-gray-800">{quest.description}</p>
                     </div>
 
                     <div>
@@ -96,7 +100,7 @@ function QuestDetail() {
 
                     <div>
                         <p className="text-sm font-semibold">Created</p>
-                        <div className="flex items-center gap-2 text-sm text-gray-700">
+                        <div className="flex items-center gap-2 text-sm text-gray-800">
                             <CalendarDays className="h-4 w-4" />
                             {dayjs(quest.created_at).format('MMM DD YYYY')}
                         </div>
@@ -104,7 +108,7 @@ function QuestDetail() {
 
                     <div>
                         <p className="text-sm font-semibold">Last Updated</p>
-                        <div className="flex items-center gap-2 text-sm text-gray-700">
+                        <div className="flex items-center gap-2 text-sm text-gray-800">
                             <CalendarDays className="h-4 w-4" />
                             {dayjs(quest.updated_at).format('MMM DD YYYY')}
                         </div>

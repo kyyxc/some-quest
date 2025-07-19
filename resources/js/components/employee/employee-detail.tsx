@@ -13,13 +13,13 @@ export function EmployeeDetailModal({ employee, view }: { employee: Employee; vi
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 {view == 'card' ? (
-                    <Button className="flex-1 border border-gray-200 bg-white text-neutral-800 transition-colors hover:bg-blue-100 hover:text-blue-900 hover:ring-1 hover:ring-blue-200">
+                    <Button className="flex-1 border border-gray-200 bg-white text-gray-800 transition-colors hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200">
                         <Eye className="mr-1 h-4 w-4" />
                         View
                     </Button>
                 ) : (
                     <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
-                        <Eye className="h-4 w-4 text-black" />
+                        <Eye className="h-4 w-4 text-gray-800" />
                     </Button>
                 )}
             </DialogTrigger>
@@ -31,17 +31,17 @@ export function EmployeeDetailModal({ employee, view }: { employee: Employee; vi
                 <div className="space-y-4 text-gray-800">
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <p className="text-sm font-semibold">Full Name</p>
-                            <p>{employee.full_name}</p>
+                            <p className="text-sm font-semibold text-gray-800">Full Name</p>
+                            <p className="text-gray-800">{employee.full_name}</p>
                         </div>
                         <div>
-                            <p className="text-sm font-semibold">Nickname</p>
-                            <p>{employee.nickname}</p>
+                            <p className="text-sm font-semibold text-gray-800">Nickname</p>
+                            <p className="text-gray-800">{employee.nickname}</p>
                         </div>
                     </div>
 
                     <div>
-                        <p className="mb-1 text-sm font-semibold">Archetype</p>
+                        <p className="mb-1 text-sm font-semibold text-gray-800">Archetype</p>
                         <div className="flex flex-wrap gap-2">
                             {employee.archetypes.map((arch) => (
                                 <Badge key={arch.id} variant="default" className="rounded-sm bg-gray-100 text-gray-800">
@@ -52,7 +52,7 @@ export function EmployeeDetailModal({ employee, view }: { employee: Employee; vi
                     </div>
 
                     <div>
-                        <p className="mb-1 text-sm font-semibold">Special Abilities</p>
+                        <p className="mb-1 text-sm font-semibold text-gray-800">Special Abilities</p>
                         <div className="flex flex-wrap gap-2">
                             {employee.special_abilities.map((ability) => (
                                 <Badge key={ability.id} variant="default" className="rounded-sm border border-gray-200 bg-white text-gray-800">
@@ -63,7 +63,7 @@ export function EmployeeDetailModal({ employee, view }: { employee: Employee; vi
                     </div>
 
                     <div>
-                        <p className="mb-1 text-sm font-semibold">Personalities</p>
+                        <p className="mb-1 text-sm font-semibold text-gray-800">Personalities</p>
                         <div className="flex flex-wrap gap-2">
                             {employee.personalities.map((p) => (
                                 <Badge key={p.id} variant="default" className="rounded-sm border border-gray-200 bg-white text-gray-800">
@@ -74,10 +74,10 @@ export function EmployeeDetailModal({ employee, view }: { employee: Employee; vi
                     </div>
 
                     <div>
-                        <p className="mb-1 text-sm font-semibold">Weaknesses</p>
+                        <p className="mb-1 text-sm font-semibold text-gray-800">Weaknesses</p>
                         <div className="flex flex-wrap gap-2">
                             {employee.weakness.map((w) => (
-                                <Badge key={w.id} className="bg-red-500 text-white hover:bg-red-600">
+                                <Badge key={w.id} className="bg-red-700 text-white hover:bg-red-800">
                                     {w.name}
                                 </Badge>
                             ))}

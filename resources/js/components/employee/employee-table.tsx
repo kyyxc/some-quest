@@ -1,5 +1,5 @@
 import { Employee } from '@/types/Employee';
-import { router, useForm } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { ConfirmDialog } from '../confirm-dialog';
@@ -9,28 +9,11 @@ import { EmployeeDetailModal } from './employee-detail';
 import { EmployeeFormDialog } from './form-employee-dialog';
 
 const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
-    const { delete: destroy } = useForm();
-
-    const handleDelete = (employee: Employee) => {
-        if (confirm('Are you sure want delete this employee?')) {
-            destroy(`/employees/${employee.id}`, {
-                onSuccess: () => {
-                    toast.success('Employee deleted successfully');
-                    console.log('success');
-                },
-                onError: (err) => {
-                    toast.error('Failed to delete employee');
-                    console.log(err);
-                },
-            });
-        }
-    };
-
     return (
         <div className="rounded-xl bg-white p-4 shadow-sm">
-            <table className="w-full text-left text-sm text-gray-700">
+            <table className="w-full text-left text-sm text-gray-800">
                 <thead>
-                    <tr className="bg-gray-100 text-black">
+                    <tr className="bg-gray-100 text-gray-800">
                         <th className="px-4 py-2">Name</th>
                         <th className="px-4 py-2">Nickname</th>
                         <th className="px-4 py-2">Archtype</th>
@@ -41,18 +24,18 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                 <tbody>
                     {employees.map((employee, idx) => (
                         <tr key={idx} className="hover:bg-white">
-                            <td className="px-4 py-2 font-medium">{employee.full_name}</td>
-                            <td className="px-4 py-2 font-medium">{employee.nickname}</td>
+                            <td className="px-4 py-2 font-medium text-gray-800">{employee.full_name}</td>
+                            <td className="px-4 py-2 font-medium text-gray-800">{employee.nickname}</td>
                             <td className="space-x-1 px-4 py-2">
                                 {employee.archetypes.map((arc, i) => (
-                                    <Badge key={i} className="bg-gray-100">
+                                    <Badge key={i} className="bg-gray-100 text-gray-800">
                                         {arc.name}
                                     </Badge>
                                 ))}
                             </td>
                             <td className="px-4 py-2">
                                 {employee.special_abilities.map((ability, i) => (
-                                    <Badge key={i} className="bg-gray-100">
+                                    <Badge key={i} className="bg-gray-100 text-gray-800">
                                         {ability.name}
                                     </Badge>
                                 ))}
@@ -74,8 +57,8 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                                         });
                                     }}
                                 >
-                                    <Button variant="default" size="icon" className="bg-white hover:bg-blue-100">
-                                        <Trash2 className="h-4 w-4 text-red-600" />
+                                    <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
+                                        <Trash2 className="h-4 w-4 text-red-700" />
                                     </Button>
                                 </ConfirmDialog>
                             </td>

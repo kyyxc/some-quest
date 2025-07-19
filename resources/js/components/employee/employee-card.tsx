@@ -14,19 +14,19 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
                         {employee.full_name[0]}
                     </div>
                     <div>
-                        <h2 className="text-md font-bold">{employee.full_name}</h2>
+                        <h2 className="text-md font-bold text-gray-800">{employee.full_name}</h2>
                         <p className="text-xs text-muted-foreground">@{employee.nickname}</p>
                     </div>
                 </div>
 
                 <div>
                     <p className="mb-2 flex items-center text-sm text-muted-foreground">
-                        <Star className="mr-2 h-4 w-4 text-yellow-400" />
+                        <Star className="mr-2 h-4 w-4 text-yellow-700" />
                         <span className="text-gray-800">Archetype</span>
                     </p>
                     <div className="flex flex-wrap gap-2">
                         {employee.archetypes.map((arc, i) => (
-                            <Badge key={i} variant="default" className="rounded-sm bg-gray-100">
+                            <Badge key={i} variant="default" className="rounded-sm bg-gray-100 text-gray-800">
                                 {arc.name}
                             </Badge>
                         ))}
@@ -35,12 +35,12 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
 
                 <div>
                     <p className="mb-2 flex items-center text-sm text-muted-foreground">
-                        <Shield className="mr-2 h-4 w-4 text-green-400" />
+                        <Shield className="mr-2 h-4 w-4 text-green-700" />
                         <span className="text-gray-800">Special Abilities</span>
                     </p>
                     <div className="flex flex-wrap gap-2">
                         {employee.special_abilities.map((ab, i) => (
-                            <Badge key={i} variant="outline" className="rounded-sm border border-gray-200 text-black">
+                            <Badge key={i} variant="outline" className="rounded-sm border border-gray-200 text-gray-800">
                                 {ab.name}
                             </Badge>
                         ))}
@@ -57,7 +57,7 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
                     <span className="flex flex-col items-center gap-1">
                         <p className="text-muted-foreground">Weakness:</p>
                         <Badge variant="outline" className="flex items-center gap-1 rounded-sm border border-gray-200 bg-white text-gray-800">
-                            {employee.weakness.length > 0 && <AlertTriangle size={16} className="text-red-500" />}
+                            {employee.weakness.length > 0 && <AlertTriangle size={16} className="text-red-700" />}
                             {employee.weakness.length}
                         </Badge>
                     </span>
@@ -65,7 +65,6 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
 
                 <div className="mt-4 flex justify-between space-x-2">
                     <EmployeeDetailModal employee={employee} view="card"></EmployeeDetailModal>
-
                     <EmployeeFormDialog employee={employee} view="card" mode="edit"></EmployeeFormDialog>
                 </div>
             </CardContent>

@@ -40,7 +40,7 @@ export default function QuestsForm({ initialData, pics, moms, onSubmit }: QuestP
                     Back to Quests
                 </button>
 
-                <h1 className="mb-4 text-2xl font-bold">Create New Quest</h1>
+                <h1 className="mb-4 text-2xl font-bold text-gray-800">Create New Quest</h1>
             </div>
 
             <form onSubmit={handleSubmit} className="w-full space-y-6 rounded-xl bg-white p-6 text-gray-800 shadow">

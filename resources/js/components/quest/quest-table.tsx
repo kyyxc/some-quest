@@ -1,6 +1,6 @@
-import { PaginatedQuests, Quest } from '@/types/quest';
+import { PaginatedQuests } from '@/types/quest';
 import { limitChars } from '@/utils/limit-words';
-import { Link, router, useForm } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import { CircleDot, Dot, Eye, Pencil, Trash2, User } from 'lucide-react';
 import { toast } from 'sonner';
@@ -9,29 +9,11 @@ import Pagination from '../pagination';
 import { Button } from '../ui/button';
 
 const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card' }> = ({ quests, viewMode }) => {
-    const { delete: destroy } = useForm();
-
-    const handleDelete = (quest: Quest) => {
-        console.log(quest);
-
-        if (confirm('Are you sure want delete this quest?')) {
-            destroy(`/quests/${quest.id}`, {
-                onSuccess: () => {
-                    toast.success('Quest deleted successfully');
-                    console.log('success');
-                },
-                onError: (err) => {
-                    toast.error('Failed to delete quest');
-                    console.log(err);
-                },
-            });
-        }
-    };
     return (
         <div className="rounded-xl bg-white p-4 shadow-sm">
-            <table className="w-full text-left text-sm text-gray-700">
+            <table className="w-full text-left text-sm text-gray-800">
                 <thead>
-                    <tr className="bg-gray-100 text-black">
+                    <tr className="bg-gray-100 text-gray-800">
                         <th className="px-4 py-2">Quest Title</th>
                         <th className="px-4 py-2">PIC</th>
                         <th className="px-4 py-2">Status</th>
@@ -42,9 +24,9 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                 <tbody>
                     {quests.data.map((quest, idx) => (
                         <tr key={idx} className="hover:bg-white">
-                            <td className="px-4 py-2 font-medium">
+                            <td className="px-4 py-2 font-medium text-gray-800">
                                 <div className="flex flex-col">
-                                    <div className="flex items-center gap-2 font-medium">
+                                    <div className="flex items-center gap-2 font-medium text-gray-800">
                                         <CircleDot className="h-4 w-4 text-purple-600" />
                                         {limitChars(quest.title, 30)}
                                     </div>
@@ -53,7 +35,7 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                             <td className="space-x-1 px-4 py-2">
                                 <div className="flex items-center gap-2">
                                     <User className="h-4 w-4 text-blue-600" />
-                                    <span className="rounded border border-gray-300 px-2 py-0.5 text-sm">{quest.pic.full_name}</span>
+                                    <span className="rounded border border-gray-300 px-2 py-0.5 text-sm text-gray-800">{quest.pic.full_name}</span>
                                 </div>
                             </td>
 
@@ -61,7 +43,7 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                                 <div className="flex items-center font-medium">
                                     {quest.status === 'new' && (
                                         <span>
-                                            <Dot size={48} className="text-gray-500"></Dot>
+                                            <Dot size={48} className="text-muted-foreground"></Dot>
                                         </span>
                                     )}
                                     {quest.status === 'ready' && (
@@ -88,7 +70,7 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                                 </div>
                             </td>
                             <td className="space-x-1 px-4 py-2">
-                                <span className="rounded border border-gray-300 px-2 py-0.5 text-sm">
+                                <span className="rounded border border-gray-300 px-2 py-0.5 text-sm text-gray-800">
                                     {dayjs(quest.created_at).format('MMM DD YYYY')}
                                 </span>
                             </td>
@@ -96,29 +78,29 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                                 <div className="flex items-center justify-center gap-2">
                                     <Link href={`/quests/${quest.id}`}>
                                         <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
-                                            <Eye className="h-4 w-4 text-black" />
+                                            <Eye className="h-4 w-4 text-gray-800" />
                                         </Button>
                                     </Link>
                                     <Link href={`/quests/${quest.id}/edit`}>
                                         <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
-                                            <Pencil className="h-4 w-4 text-black" />
+                                            <Pencil className="h-4 w-4 text-gray-800" />
                                         </Button>
                                     </Link>
                                     <ConfirmDialog
-                                        title="Delete Employee"
+                                        title="Delete Quest"
                                         description={`Are you sure you want to delete ${quest.title}? This action cannot be undone.`}
                                         onConfirm={() => {
-                                            router.delete(`/employees/${quest.id}`, {
+                                            router.delete(`/quest/${quest.id}`, {
                                                 onSuccess: () => {
                                                     toast.success('Quest deleted successfully');
                                                 },
                                                 onError: () => {
-                                                    toast.error('Failed to delete employee');
+                                                    toast.error('Failed to delete quest');
                                                 },
                                             });
                                         }}
                                     >
-                                        <Button variant="default" size="icon" className="bg-white hover:bg-blue-100">
+                                        <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
                                             <Trash2 className="h-4 w-4 text-red-600" />
                                         </Button>
                                     </ConfirmDialog>

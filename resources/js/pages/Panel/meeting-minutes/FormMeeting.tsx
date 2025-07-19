@@ -88,13 +88,13 @@ function FormMeeting() {
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Meeting Minutes
                         </Button>
-                        <span className="flex items-center text-sm font-medium text-gray-500">
-                            <FileText className="mr-2 h-4 w-4 text-gray-500" />
+                        <span className="flex items-center text-sm font-medium text-muted-foreground">
+                            <FileText className="mr-2 h-4 w-4 text-muted-foreground" />
                             {meeting ? 'Edit Meeting Minutes' : 'New Meeting Minutes'}
                         </span>
                     </div>
                     <Button
-                        className="flex items-center rounded-sm bg-blue-500 px-3 py-1.5 text-white transition duration-300 hover:bg-blue-600"
+                        className="flex items-center rounded-sm bg-blue-700 px-3 py-1.5 text-white transition duration-300 hover:bg-blue-700"
                         type="submit"
                         onClick={handleSubmit}
                     >
@@ -113,13 +113,13 @@ function FormMeeting() {
                             value={title}
                             onChange={(e) => setField('title', e.target.value)}
                         />
-                        {errors.title && <p className="mt-1 text-sm text-red-500">{errors.title}</p>}
+                        {errors.title && <p className="mt-1 text-sm text-red-700">{errors.title}</p>}
 
                         <div className="space-y-6">
                             <div className="grid gap-6 md:grid-cols-2">
                                 <div>
-                                    <label className="mb-1 flex items-center font-medium text-gray-700">
-                                        <Calendar className="mr-2 h-4 w-4 text-gray-400" />
+                                    <label className="mb-1 flex items-center font-medium text-gray-800">
+                                        <Calendar className="mr-2 h-4 w-4 text-muted-foreground" />
                                         Date
                                     </label>
                                     <input
@@ -128,10 +128,10 @@ function FormMeeting() {
                                         value={date}
                                         onChange={(e) => setField('date', e.target.value)}
                                     />
-                                    {errors.date && <p className="mt-1 text-sm text-red-500">{errors.date}</p>}
+                                    {errors.date && <p className="mt-1 text-sm text-red-700">{errors.date}</p>}
                                 </div>
                                 <div>
-                                    <label className="mb-1 block font-medium text-gray-700">Location (Optional)</label>
+                                    <label className="mb-1 block font-medium text-gray-800">Location (Optional)</label>
                                     <input
                                         type="text"
                                         placeholder="e.g. Conference Room A"
@@ -139,13 +139,13 @@ function FormMeeting() {
                                         value={location}
                                         onChange={(e) => setField('location', e.target.value)}
                                     />
-                                    {errors.location && <p className="mt-1 text-sm text-red-500">{errors.location}</p>}
+                                    {errors.location && <p className="mt-1 text-sm text-red-700">{errors.location}</p>}
                                 </div>
                             </div>
 
                             <div className="grid gap-6 md:grid-cols-2">
                                 <div>
-                                    <label className="mb-1 block font-medium text-gray-700">Duration (Optional)</label>
+                                    <label className="mb-1 block font-medium text-gray-800">Duration (Optional)</label>
                                     <div className="flex gap-2">
                                         <input
                                             type="number"
@@ -172,12 +172,12 @@ function FormMeeting() {
                                             }}
                                         />
                                     </div>
-                                    {errors.duration && <p className="mt-1 text-sm text-red-500">{errors.duration}</p>}
+                                    {errors.duration && <p className="mt-1 text-sm text-red-700">{errors.duration}</p>}
                                 </div>
 
                                 <div>
-                                    <label className="mb-1 flex items-center font-medium text-gray-700">
-                                        <Users className="mr-2 h-4 w-4 text-gray-400" />
+                                    <label className="mb-1 flex items-center font-medium text-gray-800">
+                                        <Users className="mr-2 h-4 w-4 text-muted-foreground" />
                                         Attendees
                                     </label>
                                     <ReactSelect
@@ -193,14 +193,14 @@ function FormMeeting() {
                                         }
                                         classNamePrefix="react-select"
                                     />
-                                    {errors.attendees && <p className="mt-1 text-sm text-red-500">{errors.attendees}</p>}
+                                    {errors.attendees && <p className="mt-1 text-sm text-red-700">{errors.attendees}</p>}
                                 </div>
                             </div>
 
                             <div className="mt-8">
                                 <label className="mb-2 block text-xl font-bold text-gray-800">Meeting Notes</label>
                                 <TipTapEditor value={notes} onContentChange={(newContent) => setField('notes', newContent)} />
-                                {errors.notes && <p className="mt-1 text-sm text-red-500">{errors.notes}</p>}
+                                {errors.notes && <p className="mt-1 text-sm text-red-700">{errors.notes}</p>}
                             </div>
 
                             <div className="mt-8">
@@ -214,13 +214,13 @@ function FormMeeting() {
                                     value={followup}
                                     onChange={(e) => setField('followup', e.target.value)}
                                 ></textarea>
-                                {errors.followup && <p className="mt-1 text-sm text-red-500">{errors.followup}</p>}
-                                <div className="mt-1 text-sm text-gray-500">Use line breaks to separate items.</div>
+                                {errors.followup && <p className="mt-1 text-sm text-red-700">{errors.followup}</p>}
+                                <div className="mt-1 text-sm text-muted-foreground">Use line breaks to separate items.</div>
                                 <hr className="my-6" />
                                 <div className="flex items-center justify-between">
-                                    <span className="text-gray-500">{meeting ? 'Editing meeting minutes' : 'Creating meeting minutes'}</span>
+                                    <span className="text-muted-foreground">{meeting ? 'Editing meeting minutes' : 'Creating meeting minutes'}</span>
                                     <Button
-                                        className="border border-gray-200 bg-white px-4 py-2 text-neutral-800 hover:bg-blue-100 hover:text-blue-700"
+                                        className="border border-gray-200 bg-white px-4 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-700"
                                         onClick={() => router.visit('/dashboard/meeting')}
                                     >
                                         Cancel

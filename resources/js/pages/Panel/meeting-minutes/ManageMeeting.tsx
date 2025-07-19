@@ -9,9 +9,7 @@ import { LayoutGrid, List, Plus } from 'lucide-react';
 import React, { useState } from 'react';
 
 function ManageMeeting() {
-    const { meetings, view, page, flash } = usePage().props as unknown as MeetingPageProps;
-    const [showSuccess, setShowSuccess] = useState(!!flash?.success);
-    const successMessage = flash?.success;
+    const { meetings, view, page } = usePage().props as unknown as MeetingPageProps;
     const currentPage = page ?? 1;
     const [viewMode, setViewMode] = useState<'card' | 'table'>(view === 'table' ? 'table' : 'card');
 
@@ -28,7 +26,7 @@ function ManageMeeting() {
     };
 
     return (
-        <div className="mx-auto max-w-7xl space-y-6 px-4 text-neutral-800">
+        <div className="mx-auto max-w-7xl space-y-6 px-4 text-gray-800">
             <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold">Meeting Minutes</h1>
@@ -41,18 +39,16 @@ function ManageMeeting() {
                         <div className="flex rounded-sm bg-gray-100 p-1 ring-1 ring-gray-300">
                             <button
                                 onClick={() => handleViewModeChange('card')}
-                                className={`flex h-7 items-center gap-1 rounded-sm px-3 text-xs ${
-                                    viewMode === 'card' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
-                                }`}
+                                className={`flex h-7 items-center gap-1 rounded-sm px-3 text-xs ${viewMode === 'card' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
+                                    }`}
                             >
                                 <LayoutGrid className="h-4 w-4" />
                                 Cards
                             </button>
                             <button
                                 onClick={() => handleViewModeChange('table')}
-                                className={`flex h-7 items-center gap-1 rounded-sm px-3 text-xs ${
-                                    viewMode === 'table' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
-                                }`}
+                                className={`flex h-7 items-center gap-1 rounded-sm px-3 text-xs ${viewMode === 'table' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
+                                    }`}
                             >
                                 <List className="h-4 w-4" />
                                 Table

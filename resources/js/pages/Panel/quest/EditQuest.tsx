@@ -17,7 +17,7 @@ export default function EditQuest() {
     };
 
     return (
-        <div>
+        <div className='mx-auto max-w-7xl space-y-6 px-4 text-gray-800'>
             <h1 className="mb-6 text-2xl font-bold">Edit Quest</h1>
             <QuestsForm initialData={quest} pics={pics} moms={moms} onSubmit={handleUpdate} />
         </div>

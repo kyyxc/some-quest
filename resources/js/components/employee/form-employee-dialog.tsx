@@ -77,16 +77,16 @@ export function EmployeeFormDialog({ mode, employee, view = 'table' }: EmployeeD
     }, [open, employee]);
 
     const triggerButton = isCreate ? (
-        <Button className="bg-blue-500 text-white hover:bg-blue-600">
+        <Button className="bg-blue-700 text-white hover:bg-blue-700">
             <Plus className="mr-1 h-4 w-4" />
             Add Employee
         </Button>
     ) : view === 'table' ? (
         <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
-            <Pencil className="h-4 w-4 text-black" />
+            <Pencil className="h-4 w-4 text-gray-800" />
         </Button>
     ) : (
-        <Button className="flex-1 border border-gray-200 bg-white text-neutral-800 transition-colors hover:bg-blue-100 hover:text-blue-900 hover:ring-1 hover:ring-blue-200">
+        <Button className="flex-1 border border-gray-200 bg-white text-gray-800 transition-colors hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200">
             <Edit className="mr-1 h-4 w-4" />
             Edit
         </Button>
@@ -106,22 +106,22 @@ export function EmployeeFormDialog({ mode, employee, view = 'table' }: EmployeeD
                         <div className="grid gap-2">
                             <Label>Full Name</Label>
                             <Input
-                                className="rounded-[4px] border border-gray-200 placeholder:text-gray-500"
+                                className="rounded-[4px] border border-gray-200 placeholder:text-gray-800"
                                 value={data.full_name}
                                 onChange={(e) => setData('full_name', e.target.value)}
                                 placeholder="Enter Full Name"
                             />
-                            {errors.full_name && <span className="text-xs text-red-500">{errors.full_name}</span>}
+                            {errors.full_name && <span className="text-xs text-red-700">{errors.full_name}</span>}
                         </div>
                         <div className="grid gap-2">
                             <Label>Nickname</Label>
                             <Input
-                                className="rounded-[4px] border border-gray-200 placeholder:text-gray-500"
+                                className="rounded-[4px] border border-gray-200 placeholder:text-gray-800"
                                 value={data.nickname}
                                 onChange={(e) => setData('nickname', e.target.value)}
                                 placeholder="Enter Nickname"
                             />
-                            {errors.nickname && <span className="text-xs text-red-500">{errors.nickname}</span>}
+                            {errors.nickname && <span className="text-xs text-red-700">{errors.nickname}</span>}
                         </div>
                         <div className="grid gap-2">
                             <Label>Archetype</Label>
@@ -134,7 +134,7 @@ export function EmployeeFormDialog({ mode, employee, view = 'table' }: EmployeeD
                                 openId={openId}
                                 setOpenId={setOpenId}
                             />
-                            {errors.archetypes && <span className="text-xs text-red-500">{errors.archetypes}</span>}
+                            {errors.archetypes && <span className="text-xs text-red-700">{errors.archetypes}</span>}
                         </div>
                         <div className="grid gap-2">
                             <Label>Special Abilities</Label>
@@ -147,7 +147,7 @@ export function EmployeeFormDialog({ mode, employee, view = 'table' }: EmployeeD
                                 openId={openId}
                                 setOpenId={setOpenId}
                             />
-                            {errors.special_abilities && <span className="text-xs text-red-500">{errors.special_abilities}</span>}
+                            {errors.special_abilities && <span className="text-xs text-red-700">{errors.special_abilities}</span>}
                         </div>
                         <div className="grid gap-2">
                             <Label>Personalities</Label>
@@ -160,7 +160,7 @@ export function EmployeeFormDialog({ mode, employee, view = 'table' }: EmployeeD
                                 openId={openId}
                                 setOpenId={setOpenId}
                             />
-                            {errors.personalities && <span className="text-xs text-red-500">{errors.personalities}</span>}
+                            {errors.personalities && <span className="text-xs text-red-700">{errors.personalities}</span>}
                         </div>
                         <div className="grid gap-2">
                             <Label>Weakness</Label>
@@ -173,7 +173,7 @@ export function EmployeeFormDialog({ mode, employee, view = 'table' }: EmployeeD
                                 openId={openId}
                                 setOpenId={setOpenId}
                             />
-                            {errors.weakness && <span className="text-xs text-red-500">{errors.weakness}</span>}
+                            {errors.weakness && <span className="text-xs text-red-700">{errors.weakness}</span>}
                         </div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@ export function EmployeeFormDialog({ mode, employee, view = 'table' }: EmployeeD
                     <Button variant="default" className="border border-gray-200 bg-white hover:bg-blue-100" onClick={() => setOpen(false)}>
                         Cancel
                     </Button>
-                    <Button onClick={submit} disabled={processing} className="bg-blue-500 text-white hover:bg-blue-600">
+                    <Button onClick={submit} disabled={processing} className="bg-blue-700 text-white hover:bg-blue-700">
                         {isCreate ? 'Save' : 'Save Changes'}
                     </Button>
                 </div>

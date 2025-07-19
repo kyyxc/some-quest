@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card"
 
 function ManageAttendance() {
     return (
-        <div className="px-4 space-y-6 min-h-screen text-neutral-800">
+        <div className="px-4 space-y-6 min-h-screen text-gray-800">
             {/* Header */}
             <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
@@ -18,14 +18,14 @@ function ManageAttendance() {
                     </p>
                 </div>
 
-                <Button className="bg-white text-neutral-800 border border-gray-200 shadow-sm hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200 transition-colors">
+                <Button className="bg-white text-gray-800 border border-gray-200 shadow-sm hover:bg-blue-100 hover:text-blue-700 hover:ring-1 hover:ring-blue-200 transition-colors">
                     Clear Filters
                 </Button>
             </div>
 
             {/* Filter Section */}
             <Card className="p-6 bg-white rounded-xl border-none space-y-4 shadow-sm">
-                <div className="flex items-center gap-2 text-base font-semibold text-gray-700">
+                <div className="flex items-center gap-2 text-base font-semibold text-gray-800">
                     <Calendar className="w-5 h-5" />
                     Filter Attendance Records
                 </div>
@@ -33,7 +33,7 @@ function ManageAttendance() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* Employee Dropdown */}
                     <div className="space-y-1">
-                        <label className="text-sm font-medium text-gray-700">Employee</label>
+                        <label className="text-sm font-medium text-gray-800">Employee</label>
                         <Select>
                             <SelectTrigger className="w-full h-10 rounded-md bg-white border border-gray-200 shadow-sm">
                                 <SelectValue placeholder="Select an employee" />
@@ -43,19 +43,19 @@ function ManageAttendance() {
 
                     {/* Start Date */}
                     <div className="space-y-1">
-                        <label className="text-sm font-medium text-gray-700">Start Date</label>
+                        <label className="text-sm font-medium text-gray-800">Start Date</label>
                         <Input
                             type="date"
-                            className="h-10 rounded-md bg-white border border-gray-200 shadow-sm text-gray-700"
+                            className="h-10 rounded-md bg-white border border-gray-200 shadow-sm text-gray-800"
                         />
                     </div>
 
                     {/* End Date */}
                     <div className="space-y-1">
-                        <label className="text-sm font-medium text-gray-700">End Date</label>
+                        <label className="text-sm font-medium text-gray-800">End Date</label>
                         <Input
                             type="date"
-                            className="h-10 rounded-md bg-white border border-gray-200 shadow-sm text-gray-700"
+                            className="h-10 rounded-md bg-white border border-gray-200 shadow-sm text-gray-800"
                         />
                     </div>
                 </div>
@@ -67,10 +67,10 @@ function ManageAttendance() {
                     <Users className="w-8 h-8 text-blue-600" />
                 </div>
                 <h2 className="text-lg font-semibold text-gray-800">Select an Employee</h2>
-                <p className="text-gray-500 text-sm max-w-md">
+                <p className="text-muted-foreground text-sm max-w-md">
                     Choose an employee from the filter above to view their attendance history and detailed records.
                 </p>
-                <span className="text-gray-400 text-xs">3 employees available</span>
+                <span className="text-muted-foreground text-xs">3 employees available</span>
             </Card>
         </div>
     )
