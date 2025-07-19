@@ -82,7 +82,7 @@ function FormMeeting() {
                 <div className="container mx-auto flex items-center justify-between px-4">
                     <div className="flex items-center space-x-6">
                         <Button
-                            className="flex items-center rounded-md px-3 py-1.5 text-sm text-gray-800 transition duration-300 hover:bg-gray-100 hover:text-blue-700"
+                            className="flex items-center rounded-md px-3 py-2 text-sm text-gray-800 transition duration-300 hover:bg-blue-100 hover:text-blue-900"
                             onClick={() => router.visit('/dashboard/meeting')}
                         >
                             <ArrowLeft className="mr-2 h-4 w-4" />

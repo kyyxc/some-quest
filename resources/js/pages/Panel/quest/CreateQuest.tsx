@@ -1,11 +1,12 @@
 import AdminLayout from '@/pages/admin';
+import { FormType, QuestFormProps } from '@/types/quest';
 import { router, usePage } from '@inertiajs/react';
 import QuestsForm from '../../../components/quest/QuestForm';
 
 export default function CreateQuest() {
-    const { pics, moms } = usePage().props;
+    const { pics, moms } = usePage<QuestFormProps>().props;
 
-    const handleSubmit = (form) => {
+    const handleSubmit = (form: FormType) => {
         form.post('/quests', {
             onSuccess: () => {
                 form.reset();

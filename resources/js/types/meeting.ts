@@ -8,6 +8,7 @@ export interface Meeting {
     duration?: string;
     followup?: string;
     created_at?: string;
+    updated_at?: string;
 }
 
 export interface PaginatedMeetings {

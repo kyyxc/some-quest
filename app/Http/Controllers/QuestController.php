@@ -14,15 +14,20 @@ class QuestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $quests = Quest::with(['meeting_minutes', 'pic:id,full_name,nickname'])
-            ->orderBy('updated_at', 'asc')
-            ->get();
+        $viewMode = $request->query('view', 'card');
 
+        $query = Quest::with(['meeting_minutes', 'pic:id,full_name,nickname'])
+            ->orderBy('updated_at', 'asc');
+
+        $quests = $viewMode === 'table'
+            ? $query->paginate(5)
+            : $query->get();
 
         return Inertia::render('Panel/quest/ManageQuest', [
             'quests' => $quests,
+            'viewMode' => $viewMode,
         ]);
     }
 

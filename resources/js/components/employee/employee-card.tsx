@@ -3,7 +3,7 @@ import { AlertTriangle, Shield, Star } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { Card, CardContent } from '../ui/card';
 import { EmployeeDetailModal } from './employee-detail';
-import { EditEmployeeDialog } from './edit-employee-dialog';
+import { EmployeeFormDialog } from './form-employee-dialog';
 
 export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => {
     return (
@@ -64,9 +64,9 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
                 </div>
 
                 <div className="mt-4 flex justify-between space-x-2">
-                    <EmployeeDetailModal employee={employee} view='card'></EmployeeDetailModal>
+                    <EmployeeDetailModal employee={employee} view="card"></EmployeeDetailModal>
 
-                    <EditEmployeeDialog employee={employee} view="card" />
+                    <EmployeeFormDialog employee={employee} view="card" mode="edit"></EmployeeFormDialog>
                 </div>
             </CardContent>
         </Card>

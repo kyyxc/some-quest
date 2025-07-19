@@ -6,42 +6,13 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import AdminLayout from '@/pages/admin';
+import { FormDataType, QuestProps } from '@/types/quest';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import React from 'react';
 
-interface PicOption {
-    id: number;
-    full_name: string;
-    nickname: string;
-}
-
-interface MoMOption {
-    id: number;
-    title: string;
-}
-
-interface QuestProps {
-    initialData?: {
-        title: string;
-        description: string;
-        pic_id: number;
-        status: string;
-        meeting_id: number | null;
-    };
-    pics: PicOption[];
-    moms: MoMOption[];
-    onSubmit: (form: ReturnType<typeof useForm>) => void;
-}
-
 export default function QuestsForm({ initialData, pics, moms, onSubmit }: QuestProps) {
-    const form = useForm<{
-        title: string;
-        description: string;
-        pic_id: number;
-        status: string;
-        meeting_id: number | null;
-    }>({
+    const form = useForm<FormDataType>({
         title: initialData?.title || '',
         description: initialData?.description || '',
         pic_id: initialData?.pic_id || 0,
@@ -54,9 +25,8 @@ export default function QuestsForm({ initialData, pics, moms, onSubmit }: QuestP
         e.preventDefault();
         console.log(data);
 
-        onSubmit(form); // ✅ Kirim seluruh `form`
+        onSubmit(form);
     };
-    // const { pics, moms } = usePage().props as unknown as CreateQuestProps;
 
     return (
         <div className="">
@@ -64,13 +34,13 @@ export default function QuestsForm({ initialData, pics, moms, onSubmit }: QuestP
                 <button
                     onClick={() => history.back()}
                     type="button"
-                    className="flex items-center gap-2 mb-2 text-sm font-medium text-gray-600 hover:underline"
+                    className="mb-2 flex items-center gap-2 rounded-sm px-3 py-2 text-sm font-medium text-gray-800 hover:bg-blue-100 hover:text-blue-900"
                 >
-                    <ArrowLeft className="h-4 w-4" />
+                    <ArrowLeft className="mr-2 h-4 w-4" />
                     Back to Quests
                 </button>
 
-                <h1 className="text-2xl font-bold mb-4">Create New Quest</h1>
+                <h1 className="mb-4 text-2xl font-bold">Create New Quest</h1>
             </div>
 
             <form onSubmit={handleSubmit} className="w-full space-y-6 rounded-xl bg-white p-6 text-gray-800 shadow">

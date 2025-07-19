@@ -1,13 +1,14 @@
-import { Quest } from '@/pages/Panel/quest/ManageQuest';
+import { PaginatedQuests, Quest } from '@/types/quest';
+import { limitChars } from '@/utils/limit-words';
 import { Link, router, useForm } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import { CircleDot, Dot, Eye, Pencil, Trash2, User } from 'lucide-react';
 import { toast } from 'sonner';
 import { ConfirmDialog } from '../confirm-dialog';
+import Pagination from '../pagination';
 import { Button } from '../ui/button';
-import { limitChars } from '@/utils/limit-words';
 
-const QuestTable: React.FC<{ quests: Quest[] }> = ({ quests }) => {
+const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card' }> = ({ quests, viewMode }) => {
     const { delete: destroy } = useForm();
 
     const handleDelete = (quest: Quest) => {
@@ -39,7 +40,7 @@ const QuestTable: React.FC<{ quests: Quest[] }> = ({ quests }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {quests.map((quest, idx) => (
+                    {quests.data.map((quest, idx) => (
                         <tr key={idx} className="hover:bg-white">
                             <td className="px-4 py-2 font-medium">
                                 <div className="flex flex-col">
@@ -127,6 +128,8 @@ const QuestTable: React.FC<{ quests: Quest[] }> = ({ quests }) => {
                     ))}
                 </tbody>
             </table>
+
+            {viewMode === 'table' && <Pagination links={quests.links} viewMode="table" />}
         </div>
     );
 };

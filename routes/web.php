@@ -25,7 +25,7 @@ Route::put('/employees/{employee:id}', [EmployeeController::class, 'update'])->n
 Route::delete('/employees/{employee:id}', [EmployeeController::class, 'destroy'])->name('deleteEmployees');
 
 // Quest routes
-Route::get('/dashboard/quests', [QuestController::class, 'index'])->name('quests');
+Route::get('/dashboard/quests', [QuestController::class, 'index'])->name('quests.index');
 Route::get('/quests/create', [QuestController::class, 'create'])->name('quests.create');
 Route::post('/quests', [QuestController::class, 'store'])->name('quests.store');
 Route::get('/quests/{quest}', [QuestController::class, 'show']);

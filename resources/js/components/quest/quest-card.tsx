@@ -1,4 +1,4 @@
-import { Quest } from '@/pages/Panel/quest/ManageQuest';
+import { Quest } from '@/types/quest';
 import { useDraggable } from '@dnd-kit/core';
 import { Link, useForm } from '@inertiajs/react';
 import dayjs from 'dayjs';

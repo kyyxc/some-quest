@@ -1,5 +1,6 @@
 import { Meeting } from '@/types/meeting';
 import { router } from '@inertiajs/react';
+import dayjs from 'dayjs';
 import parse from 'html-react-parser';
 import { Calendar, Edit, Eye, FileText, SquareCheckBig, UsersRound } from 'lucide-react';
 import { Badge } from '../ui/badge';
@@ -21,13 +22,7 @@ const MeetingCard = ({ data }: { data: Meeting }) => {
                 <div className="mt-3 flex items-center gap-2 text-sm text-neutral-700">
                     <Calendar className="h-4 w-4 text-green-600" />
                     <span className="font-medium">Meeting Date:</span>
-                    <span>
-                        {new Date(data.date).toLocaleDateString('en-EN', {
-                            day: 'numeric',
-                            month: 'long',
-                            year: 'numeric',
-                        })}
-                    </span>
+                    <span>{dayjs(data.date).format('MMM DD YYYY')}</span>
                 </div>
 
                 <div className="mt-2 text-sm text-neutral-700">
@@ -79,14 +74,7 @@ const MeetingCard = ({ data }: { data: Meeting }) => {
                     </div>
                 )}
 
-                <p className="mt-4 text-xs text-muted-foreground">
-                    Created{' '}
-                    {new Date(data.created_at).toLocaleDateString('en-EN', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                    })}
-                </p>
+                <p className="mt-4 text-xs text-muted-foreground">Created {dayjs(data.created_at).format('MMM DD YYYY')}</p>
             </div>
 
             <div className="mt-4 flex justify-between space-x-2">

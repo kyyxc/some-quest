@@ -4,40 +4,45 @@ import KanbanBoard from '@/components/quest/kanban';
 import QuestTable from '@/components/quest/quest-table';
 import { Button } from '@/components/ui/button';
 import useQuestStore from '@/stores/questStore';
-import { Link, usePage } from '@inertiajs/react';
-import { LayoutGrid, List, Plus } from 'lucide-react';
+import { Link, router, usePage } from '@inertiajs/react';
+import { LayoutGrid, List, LoaderCircle, Plus } from 'lucide-react';
 import React, { useState } from 'react';
 import AdminLayout from '../../admin';
+import { PaginatedQuests, Quest, QuestPageProps } from '@/types/quest';
 
-export interface Quest {
-    id: number;
-    title: string;
-    description: string;
-    status: 'new' | 'ready' | 'on_progress' | 'done';
-    created_at: string;
-    updated_at: string;
-    pic: Pic;
-}
-
-interface Pic {
-    full_name: string;
-    name: string;
-}
-
-export interface PageProps {
-    quests: Quest[];
+function isPaginated(data: Quest[] | PaginatedQuests): data is PaginatedQuests {
+    return (data as PaginatedQuests).data !== undefined;
 }
 
 function ManageQuest() {
-    const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
-    const { quests } = usePage().props as unknown as PageProps;
+    const { quests, viewMode: viewModeFromProps } = usePage().props as unknown as QuestPageProps;
+    const [viewMode, setViewMode] = useState<'card' | 'table'>(viewModeFromProps);
+    const [isLoading, setIsLoading] = useState(false);
+
     const { initializeData } = useQuestStore();
 
+    const questList = viewMode === 'card' ? (isPaginated(quests) ? quests.data : quests) : isPaginated(quests) ? quests.data : quests;
+
+    const totalQuests = isPaginated(quests) ? quests.total : quests.length;
+
+    const handleChangeView = (mode: 'card' | 'table') => {
+        setIsLoading(true);
+        if (mode !== viewMode) {
+            setViewMode(mode);
+            router.visit(route('quests.index', { view: mode }), {
+                preserveScroll: true,
+                preserveState: true,
+                onFinish: () => {
+                    setIsLoading(false);
+                    setViewMode(mode);
+                },
+            });
+        }
+    };
+
     React.useEffect(() => {
-        initializeData({
-            quests: quests,
-        });
-    }, [quests]);
+        initializeData({ quests: questList });
+    }, [quests, viewMode]);
 
     return (
         <div className="">
@@ -52,7 +57,7 @@ function ManageQuest() {
                         <span>View:</span>
                         <div className="flex rounded-sm bg-gray-100 p-1 ring-1 ring-gray-300">
                             <button
-                                onClick={() => setViewMode('card')}
+                                onClick={() => handleChangeView('card')}
                                 className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${
                                     viewMode === 'card' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
                                 }`}
@@ -61,7 +66,7 @@ function ManageQuest() {
                                 Cards
                             </button>
                             <button
-                                onClick={() => setViewMode('table')}
+                                onClick={() => handleChangeView('table')}
                                 className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${
                                     viewMode === 'table' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
                                 }`}
@@ -80,8 +85,31 @@ function ManageQuest() {
                 </div>
             </div>
 
-            <h1 className="mb-4 text-xl font-semibold">All Quests ({quests.length})</h1>
-            {viewMode === 'card' ? <KanbanBoard quests={quests} /> : <QuestTable quests={quests} />}
+            <h1 className="mb-4 text-xl font-semibold">All Quests ({totalQuests})</h1>
+
+            {isLoading ? (
+                <div className="flex justify-center py-12">
+                    <LoaderCircle className="h-6 w-6 animate-spin text-blue-500" />
+                </div>
+            ) : viewMode === 'card' ? (
+                <KanbanBoard quests={questList} />
+            ) : (
+                <QuestTable
+                    quests={
+                        isPaginated(quests)
+                            ? quests
+                            : {
+                                  data: quests,
+                                  current_page: 1,
+                                  last_page: 1,
+                                  per_page: quests.length,
+                                  total: quests.length,
+                                  links: [],
+                              }
+                    }
+                    viewMode="table"
+                />
+            )}
         </div>
     );
 }

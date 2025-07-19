@@ -1,4 +1,4 @@
-import { Quest } from '@/pages/Panel/quest/ManageQuest';
+import { Quest } from '@/types/quest';
 import { useDroppable } from '@dnd-kit/core';
 import QuestCard from './quest-card';
 
@@ -14,11 +14,7 @@ const Column: React.FC<ColumnProps> = ({ title, id, quests }) => {
     return (
         <div>
             <div
-                className={`mb-2 flex flex-col justify-center rounded-md border-2 p-2 px-4 py-3 
-                  ${title === 'New' ? 'border-gray-300 bg-gray-50' : ''}
-                   ${title === 'Ready' ? 'border-yellow-300 bg-yellow-50' : ''} 
-                   ${title === 'On Progress' ? 'border-blue-300 bg-blue-50' : ''} 
-                   ${title === 'Done' ? 'border-green-300 bg-green-50' : ''}`}
+                className={`mb-2 flex flex-col justify-center rounded-md border-2 p-2 px-4 py-3 ${title === 'New' ? 'border-gray-300 bg-gray-50' : ''} ${title === 'Ready' ? 'border-yellow-300 bg-yellow-50' : ''} ${title === 'On Progress' ? 'border-blue-300 bg-blue-50' : ''} ${title === 'Done' ? 'border-green-300 bg-green-50' : ''}`}
             >
                 <div className="mb-2 flex justify-between text-[13px] font-semibold">
                     <span> {title}</span>

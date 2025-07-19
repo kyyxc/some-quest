@@ -1,7 +1,7 @@
-// ManageEmployees.tsx
-import { AddEmployeeDialog } from '@/components/employee/add-employee-dialog';
+
 import { EmployeePage } from '@/components/employee/employee-card-page';
 import EmployeeTable from '@/components/employee/employee-table';
+import { EmployeeFormDialog } from '@/components/employee/form-employee-dialog';
 import Pagination from '@/components/pagination';
 import useEmployeeStore from '@/stores/employeeStore';
 import { EmployeePageProps } from '@/types/Employee';
@@ -65,7 +65,7 @@ function ManageEmployees() {
                             </button>
                         </div>
                     </div>
-                    <AddEmployeeDialog />
+                    <EmployeeFormDialog mode="create"></EmployeeFormDialog>
                 </div>
             </div>
             <h2 className="text-xl font-bold">All Employees ({employees.total})</h2>

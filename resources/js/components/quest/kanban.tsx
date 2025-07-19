@@ -1,4 +1,4 @@
-import { Quest } from '@/pages/Panel/quest/ManageQuest';
+import { Quest } from '@/types/quest';
 import { closestCenter, DndContext } from '@dnd-kit/core';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';

@@ -5,8 +5,8 @@ import { toast } from 'sonner';
 import { ConfirmDialog } from '../confirm-dialog';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
-import { EditEmployeeDialog } from './edit-employee-dialog';
 import { EmployeeDetailModal } from './employee-detail';
+import { EmployeeFormDialog } from './form-employee-dialog';
 
 const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
     const { delete: destroy } = useForm();
@@ -59,7 +59,7 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                             </td>
                             <td className="flex justify-center gap-2 px-4 py-2">
                                 <EmployeeDetailModal employee={employee} view="table"></EmployeeDetailModal>
-                                <EditEmployeeDialog employee={employee} view="table" />
+                                <EmployeeFormDialog employee={employee} view="table" mode="edit"></EmployeeFormDialog>
                                 <ConfirmDialog
                                     title="Delete Employee"
                                     description={`Are you sure you want to delete ${employee.full_name}? This action cannot be undone.`}
