@@ -1,4 +1,4 @@
-import { Quest } from '@/pages/Panel/quest/ManageQuest';
+import { Quest } from '@/types/quest';
 import { create } from 'zustand';
 
 interface QuestStore {

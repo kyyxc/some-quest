@@ -1,11 +1,13 @@
+import { Meeting } from '@/types/meeting';
 import { router } from '@inertiajs/react';
+import dayjs from 'dayjs';
 import { Eye, Pencil, Trash2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { ConfirmDialog } from '../confirm-dialog';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
-import { ConfirmDialog } from '../confirm-dialog';
-import { toast } from 'sonner';
 
-const MeetingTable: React.FC<{ data: any[] }> = ({ data }) => {
+const MeetingTable: React.FC<{ data: Meeting[] }> = ({ data }) => {
     return (
         <div className="rounded-xl bg-white p-4 shadow-sm">
             <table className="w-full text-left text-sm text-gray-800">
@@ -22,29 +24,15 @@ const MeetingTable: React.FC<{ data: any[] }> = ({ data }) => {
                     {data.map((meeting, idx) => (
                         <tr key={idx} className="hover:bg-white">
                             <td className="px-4 py-2 font-medium text-gray-800">{meeting.title}</td>
-                            <td className="px-4 py-2 text-gray-800">
-                                {new Date(meeting.date).toLocaleDateString('en-EN', {
-                                    day: 'numeric',
-                                    month: 'long',
-                                    year: 'numeric',
-                                })}
-                            </td>
+                            <td className="px-4 py-2 text-gray-800">{dayjs(meeting.date).format('MMM DD, YYYY')}</td>
                             <td className="space-x-1 px-4 py-2">
-                                {(Array.isArray(meeting.attendees) ? meeting.attendees : meeting.attendees?.split(','))?.map(
-                                    (name: string, i: number) => (
-                                        <Badge key={i} variant="outline" className="rounded-sm border border-gray-200 text-gray-800">
-                                            {name.trim()}
-                                        </Badge>
-                                    ),
-                                )}
+                                {meeting.attendees.map((attandance, i) => (
+                                    <Badge key={i} variant="outline" className="rounded-sm border border-gray-200 text-gray-800">
+                                        {attandance.full_name}
+                                    </Badge>
+                                ))}
                             </td>
-                            <td className="px-4 py-2 text-gray-800">
-                                {new Date(meeting.created_at).toLocaleDateString('en-EN', {
-                                    day: 'numeric',
-                                    month: 'long',
-                                    year: 'numeric',
-                                })}
-                            </td>
+                            <td className="px-4 py-2 text-gray-800">{dayjs(meeting.created_at).format('MMM DD, YYYY')}</td>
                             <td className="flex justify-center gap-2 px-4 py-2">
                                 <Button
                                     onClick={() => router.visit(`/dashboard/meeting/view/${meeting.id}`)}

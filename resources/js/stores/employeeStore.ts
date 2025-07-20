@@ -1,5 +1,4 @@
-// store.ts
-import { Employee } from '@/types/Employee';
+import { Employee } from '@/types/employee';
 import { create } from 'zustand';
 
 export interface Option {

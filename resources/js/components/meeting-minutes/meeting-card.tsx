@@ -33,7 +33,7 @@ const MeetingCard = ({ data }: { data: Meeting }) => {
                     <div className="mb-1 flex items-center gap-2">
                         <UsersRound className="h-4 w-4 text-purple-700" />
                         <span className="font-medium">
-                            Attendees ({Array.isArray(data.attendees) ? data.attendees.length : data.attendees?.split(',').length || 0}):
+                            Attendees ({data.attendees.length}):
                         </span>
                     </div>
                     {data.attendees.map((attandance, i) => (
