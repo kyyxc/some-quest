@@ -48,7 +48,9 @@ function ManageQuest() {
         <div className="mx-auto max-w-7xl space-y-6 px-4 text-gray-800">
             <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold">Quests & Tasks Management</h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-gray-800">
+                        Quests & Tasks Management
+                    </h1>
                     <p className="text-muted-foreground">Manage quests and their associated tasks</p>
                 </div>
 
@@ -58,7 +60,9 @@ function ManageQuest() {
                         <div className="flex rounded-sm bg-gray-100 p-1 ring-1 ring-gray-300">
                             <button
                                 onClick={() => handleChangeView('card')}
-                                className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${viewMode === 'card' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
+                                className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${viewMode === 'card'
+                                        ? 'bg-blue-500 text-white'
+                                        : 'text-black hover:bg-gray-200'
                                     }`}
                             >
                                 <LayoutGrid className="h-4 w-4" />
@@ -66,7 +70,9 @@ function ManageQuest() {
                             </button>
                             <button
                                 onClick={() => handleChangeView('table')}
-                                className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${viewMode === 'table' ? 'bg-blue-500 text-white' : 'text-black hover:bg-gray-200'
+                                className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${viewMode === 'table'
+                                        ? 'bg-blue-500 text-white'
+                                        : 'text-black hover:bg-gray-200'
                                     }`}
                             >
                                 <List className="h-4 w-4" />
@@ -83,7 +89,12 @@ function ManageQuest() {
                 </div>
             </div>
 
-            <h1 className="mb-4 text-xl font-semibold">All Quests ({totalQuests})</h1>
+            <h1 className="text-xl font-semibold text-gray-800">
+                Quest History{' '}
+                <span className="text-sm font-medium text-muted-foreground">
+                    ({totalQuests} quests)
+                </span>
+            </h1>
 
             {isLoading ? (
                 <div className="flex justify-center py-12">
