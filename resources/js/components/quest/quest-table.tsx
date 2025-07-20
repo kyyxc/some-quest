@@ -76,12 +76,12 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                             </td>
                             <td className="flex justify-center gap-2 px-4 py-2">
                                 <div className="flex items-center justify-center gap-2">
-                                    <Link href={`/quests/${quest.id}`}>
+                                    <Link href={`/dashbaord/quests/${quest.id}`}>
                                         <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
                                             <Eye className="h-4 w-4 text-gray-800" />
                                         </Button>
                                     </Link>
-                                    <Link href={`/quests/${quest.id}/edit`}>
+                                    <Link href={`/dashboard/quests/${quest.id}/edit`}>
                                         <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
                                             <Pencil className="h-4 w-4 text-gray-800" />
                                         </Button>
@@ -90,7 +90,7 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                                         title="Delete Quest"
                                         description={`Are you sure you want to delete ${quest.title}? This action cannot be undone.`}
                                         onConfirm={() => {
-                                            router.delete(`/quest/${quest.id}`, {
+                                            router.delete(`/dashboard/quest/${quest.id}`, {
                                                 onSuccess: () => {
                                                     toast.success('Quest deleted successfully');
                                                 },

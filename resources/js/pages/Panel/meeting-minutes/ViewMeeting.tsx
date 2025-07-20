@@ -1,5 +1,6 @@
 'use client';
 
+import { ConfirmDialog } from '@/components/confirm-dialog';
 import { Button } from '@/components/ui/button';
 import { Meeting } from '@/types/meeting';
 import { router, usePage } from '@inertiajs/react';
@@ -7,9 +8,8 @@ import dayjs from 'dayjs';
 import parse from 'html-react-parser';
 import { ArrowLeft, Calendar, Edit, FileText, SquareCheckBig, Trash2, UsersRound } from 'lucide-react';
 import React from 'react';
-import AdminLayout from '../../admin';
 import { toast } from 'sonner';
-import { ConfirmDialog } from '@/components/confirm-dialog';
+import AdminLayout from '../../admin';
 
 function ViewMeeting() {
     const { meeting } = usePage().props as unknown as { meeting: Meeting };
@@ -54,9 +54,7 @@ function ViewMeeting() {
                             });
                         }}
                     >
-                        <Button
-                            className="rounded-md bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700"
-                        >
+                        <Button className="rounded-md bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700">
                             <Trash2 className="mr-1 h-4 w-4" />
                             Delete
                         </Button>
@@ -101,12 +99,12 @@ function ViewMeeting() {
                 <div>
                     <p className="mb-2 flex items-center gap-1 text-sm text-muted-foreground">
                         <UsersRound className="h-4 w-4 text-purple-700" />
-                        Attendees ({Array.isArray(meeting.attendees) ? meeting.attendees.length : meeting.attendees?.split(',').length || 0})
+                        Attendees ({meeting.attendees.length})
                     </p>
                     <div className="flex flex-wrap gap-2">
-                        {(Array.isArray(meeting.attendees) ? meeting.attendees : meeting.attendees?.split(','))?.map((name: string, i: number) => (
+                        {meeting.attendees.map((attandance, i) => (
                             <span key={i} className="rounded border border-gray-300 px-3 py-1 text-sm text-gray-800">
-                                {name.trim()}
+                                {attandance.full_name.trim()}
                             </span>
                         ))}
                     </div>
@@ -131,8 +129,9 @@ function ViewMeeting() {
                     Meeting Content
                 </div>
                 <div
-                    className={`min-h-[150px] rounded border border-gray-200 bg-gray-50 p-4 text-sm whitespace-pre-line text-gray-800 ${!(typeof meeting.notes === 'string' && meeting.notes.trim()) && 'text-lg text-muted-foreground italic'
-                        }`}
+                    className={`min-h-[150px] rounded border border-gray-200 bg-gray-50 p-4 text-sm whitespace-pre-line text-gray-800 ${
+                        !(typeof meeting.notes === 'string' && meeting.notes.trim()) && 'text-lg text-muted-foreground italic'
+                    }`}
                 >
                     {typeof meeting.notes === 'string' && meeting.notes.trim() ? parse(meeting.notes) : <span>No notes</span>}
                 </div>

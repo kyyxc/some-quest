@@ -23,8 +23,6 @@ export default function QuestsForm({ initialData, pics, moms, onSubmit }: QuestP
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(data);
-
         onSubmit(form);
     };
 

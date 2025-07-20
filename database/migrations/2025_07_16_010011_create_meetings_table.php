@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date('date')->nullable()->default(Carbon::now());
             $table->string('location', 100)->nullable()->default('location');
             $table->string('duration', 100)->nullable()->default('duration');
-            $table->json('attendees')->nullable();
             $table->text('notes')->nullable()->default('notes');
             $table->text('followup')->nullable()->default('followup');
             $table->timestamps();

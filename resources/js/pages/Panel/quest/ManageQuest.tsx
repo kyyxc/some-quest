@@ -80,7 +80,7 @@ function ManageQuest() {
                             </button>
                         </div>
                     </div>
-                    <Link href="/quests/create">
+                    <Link href="/dashboard/quests/create">
                         <Button className="rounded-sm bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-700">
                             <Plus className="mr-1 h-4 w-4" />
                             Create Quest

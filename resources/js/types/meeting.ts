@@ -1,14 +1,22 @@
+import { Option } from '@/stores/employeeStore';
+
 export interface Meeting {
     id?: number;
     title: string;
     notes?: string;
     date: string;
-    attendees: string[] | string;
+    attendees: Atendance[];
     location?: string;
     duration?: string;
     followup?: string;
     created_at?: string;
     updated_at?: string;
+}
+
+export interface Atendance {
+    id: number;
+    full_name: string;
+    nickname: string
 }
 
 export interface PaginatedMeetings {

@@ -42,12 +42,12 @@ const QuestCard: React.FC<Props> = ({ quest, columnId }) => {
                 </div>
             </div>
             <div className="mt-2 flex justify-between px-1.5 text-sm text-gray-800">
-                <Link href={`/quests/${quest.id}`}>
+                <Link href={`/dashboard/quests/${quest.id}`}>
                     <button className="flex items-center gap-1 rounded-[4px] px-2.5 hover:bg-blue-100">
                         <Eye className="h-4 w-4" /> View
                     </button>
                 </Link>
-                <Link href={`/quests/${quest.id}/edit`}>
+                <Link href={`/dashboard/quests/${quest.id}/edit`}>
                     <button className="flex items-center gap-1 rounded-[4px] px-2.5 hover:bg-blue-100">
                         <Edit className="h-4 w-4" /> Edit
                     </button>

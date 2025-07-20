@@ -47,7 +47,7 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                                     title="Delete Employee"
                                     description={`Are you sure you want to delete ${employee.full_name}? This action cannot be undone.`}
                                     onConfirm={() => {
-                                        router.delete(`/employees/${employee.id}`, {
+                                        router.delete(`/dashboard/employees/${employee.id}`, {
                                             onSuccess: () => {
                                                 toast.success('Employee deleted successfully');
                                             },

@@ -22,4 +22,9 @@ class Meeting extends Model
     protected $casts = [
         'attendees' => 'array',
     ];
+
+    public function attendees()
+    {
+        return $this->BelongsToMany(Employee::class, 'meeting_attandance', 'meeting_id', 'attandance_id');
+    }
 }

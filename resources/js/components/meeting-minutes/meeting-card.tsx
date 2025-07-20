@@ -16,7 +16,11 @@ const MeetingCard = ({ data }: { data: Meeting }) => {
                 </h3>
 
                 <div className="line-clamp-3 text-sm text-muted-foreground">
-                    {typeof data.notes === 'string' && data.notes.trim() ? parse(data.notes) : <span className="text-muted-foreground italic">No notes</span>}
+                    {typeof data.notes === 'string' && data.notes.trim() ? (
+                        parse(data.notes)
+                    ) : (
+                        <span className="text-muted-foreground italic">No notes</span>
+                    )}
                 </div>
 
                 <div className="mt-3 flex items-center gap-2 text-sm text-gray-800">
@@ -32,9 +36,9 @@ const MeetingCard = ({ data }: { data: Meeting }) => {
                             Attendees ({Array.isArray(data.attendees) ? data.attendees.length : data.attendees?.split(',').length || 0}):
                         </span>
                     </div>
-                    {(Array.isArray(data.attendees) ? data.attendees : data.attendees?.split(','))?.map((name: string, i: number) => (
+                    {data.attendees.map((attandance, i) => (
                         <Badge key={i} variant="outline" className="rounded-sm border border-gray-200 text-gray-800">
-                            {name.trim()}
+                            {attandance.full_name.trim()}
                         </Badge>
                     ))}
                 </div>

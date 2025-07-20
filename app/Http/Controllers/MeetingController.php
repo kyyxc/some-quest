@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Meeting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,7 +14,7 @@ class MeetingController extends Controller
         $view = $request->query('view', 'card');
         $page = $request->query('page', 1);
 
-        $meetings = Meeting::latest()->paginate(6, ['*'], 'page', $page);
+        $meetings = Meeting::with(['attendees'])->latest()->paginate(6, ['*'], 'page', $page);
 
         return Inertia::render('Panel/meeting-minutes/ManageMeeting', [
             'meetings' => $meetings,
@@ -24,7 +25,9 @@ class MeetingController extends Controller
 
     public function create()
     {
-        return Inertia::render('Panel/meeting-minutes/FormMeeting');
+        return Inertia::render('Panel/meeting-minutes/FormMeeting', [
+            'employees' => Employee::all(),
+        ]);
     }
 
     public function store(Request $request)
@@ -35,19 +38,28 @@ class MeetingController extends Controller
             'location' => 'nullable|string|max:100',
             'duration' => 'nullable|string|max:100',
             'attendees' => 'required|array',
-            'attendees.*' => 'string|max:100',
+            'attendees.*' => 'numeric',
             'notes' => 'required|string',
             'followup' => 'nullable|string',
         ]);
 
-        Meeting::create($data);
+        $meeting = Meeting::create([
+            'title' => $data['title'],
+            'date' => $data['date'],
+            'location' => $data['location'],
+            'duration' => $data['duration'],
+            'notes' => $data['notes'],
+            'followup' => $data['followup'],
+        ]);
+
+        $meeting->attendees()->attach($data['attendees']);
 
         return redirect()->back()->with('success', 'Meeting created successfully.');
     }
 
     public function show($id)
     {
-        $meeting = Meeting::findOrFail($id);
+        $meeting = Meeting::with('attendees')->findOrFail($id);
 
         return Inertia::render('Panel/meeting-minutes/ViewMeeting', [
             'meeting' => $meeting,
@@ -56,10 +68,11 @@ class MeetingController extends Controller
 
     public function edit($id)
     {
-        $meeting = Meeting::findOrFail($id);
+        $meeting = Meeting::with('attendees')->findOrFail($id);
 
         return Inertia::render('Panel/meeting-minutes/FormMeeting', [
             'meeting' => $meeting,
+            'employees' => Employee::all(),
         ]);
     }
 
@@ -73,12 +86,21 @@ class MeetingController extends Controller
             'location' => 'nullable|string|max:100',
             'duration' => 'nullable|string|max:100',
             'attendees' => 'required|array',
-            'attendees.*' => 'string|max:100',
+            'attendees.*' => 'numeric',
             'notes' => 'required|string',
             'followup' => 'nullable|string',
         ]);
 
-        $meeting->update($data);
+        $meeting->update([
+            'title' => $data['title'],
+            'date' => $data['date'],
+            'location' => $data['location'],
+            'duration' => $data['duration'],
+            'notes' => $data['notes'],
+            'followup' => $data['followup'],
+        ]);
+
+        $meeting->attendees()->sync($data['attendees']);
 
         return redirect()->back()->with('success', 'Meeting updated successfully.');
     }

@@ -40,4 +40,10 @@ class Employee extends Model
     {
         return $this->hasMany(Quest::class, 'pic_id');
     }
+
+
+    public function attendees(): BelongsToMany
+    {
+        return $this->BelongsToMany(Meeting::class, 'meeting_attandance', 'attandance_id', 'meeting_id');
+    }
 }

@@ -51,7 +51,7 @@ const KanbanBoard = ({ quests }: { quests: Quest[] }) => {
         });
 
         router.put(
-            `/quests/${item.id}/status`,
+            `/dashboard/quests/${item.id}/status`,
             { status: destinationId },
             {
                 replace: false,

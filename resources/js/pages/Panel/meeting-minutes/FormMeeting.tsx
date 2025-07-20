@@ -1,26 +1,36 @@
 'use client';
 
 import TipTapEditor from '@/components/TipTapEditor';
+import { MultiSelect } from '@/components/ui/multiselect';
 import useMeetingStore from '@/stores/meetingStore';
-import { Meeting, MeetingPageProps } from '@/types/meeting';
+import { Employee } from '@/types/Employee';
+import { Atendance, Meeting, MeetingPageProps } from '@/types/meeting';
 import { Button } from '@headlessui/react';
 import { router, usePage } from '@inertiajs/react';
 import { ArrowLeft, Calendar, FileText, Save, SquareCheckBig, Users } from 'lucide-react';
-import React, { useEffect } from 'react';
-import ReactSelect from 'react-select';
+import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../admin';
 
 interface FormMeetingPageProps extends MeetingPageProps {
     meeting?: Meeting;
     errors: Record<string, string>;
+    employees: Employee[];
 
     [key: string]: any;
 }
 
 function FormMeeting() {
     const { title, date, location, duration, hours, minutes, attendees, notes, followup, setField, resetForm } = useMeetingStore();
+    const [openId, setOpenId] = useState<string | null>(null);
+    const { errors, meeting, employees } = usePage<FormMeetingPageProps>().props;
+    const attendenceOptions = employees.map((employee: Employee) => ({
+        label: `${employee.full_name} (${employee.nickname})`,
+        value: employee.id,
+    }));
 
-    const { errors, meeting } = usePage<FormMeetingPageProps>().props;
+    useEffect(() => {
+        console.log(meeting);
+    }, [meeting]);
 
     useEffect(() => {
         if (meeting) {
@@ -28,7 +38,7 @@ function FormMeeting() {
             setField('date', meeting.date);
             setField('location', meeting.location || '');
             setField('duration', meeting.duration || '');
-            setField('attendees', Array.isArray(meeting.attendees) ? meeting.attendees : meeting.attendees?.split(',') || []);
+            setField('attendees', Array.isArray(meeting.attendees) ? meeting.attendees.map((a: Atendance) => a.id) : []);
             setField('notes', meeting.notes || '');
             setField('followup', meeting.followup || '');
         }
@@ -69,12 +79,12 @@ function FormMeeting() {
         }
     };
 
-    const attendeeOptions = [
-        { label: 'Alice Johnson (Ali)', value: 'Alice Johnson' },
-        { label: 'Bob Smith (Bobby)', value: 'Bob Smith' },
-        { label: 'Charlie Brown (Chuck)', value: 'Charlie Brown' },
-        { label: 'Diana Prince', value: 'Diana Prince' },
-    ];
+    // const attendeeOptions = [
+    //     { label: 'Alice Johnson (Ali)', value: 1 },
+    //     { label: 'Bob Smith (Bobby)', value: 2 },
+    //     { label: 'Charlie Brown (Chuck)', value: 3 },
+    //     { label: 'Diana Prince', value: 4 },
+    // ];
 
     return (
         <div className="flex min-h-screen flex-col bg-gray-50">
@@ -180,7 +190,7 @@ function FormMeeting() {
                                         <Users className="mr-2 h-4 w-4 text-muted-foreground" />
                                         Attendees
                                     </label>
-                                    <ReactSelect
+                                    {/* <ReactSelect
                                         isMulti
                                         options={attendeeOptions}
                                         placeholder="Select attendees"
@@ -192,6 +202,15 @@ function FormMeeting() {
                                             )
                                         }
                                         classNamePrefix="react-select"
+                                    /> */}
+                                    <MultiSelect
+                                        id="attendance"
+                                        options={attendenceOptions}
+                                        values={attendees}
+                                        onChange={(selected) => setField('attendees', selected)}
+                                        placeholder="Select Attendees"
+                                        openId={openId}
+                                        setOpenId={setOpenId}
                                     />
                                     {errors.attendees && <p className="mt-1 text-sm text-red-700">{errors.attendees}</p>}
                                 </div>

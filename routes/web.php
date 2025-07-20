@@ -11,7 +11,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 });
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
 // Dashboard routes
@@ -20,19 +20,19 @@ Route::get('/dashboard', fn() => Inertia::render('Panel/dashboard/ManageDashboar
 
 // Employee routes
 Route::get('/dashboard/employees', [EmployeeController::class, 'index'])->name('employees');
-Route::post('/employees', [EmployeeController::class, 'store'])->name('storeEmployees');
-Route::put('/employees/{employee:id}', [EmployeeController::class, 'update'])->name('updateEmployees');
-Route::delete('/employees/{employee:id}', [EmployeeController::class, 'destroy'])->name('deleteEmployees');
+Route::post('/dashboard/employees', [EmployeeController::class, 'store'])->name('employees.store');
+Route::put('/dashboard/employees/{employee:id}', [EmployeeController::class, 'update'])->name('employees.update');
+Route::delete('/dashboard/employees/{employee:id}', [EmployeeController::class, 'destroy'])->name('employees.delete');
 
 // Quest routes
 Route::get('/dashboard/quests', [QuestController::class, 'index'])->name('quests.index');
-Route::get('/quests/create', [QuestController::class, 'create'])->name('quests.create');
-Route::post('/quests', [QuestController::class, 'store'])->name('quests.store');
-Route::get('/quests/{quest}', [QuestController::class, 'show']);
-Route::get('/quests/{quest}/edit', [QuestController::class, 'edit']);
-Route::put('/quests/{quest}', [QuestController::class, 'update']);
-Route::put('/quests/{quest:id}/status', [QuestController::class, 'update_status'])->name('updateQuestsStatus');
-Route::delete('/quests/{quest:id}', [QuestController::class, 'destroy'])->name('quests.delete');
+Route::get('/dashboard/quests/create', [QuestController::class, 'create'])->name('quests.create');
+Route::post('/dashboard/quests', [QuestController::class, 'store'])->name('quests.store');
+Route::get('/dashboard/quests/{quest}', [QuestController::class, 'show'])->name('quests.view');
+Route::get('/dashboard/quests/{quest}/edit', [QuestController::class, 'edit'])->name('quests.edit');
+Route::put('/dashboard/quests/{quest}', [QuestController::class, 'update'])->name('quests.update');
+Route::put('/dashboard/quests/{quest:id}/status', [QuestController::class, 'update_status'])->name('quests.updateStatus');
+Route::delete('/dashboard/quests/{quest:id}', [QuestController::class, 'destroy'])->name('quests.delete');
 
 // Meeting routes
 Route::get('/dashboard/meeting', [MeetingController::class, 'index'])->name('meeting');
@@ -50,7 +50,7 @@ Route::get('/dashboard/attendance', fn() => Inertia::render('Panel/attendance/Ma
 Route::middleware(['verified'])->group(function () {
     // Verified-only routes go here
 });
-// });
+});
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

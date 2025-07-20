@@ -34,13 +34,13 @@ export interface PaginatedQuests {
     }[];
 }
 
-interface PicOption {
+export interface PicOption {
     id: number;
     full_name: string;
     nickname: string;
 }
 
-interface MoMOption {
+export interface MoMOption {
     id: number;
     title: string;
 }
@@ -49,6 +49,7 @@ export type FormType = ReturnType<typeof useForm<FormDataType>>;
 
 export interface QuestProps {
     initialData?: {
+        id: number;
         title: string;
         description: string;
         pic_id: number;

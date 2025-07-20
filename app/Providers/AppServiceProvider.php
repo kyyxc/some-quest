@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
             ],
             'totalEmployees' => fn () => \App\Models\Employee::count(),
             'totalQuests' => fn () => \App\Models\Quest::count(),
+            'totalMeetings' => fn () => \App\Models\Meeting::count(),
         ]);
     }
 }

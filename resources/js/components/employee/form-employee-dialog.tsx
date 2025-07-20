@@ -34,7 +34,7 @@ export function EmployeeFormDialog({ mode, employee, view = 'table' }: EmployeeD
 
     const submit = () => {
         if (isCreate) {
-            post('/employees', {
+            post('/dashboard/employees', {
                 onSuccess: () => {
                     reset();
                     setOpen(false);
@@ -44,7 +44,7 @@ export function EmployeeFormDialog({ mode, employee, view = 'table' }: EmployeeD
                 },
             });
         } else if (employee) {
-            put(`/employees/${employee.id}`, {
+            put(`/dashboard/employees/${employee.id}`, {
                 onSuccess: () => {
                     reset();
                     setOpen(false);
