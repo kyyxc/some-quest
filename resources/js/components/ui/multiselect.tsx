@@ -2,7 +2,7 @@
 
 import { Command, CommandInput, CommandItem, CommandList } from 'cmdk';
 import { Check, ChevronDown, X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Option } from '../../stores/employeeStore';
 import { limitChars } from '@/utils/limit-words';
 
@@ -24,25 +24,31 @@ export function MultiSelect({
     setOpenId: (id: string | null) => void;
 }) {
     const [internalOpen, setInternalOpen] = useState(false);
-    const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setInternalOpen(openId === id);
     }, [openId, id]);
 
-    // Detect click outside
+    const containerRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-                setOpenId(null);
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+                setInternalOpen(false);
+                setOpenId('');
             }
         };
 
-        document.addEventListener('mousedown', handleClickOutside);
+        if (internalOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [setOpenId]);
+    }, [internalOpen]);
+
+
 
     const toggle = (val: number) => {
         if (values.includes(val)) {
@@ -61,7 +67,7 @@ export function MultiSelect({
     };
 
     return (
-        <div ref={wrapperRef} className="relative flex w-full flex-col items-center">
+        <div className="relative flex w-full flex-col items-center" ref={containerRef}>
             <div
                 className="flex w-full items-center justify-between rounded border border-gray-300 bg-white px-3 py-2 text-sm hover:bg-gray-50"
                 onClick={handleTriggerClick}
