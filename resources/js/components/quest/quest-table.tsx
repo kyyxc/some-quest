@@ -28,7 +28,7 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                                 <div className="flex flex-col">
                                     <div className="flex items-start gap-2 font-medium text-gray-800">
                                         <CircleDot className="h-4 w-4 text-purple-600 mt-1 shrink-0" />
-                                        <div className="whitespace-normal break-words break-all max-w-xs">
+                                        <div className="whitespace-normal break-words break-all max-w-40">
                                             {quest.title}
                                         </div>
                                     </div>
@@ -37,10 +37,10 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                             <td className="space-x-1 px-4 py-2">
                                 <div className="flex items-center gap-2">
                                     <User className="h-4 w-4 text-blue-600" />
-                                    <span className="rounded border border-gray-300 px-2 py-0.5 text-sm text-gray-800 break-words max-w-[150px]">
+                                    <span className="rounded border border-gray-300 px-2 py-0.5 text-sm text-gray-800 break-words max-w-[140px]">
                                         {quest.pic.full_name}
                                     </span>
-                                </div>
+                                    </div>
                             </td>
 
                             <td className="px-4 py-2">
@@ -78,7 +78,7 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                                     {dayjs(quest.created_at).format('MMM DD YYYY')}
                                 </span>
                             </td>
-                            <td className="flex justify-center gap-2 px-4 py-2">
+                            <td className="gap-2 px-4 py-2">
                                 <div className="flex items-center justify-center gap-2">
                                     <Link href={`/dashboard/quests/${quest.id}`}>
                                         <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">

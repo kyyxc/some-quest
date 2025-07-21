@@ -29,14 +29,14 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                             <td className="px-4 py-2 font-medium text-gray-800">{limitChars(employee.nickname, 20)}</td>
                             <td className="space-x-1 px-4 py-2">
                                 {employee.archetypes.map((arc, i) => (
-                                    <Badge key={i} className="bg-gray-100 text-gray-800">
+                                    <Badge key={i} className="bg-gray-100 mr-1 mb-1.5 text-gray-800">
                                         {arc.name}
                                     </Badge>
                                 ))}
                             </td>
                             <td className="px-4 py-2">
                                 {employee.special_abilities.map((ability, i) => (
-                                    <Badge key={i} className="bg-gray-100 text-gray-800">
+                                    <Badge key={i} className="bg-gray-100 mr-1 mb-1.5 text-gray-800">
                                         {ability.name}
                                     </Badge>
                                 ))}

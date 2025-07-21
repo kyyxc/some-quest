@@ -86,14 +86,10 @@ function ViewMeeting() {
                             })}
                         </div>
                     </div>
-                    <div>
-                        <p className="mb-1 text-sm text-muted-foreground">Location</p>
-                        <p className="text-gray-800 break-words">
-                            {meeting.location
-                                ? meeting.location.length > 50
-                                    ? meeting.location.slice(0, 50) + '...'
-                                    : meeting.location
-                                : '-'}
+                    <div className='w-full max-w-[50%]'>
+                        <p className="mb-1 text-sm text-muted-foreground ">Location</p>
+                        <p className="text-gray-800 break-all">
+                            {meeting.location}
                         </p>
                     </div>
 

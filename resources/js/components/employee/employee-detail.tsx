@@ -32,11 +32,11 @@ export function EmployeeDetailModal({ employee, view }: { employee: Employee; vi
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <p className="text-sm font-semibold text-gray-800">Full Name</p>
-                            <p className="text-gray-800">{employee.full_name}</p>
+                            <p className="text-gray-800 break-all">{employee.full_name}</p>
                         </div>
                         <div>
                             <p className="text-sm font-semibold text-gray-800">Nickname</p>
-                            <p className="text-gray-800">{employee.nickname}</p>
+                            <p className="text-gray-800 break-all">{employee.nickname}</p>
                         </div>
                     </div>
 

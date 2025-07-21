@@ -34,7 +34,7 @@ const MeetingTable: React.FC<{ data: Meeting[] }> = ({ data }) => {
                                 ))}
                             </td>
                             <td className="px-4 py-2 text-gray-800">{dayjs(meeting.created_at).format('MMM DD, YYYY')}</td>
-                            <td className="flex justify-center gap-2 px-4 py-2">
+                            <td className="flex gap-2 px-4 py-2">
                                 <Button
                                     onClick={() => router.visit(`/dashboard/meeting/view/${meeting.id}`)}
                                     variant="default"

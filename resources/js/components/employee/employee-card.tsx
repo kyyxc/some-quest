@@ -15,7 +15,7 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
                         {employee.full_name[0]}
                     </div>
                     <div>
-                        <h2 className="text-md font-bold text-gray-800">{limitChars(employee.full_name, 20)}</h2>
+                        <h2 className="text-md font-bold text-gray-800 break-all max-w-[160px]">{employee.full_name}</h2>
                         <p className="text-xs text-muted-foreground">@{limitChars(employee.nickname, 20)}</p>
                     </div>
                 </div>
