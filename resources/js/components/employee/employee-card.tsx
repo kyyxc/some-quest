@@ -4,6 +4,7 @@ import { Badge } from '../ui/badge';
 import { Card, CardContent } from '../ui/card';
 import { EmployeeDetailModal } from './employee-detail';
 import { EmployeeFormDialog } from './form-employee-dialog';
+import { limitChars } from '@/utils/limit-words';
 
 export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => {
     return (
@@ -14,8 +15,8 @@ export const EmployeeCard: React.FC<{ employee: Employee }> = ({ employee }) => 
                         {employee.full_name[0]}
                     </div>
                     <div>
-                        <h2 className="text-md font-bold text-gray-800">{employee.full_name}</h2>
-                        <p className="text-xs text-muted-foreground">@{employee.nickname}</p>
+                        <h2 className="text-md font-bold text-gray-800">{limitChars(employee.full_name, 20)}</h2>
+                        <p className="text-xs text-muted-foreground">@{limitChars(employee.nickname, 20)}</p>
                     </div>
                 </div>
 

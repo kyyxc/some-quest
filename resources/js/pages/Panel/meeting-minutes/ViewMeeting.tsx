@@ -71,7 +71,9 @@ function ViewMeeting() {
 
                 <div>
                     <p className="text-sm text-muted-foreground">Meeting Title</p>
-                    <p className="text-2xl font-bold text-gray-800">{meeting.title}</p>
+                    <p className="text-2xl font-bold text-gray-800 line-clamp-2">
+                        {meeting.title}
+                    </p>
                 </div>
 
                 <div className="flex flex-wrap gap-10">
@@ -88,7 +90,12 @@ function ViewMeeting() {
                     </div>
                     <div>
                         <p className="mb-1 text-sm text-muted-foreground">Location</p>
-                        <p className="text-gray-800">{meeting.location || '-'}</p>
+                        <p className="text-gray-800">
+                            {(meeting.location
+                                ? meeting.location.split(' ').slice(0, 10).join(' ') +
+                                (meeting.location.split(' ').length > 10 ? '...' : '')
+                                : '-')}
+                        </p>
                     </div>
                     <div>
                         <p className="mb-1 text-sm text-muted-foreground">Duration</p>
@@ -129,9 +136,8 @@ function ViewMeeting() {
                     Meeting Content
                 </div>
                 <div
-                    className={`min-h-[150px] rounded border border-gray-200 bg-gray-50 p-4 text-sm whitespace-pre-line text-gray-800 ${
-                        !(typeof meeting.notes === 'string' && meeting.notes.trim()) && 'text-lg text-muted-foreground italic'
-                    }`}
+                    className={`min-h-[150px] rounded border border-gray-200 bg-gray-50 p-4 text-sm whitespace-pre-line text-gray-800 ${!(typeof meeting.notes === 'string' && meeting.notes.trim()) && 'text-lg text-muted-foreground italic'
+                        }`}
                 >
                     {typeof meeting.notes === 'string' && meeting.notes.trim() ? parse(meeting.notes) : <span>No notes</span>}
                 </div>
@@ -143,7 +149,7 @@ function ViewMeeting() {
                     <SquareCheckBig className="h-6 w-6 text-orange-700" />
                     To Follow Up
                 </h2>
-                <div className="rounded-md border border-orange-100 bg-orange-50 p-4 text-sm leading-relaxed whitespace-pre-line text-gray-800">
+                <div className="rounded-md border border-orange-100 bg-orange-50 p-4 text-sm leading-relaxed whitespace-pre-line break-words text-gray-800">
                     {typeof meeting.followup === 'string' && meeting.followup.trim() ? (
                         meeting.followup
                     ) : (
@@ -151,6 +157,7 @@ function ViewMeeting() {
                     )}
                 </div>
             </div>
+
         </div>
     );
 }

@@ -26,16 +26,20 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                         <tr key={idx} className="hover:bg-white">
                             <td className="px-4 py-2 font-medium text-gray-800">
                                 <div className="flex flex-col">
-                                    <div className="flex items-center gap-2 font-medium text-gray-800">
-                                        <CircleDot className="h-4 w-4 text-purple-600" />
-                                        {limitChars(quest.title, 30)}
+                                    <div className="flex items-start gap-2 font-medium text-gray-800">
+                                        <CircleDot className="h-4 w-4 text-purple-600 mt-1 shrink-0" />
+                                        <div className="whitespace-normal break-words break-all max-w-xs">
+                                            {quest.title}
+                                        </div>
                                     </div>
                                 </div>
                             </td>
                             <td className="space-x-1 px-4 py-2">
                                 <div className="flex items-center gap-2">
                                     <User className="h-4 w-4 text-blue-600" />
-                                    <span className="rounded border border-gray-300 px-2 py-0.5 text-sm text-gray-800">{quest.pic.full_name}</span>
+                                    <span className="rounded border border-gray-300 px-2 py-0.5 text-sm text-gray-800 break-words max-w-[150px]">
+                                        {quest.pic.full_name}
+                                    </span>
                                 </div>
                             </td>
 
@@ -76,7 +80,7 @@ const QuestTable: React.FC<{ quests: PaginatedQuests; viewMode: 'table' | 'card'
                             </td>
                             <td className="flex justify-center gap-2 px-4 py-2">
                                 <div className="flex items-center justify-center gap-2">
-                                    <Link href={`/dashbaord/quests/${quest.id}`}>
+                                    <Link href={`/dashboard/quests/${quest.id}`}>
                                         <Button variant="default" size="icon" className="border-none bg-white shadow-sm hover:bg-blue-100">
                                             <Eye className="h-4 w-4 text-gray-800" />
                                         </Button>

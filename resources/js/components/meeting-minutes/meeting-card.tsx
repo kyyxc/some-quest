@@ -5,19 +5,20 @@ import parse from 'html-react-parser';
 import { Calendar, Edit, Eye, FileText, SquareCheckBig, UsersRound } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
+import { limitChars } from '@/utils/limit-words';
 
 const MeetingCard = ({ data }: { data: Meeting }) => {
     return (
         <div className="flex flex-col justify-between rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
             <div className="space-y-2">
-                <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800">
-                    <FileText className="h-5 w-5 text-blue-700" />
-                    {data.title}
+                <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800 w-full">
+                    <FileText className="w-5 h-5 text-blue-700 shrink-0" />
+                    <span className="truncate">{data.title}</span>
                 </h3>
 
                 <div className="line-clamp-3 text-sm text-muted-foreground">
                     {typeof data.notes === 'string' && data.notes.trim() ? (
-                        parse(data.notes)
+                        parse(limitChars(data.notes, 35))
                     ) : (
                         <span className="text-muted-foreground italic">No notes</span>
                     )}
@@ -38,19 +39,19 @@ const MeetingCard = ({ data }: { data: Meeting }) => {
                     </div>
                     {data.attendees.map((attandance, i) => (
                         <Badge key={i} variant="outline" className="rounded-sm border border-gray-200 text-gray-800">
-                            {attandance.full_name.trim()}
+                            {limitChars(attandance.full_name.trim(), 20)}
                         </Badge>
                     ))}
                 </div>
 
                 <div className="mt-2 text-sm text-gray-800">
-                    <div className="mb-1 flex items-center gap-20">
+                    <div className="mb-1 flex items-center justify-between">
                         {data.location && (
                             <div>
                                 <span className="font-medium text-gray-800">Location: </span>
                                 <br />
                                 <Badge variant="outline" className="rounded-sm border border-gray-200 text-gray-800">
-                                    {data.location}
+                                    {limitChars(data.location, 20)}
                                 </Badge>
                             </div>
                         )}
@@ -73,7 +74,7 @@ const MeetingCard = ({ data }: { data: Meeting }) => {
                             To Follow Up
                         </p>
                         <div className="mt-1 rounded border border-orange-200 bg-orange-50 p-2 text-sm whitespace-pre-line text-gray-800">
-                            {data.followup}
+                            {limitChars(data.followup, 50)}
                         </div>
                     </div>
                 )}

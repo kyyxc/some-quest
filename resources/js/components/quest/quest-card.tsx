@@ -1,4 +1,5 @@
 import { Quest } from '@/types/quest';
+import { limitChars } from '@/utils/limit-words';
 import { useDraggable } from '@dnd-kit/core';
 import { Link } from '@inertiajs/react';
 import dayjs from 'dayjs';
@@ -27,13 +28,16 @@ const QuestCard: React.FC<Props> = ({ quest, columnId }) => {
             {...attributes}
             className="flex min-h-[200px] flex-col justify-center space-y-2 rounded-md border border-gray-200 bg-white p-3 shadow-sm"
         >
-            <div className="text-[13px] font-semibold text-gray-800">{quest.title}</div>
+            <div className="text-[13px] font-semibold text-gray-800 break-words">{quest.title}</div>
             <div className="text-xs">
-                <div className="flex items-center gap-2">
-                    <User size={14} className="text-blue-500" />
+                <div className="flex flex-wrap items-start gap-2">
+                    <User size={14} className="text-blue-500 mt-1" />
                     <span className="text-gray-800">PIC:</span>
-                    <span className="inline-block rounded border border-gray-200 bg-white px-2 py-0.5 text-gray-800">{quest.pic.full_name}</span>
+                    <span className="inline-block rounded border border-gray-200 bg-white px-2 py-0.5 text-gray-800 break-words max-w-full">
+                        {quest.pic.full_name}
+                    </span>
                 </div>
+
                 <div className="mt-1 mb-4 flex items-center text-muted-foreground">
                     <span className="mr-2 font-semibold">
                         <Calendar size={14} />

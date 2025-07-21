@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { ConfirmDialog } from '../confirm-dialog';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
+import { limitChars } from '@/utils/limit-words';
 
 const MeetingTable: React.FC<{ data: Meeting[] }> = ({ data }) => {
     return (
@@ -23,12 +24,12 @@ const MeetingTable: React.FC<{ data: Meeting[] }> = ({ data }) => {
                 <tbody>
                     {data.map((meeting, idx) => (
                         <tr key={idx} className="hover:bg-white">
-                            <td className="px-4 py-2 font-medium text-gray-800">{meeting.title}</td>
+                            <td className="px-4 py-2 font-medium text-gray-800">{limitChars(meeting.title, 30)}</td>
                             <td className="px-4 py-2 text-gray-800">{dayjs(meeting.date).format('MMM DD, YYYY')}</td>
                             <td className="space-x-1 px-4 py-2">
                                 {meeting.attendees.map((attandance, i) => (
                                     <Badge key={i} variant="outline" className="rounded-sm border border-gray-200 text-gray-800">
-                                        {attandance.full_name}
+                                        {limitChars(attandance.full_name, 20)}
                                     </Badge>
                                 ))}
                             </td>

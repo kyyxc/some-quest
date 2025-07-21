@@ -61,14 +61,21 @@ export default function QuestsForm({ initialData, pics, moms, onSubmit }: QuestP
                         placeholder="Enter quest description"
                         value={data.description}
                         onChange={(e) => setData('description', e.target.value)}
-                        className="rounded-[4px] border border-gray-300 bg-white"
+                        className="rounded-[4px] border border-gray-300 bg-white resize-none break-all"
+                        wrap="soft"
                     />
-                    {errors.description && <span className="text-xs text-red-500">{errors.description}</span>}
+                    {errors.description && (
+                        <span className="text-xs text-red-500">{errors.description}</span>
+                    )}
                 </div>
+
 
                 <div>
                     <Label>Assign PIC (Person In Charge)</Label>
-                    <Select onValueChange={(value) => setData('pic_id', parseInt(value))} value={String(data.pic_id)}>
+                    <Select
+                        onValueChange={(value) => setData('pic_id', parseInt(value))}
+                        value={String(data.pic_id)}
+                    >
                         <SelectTrigger className="w-fit rounded-[4px] border border-gray-300">
                             <SelectValue placeholder="Select a manager as PIC" />
                         </SelectTrigger>
@@ -77,15 +84,19 @@ export default function QuestsForm({ initialData, pics, moms, onSubmit }: QuestP
                                 <SelectItem
                                     key={pic.id}
                                     value={String(pic.id)}
-                                    className="rounded-sm bg-white text-gray-800 focus:bg-blue-100 focus:text-gray-800"
+                                    className="whitespace-normal break-words rounded-sm bg-white text-gray-800 focus:bg-blue-100 focus:text-gray-800"
                                 >
-                                    {pic.full_name}
+                                    {pic.full_name.length > 10
+                                        ? pic.full_name.slice(0, 30) + '...'
+                                        : pic.full_name}
                                 </SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
                     {errors.pic_id && <span className="text-xs text-red-500">{errors.pic_id}</span>}
                 </div>
+
+
 
                 <div>
                     <Label>Status</Label>

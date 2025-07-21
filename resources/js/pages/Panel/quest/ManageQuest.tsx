@@ -61,8 +61,8 @@ function ManageQuest() {
                             <button
                                 onClick={() => handleChangeView('card')}
                                 className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${viewMode === 'card'
-                                        ? 'bg-blue-500 text-white'
-                                        : 'text-black hover:bg-gray-200'
+                                    ? 'bg-blue-500 text-white'
+                                    : 'text-black hover:bg-gray-200'
                                     }`}
                             >
                                 <LayoutGrid className="h-4 w-4" />
@@ -71,8 +71,8 @@ function ManageQuest() {
                             <button
                                 onClick={() => handleChangeView('table')}
                                 className={`flex h-7 items-center gap-1 rounded-md px-3 text-xs ${viewMode === 'table'
-                                        ? 'bg-blue-500 text-white'
-                                        : 'text-black hover:bg-gray-200'
+                                    ? 'bg-blue-500 text-white'
+                                    : 'text-black hover:bg-gray-200'
                                     }`}
                             >
                                 <List className="h-4 w-4" />
@@ -90,7 +90,7 @@ function ManageQuest() {
             </div>
 
             <h1 className="text-xl font-semibold text-gray-800">
-                Quest History{' '}
+                All Quest{' '}
                 <span className="text-sm font-medium text-muted-foreground">
                     ({totalQuests} quests)
                 </span>

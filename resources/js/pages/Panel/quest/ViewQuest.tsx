@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { toast } from 'sonner';
 import AdminLayout from '../../admin';
 import { Quest } from './ManageQuest';
+import { limitChars } from '@/utils/limit-words';
 
 function QuestDetail() {
     const { quest } = usePage().props as unknown as { quest: Quest };
@@ -26,13 +27,13 @@ function QuestDetail() {
                     <Link href="/dashboard/quests" className="rounded-[4px] px-3 py-2 text-sm text-muted-foreground hover:bg-blue-100">
                         ← Back to Quests
                     </Link>
-                    <h1 className="mt-1 text-2xl font-bold">{quest.title}</h1>
+                    <h1 className="mt-1 text-2xl font-bold">{limitChars(quest.title, 30)}</h1>
                     <p className="text-muted-foreground">Quest Details</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                     <Button
                         className="rounded-md bg-white px-4 py-2 text-sm text-gray-800 hover:bg-blue-100 hover:text-blue-700"
-                        onClick={() => router.visit(`/quests/${quest.id}/edit`)}
+                        onClick={() => router.visit(`/dashboard/quests/${quest.id}/edit`)}
                     >
                         <Edit className="mr-1 h-4 w-4" />
                         Edit
@@ -41,7 +42,7 @@ function QuestDetail() {
                         title="Delete Meeting"
                         description={`Are you sure you want to delete ${quest.title}? This action cannot be undone.`}
                         onConfirm={() => {
-                            router.delete(`/quests/${quest.id}}`, {
+                            router.delete(`/dashboard/quests/${quest.id}}`, {
                                 onSuccess: () => {
                                     toast.success('Quest deleted successfully');
                                 },
@@ -71,9 +72,16 @@ function QuestDetail() {
                     </h2>
 
                     <div>
-                        <p className="text-sm font-semibold">Description</p>
-                        <p className="text-gray-800">{quest.description}</p>
+                        <p className="text-sm font-semibold break-words">Description</p>
+                        <p className="text-gray-800 whitespace-pre-wrap break-words">
+                            {quest.description
+                                ?.split(' ')
+                                .slice(0, 50)
+                                .join(' ') + (quest.description?.split(' ').length > 50 ? '...' : '')}
+                        </p>
                     </div>
+
+
 
                     <div>
                         <p className="mb-2 text-sm font-semibold">Status</p>
@@ -92,11 +100,14 @@ function QuestDetail() {
                 <div className="space-y-4">
                     <div>
                         <p className="text-sm font-semibold">Person In Charge (PIC)</p>
-                        <div className="flex items-center gap-2">
-                            <User2 className="h-4 w-4 text-blue-500" />
-                            <span className="rounded-[4px] border border-gray-200 bg-white px-2 py-1 text-sm">{quest.pic.full_name}</span>
+                        <div className="flex items-start gap-2 flex-wrap">
+                            <User2 className="h-4 w-4 text-blue-500 mt-1" />
+                            <span className="rounded-[4px] border border-gray-200 bg-white px-2 py-1 text-sm break-words max-w-full">
+                                {quest.pic.full_name}
+                            </span>
                         </div>
                     </div>
+
 
                     <div>
                         <p className="text-sm font-semibold">Created</p>

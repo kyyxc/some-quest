@@ -7,6 +7,7 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { EmployeeDetailModal } from './employee-detail';
 import { EmployeeFormDialog } from './form-employee-dialog';
+import { limitChars } from '@/utils/limit-words';
 
 const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
     return (
@@ -24,8 +25,8 @@ const EmployeeTable: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                 <tbody>
                     {employees.map((employee, idx) => (
                         <tr key={idx} className="hover:bg-white">
-                            <td className="px-4 py-2 font-medium text-gray-800">{employee.full_name}</td>
-                            <td className="px-4 py-2 font-medium text-gray-800">{employee.nickname}</td>
+                            <td className="px-4 py-2 font-medium text-gray-800">{limitChars(employee.full_name, 20)}</td>
+                            <td className="px-4 py-2 font-medium text-gray-800">{limitChars(employee.nickname, 20)}</td>
                             <td className="space-x-1 px-4 py-2">
                                 {employee.archetypes.map((arc, i) => (
                                     <Badge key={i} className="bg-gray-100 text-gray-800">
