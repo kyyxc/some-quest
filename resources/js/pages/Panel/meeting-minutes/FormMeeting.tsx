@@ -29,7 +29,9 @@ function FormMeeting() {
     }));
 
     useEffect(() => {
-        console.log(meeting);
+        if (!meeting) {
+            resetForm()
+        }
     }, [meeting]);
 
     useEffect(() => {

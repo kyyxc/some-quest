@@ -13,7 +13,7 @@ const MeetingCard = ({ data }: { data: Meeting }) => {
             <div className="space-y-2">
                 <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800 w-full">
                     <FileText className="w-5 h-5 text-blue-700 shrink-0" />
-                    <span className="truncate">{data.title}</span>
+                    <span className="break-all">{data.title}</span>
                 </h3>
 
                 <div className="line-clamp-3 text-sm text-muted-foreground">
@@ -33,12 +33,12 @@ const MeetingCard = ({ data }: { data: Meeting }) => {
                 <div className="mt-2 text-sm text-gray-800">
                     <div className="mb-1 flex items-center gap-2">
                         <UsersRound className="h-4 w-4 text-purple-700" />
-                        <span className="font-medium">
+                        <span className="font-medium ">
                             Attendees ({data.attendees.length}):
                         </span>
                     </div>
                     {data.attendees.map((attandance, i) => (
-                        <Badge key={i} variant="outline" className="rounded-sm border border-gray-200 text-gray-800">
+                        <Badge key={i} variant="outline" className="rounded-sm border border-gray-200 text-gray-800 mr-1">
                             {limitChars(attandance.full_name.trim(), 20)}
                         </Badge>
                     ))}

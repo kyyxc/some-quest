@@ -71,9 +71,7 @@ function ViewMeeting() {
 
                 <div>
                     <p className="text-sm text-muted-foreground">Meeting Title</p>
-                    <p className="text-2xl font-bold text-gray-800 line-clamp-2">
-                        {meeting.title}
-                    </p>
+                    <p className="text-2xl font-bold text-gray-800">{meeting.title}</p>
                 </div>
 
                 <div className="flex flex-wrap gap-10">
@@ -90,13 +88,15 @@ function ViewMeeting() {
                     </div>
                     <div>
                         <p className="mb-1 text-sm text-muted-foreground">Location</p>
-                        <p className="text-gray-800">
-                            {(meeting.location
-                                ? meeting.location.split(' ').slice(0, 10).join(' ') +
-                                (meeting.location.split(' ').length > 10 ? '...' : '')
-                                : '-')}
+                        <p className="text-gray-800 break-words">
+                            {meeting.location
+                                ? meeting.location.length > 50
+                                    ? meeting.location.slice(0, 50) + '...'
+                                    : meeting.location
+                                : '-'}
                         </p>
                     </div>
+
                     <div>
                         <p className="mb-1 text-sm text-muted-foreground">Duration</p>
                         <p className="text-gray-800">{meeting.duration || '-'}</p>
@@ -109,11 +109,20 @@ function ViewMeeting() {
                         Attendees ({meeting.attendees.length})
                     </p>
                     <div className="flex flex-wrap gap-2">
-                        {meeting.attendees.map((attandance, i) => (
-                            <span key={i} className="rounded border border-gray-300 px-3 py-1 text-sm text-gray-800">
-                                {attandance.full_name.trim()}
-                            </span>
-                        ))}
+                        {meeting.attendees.map((attandance, i) => {
+                            const name = attandance.full_name.trim();
+                            const shortName = name.length > 20 ? name.slice(0, 20) + '…' : name;
+
+                            return (
+                                <span
+                                    key={i}
+                                    className="max-w-xs truncate rounded border border-gray-300 px-3 py-1 text-sm text-gray-800"
+                                    title={name}
+                                >
+                                    {shortName}
+                                </span>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -149,15 +158,19 @@ function ViewMeeting() {
                     <SquareCheckBig className="h-6 w-6 text-orange-700" />
                     To Follow Up
                 </h2>
-                <div className="rounded-md border border-orange-100 bg-orange-50 p-4 text-sm leading-relaxed whitespace-pre-line break-words text-gray-800">
+                <div className="rounded-md border border-orange-100 bg-orange-50 p-4 text-sm leading-relaxed whitespace-pre-line text-gray-800">
                     {typeof meeting.followup === 'string' && meeting.followup.trim() ? (
-                        meeting.followup
+                        <span title={meeting.followup}>
+                            {meeting.followup.length > 100
+                                ? meeting.followup.slice(0, 100) + '…'
+                                : meeting.followup}
+                        </span>
                     ) : (
                         <span className="text-muted-foreground italic">No follow-up items</span>
                     )}
                 </div>
-            </div>
 
+            </div>
         </div>
     );
 }

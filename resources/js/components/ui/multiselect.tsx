@@ -4,6 +4,7 @@ import { Command, CommandInput, CommandItem, CommandList } from 'cmdk';
 import { Check, ChevronDown, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Option } from '../../stores/employeeStore';
+import { limitChars } from '@/utils/limit-words';
 
 export function MultiSelect({
     options,
@@ -57,7 +58,7 @@ export function MultiSelect({
                                 const option = options.find((o: Option) => o.value === val);
                                 return (
                                     <span key={i} className="flex items-center rounded bg-gray-200 px-3 py-1.5 text-xs text-gray-800">
-                                        {option ? option.label : val}
+                                        {option ? limitChars(option.label , 30): val}
                                         <span
                                             className="ml-1 cursor-pointer text-red-400 hover:text-red-500"
                                             onClick={(e) => {
