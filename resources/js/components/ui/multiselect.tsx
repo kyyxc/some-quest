@@ -2,7 +2,7 @@
 
 import { Command, CommandInput, CommandItem, CommandList } from 'cmdk';
 import { Check, ChevronDown, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Option } from '../../stores/employeeStore';
 import { limitChars } from '@/utils/limit-words';
 
@@ -24,10 +24,25 @@ export function MultiSelect({
     setOpenId: (id: string | null) => void;
 }) {
     const [internalOpen, setInternalOpen] = useState(false);
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setInternalOpen(openId === id);
     }, [openId, id]);
+
+    // Detect click outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+                setOpenId(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [setOpenId]);
 
     const toggle = (val: number) => {
         if (values.includes(val)) {
@@ -46,7 +61,7 @@ export function MultiSelect({
     };
 
     return (
-        <div className="relative flex w-full flex-col items-center">
+        <div ref={wrapperRef} className="relative flex w-full flex-col items-center">
             <div
                 className="flex w-full items-center justify-between rounded border border-gray-300 bg-white px-3 py-2 text-sm hover:bg-gray-50"
                 onClick={handleTriggerClick}
@@ -58,7 +73,7 @@ export function MultiSelect({
                                 const option = options.find((o: Option) => o.value === val);
                                 return (
                                     <span key={i} className="flex items-center rounded bg-gray-200 px-3 py-1.5 text-xs text-gray-800">
-                                        {option ? limitChars(option.label , 30): val}
+                                        {option ? limitChars(option.label, 30) : val}
                                         <span
                                             className="ml-1 cursor-pointer text-red-400 hover:text-red-500"
                                             onClick={(e) => {
